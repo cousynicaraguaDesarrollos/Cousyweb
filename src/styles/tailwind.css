@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Taviraj";
+  src: url("../fonts/Taviraj-ExtraLightItalic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-brand-muted font-sans font-normal text-brand-ink antialiased;
+  }
+
+  h1 {
+    font-family: "Taviraj", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    @apply italic font-extralight;
+  }
+
+  h2 {
+    @apply font-serif italic font-normal;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto w-full max-w-6xl px-4;
+  }
+}

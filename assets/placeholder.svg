@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f3f4f6" />
+      <stop offset="1" stop-color="#e5e7eb" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="48" fill="url(#bg)" />
+  <g fill="#9ca3af">
+    <path d="M440 510h320c22 0 40 18 40 40v40H400v-40c0-22 18-40 40-40z" />
+    <path d="M420 490l150-170c16-18 44-20 62-4l6 6 44 44 44-44c16-16 42-16 58 0l4 4 150 164c8 9 6 23-3 31-4 3-9 5-14 5H437c-13 0-23-10-23-23 0-5 2-10 6-13z" />
+  </g>
+  <text x="600" y="700" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" fill="#6b7280">
+    Imagen de producto
+  </text>
+</svg>
+

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "kit-corporativo-woman-nicaragua",
+    "name": "Kit corporativo ecológico personalizado (bolso + cartera) para empresas",
+    "category": "Kits corporativos",
+    "image": "./assets/products/ab10cabc-0ead-44a2-97ad-c78c6a6556fd.png",
+    "sourceUrl": "https://cousynicaragua.com/productos-promocionales-ecologicos"
+  },
+  {
+    "id": "bolsa-infantil-personalizada",
+    "name": "Bolsa infantil personalizada para campañas, ferias y eventos corporativos",
+    "category": "Infantiles",
+    "image": "./assets/products/76295b96-f209-4037-bef3-b19dc88f6492.png",
+    "sourceUrl": "https://cousynicaragua.com/productos-promocionales-ecologicos"
+  },
+  {
+    "id": "tote-bag-lona-personalizada",
+    "name": "Bolsa de lona tipo tote bag personalizada para empresas y merchandising",
+    "category": "Bolsos y Tote Bags",
+    "image": "./assets/products/e1d09243-09d5-45bf-83b8-d39282a5e6ca.png",
+    "sourceUrl": "https://cousynicaragua.com/productos-promocionales-ecologicos"
+  },
+  {
+    "id": "mochila-hope-para-empresas",
+    "name": "Mochila ecológica artesanal personalizada para empresas (modelo Hope)",
+    "category": "Mochilas",
+    "image": "./assets/products/a1d6158e-fafc-45b5-9182-aa14f1b76d72.png",
+    "sourceUrl": "https://cousynicaragua.com/productos-promocionales-ecologicos"
+  },
+  {
+    "id": "lonchera-infantil-kinder",
+    "name": "Lonchera infantil personalizada para colegios y regalos corporativos",
+    "category": "Loncheras",
+    "image": "./assets/products/43781303-5cfc-48f5-a37c-977d2ba224bd.png",
+    "sourceUrl": "https://cousynicaragua.com/productos-promocionales-ecologicos"
+  },
+  {
+    "id": "lonchera-adultos-impermeable",
+    "name": "Lonchera impermeable sostenible personalizada para empresas (adultos)",
+    "category": "Loncheras",
+    "image": "./assets/products/2c83fc22-c9e2-46e8-ba13-8e1dd5148899.png",
+    "sourceUrl": "https://cousynicaragua.com/productos-promocionales-ecologicos"
+  },
+  {
+    "id": "kit-infantil-mochila-lonchera",
+    "name": "Kit infantil personalizado (mochila + lonchera) para empresas y eventos",
+    "category": "Kits corporativos",
+    "image": "./assets/products/35879c04-f2f8-463c-84b5-ea4f23470d9f.jpg",
+    "sourceUrl": "https://cousynicaragua.com/productos-promocionales-ecologicos"
+  },
+  {
+    "id": "cartuchera-mom-push",
+    "name": "Cartuchera ecológica personalizada para empresas (modelo Mom Push)",
+    "category": "Accesorios",
+    "image": "./assets/products/c8eec473-7c75-41cb-b634-c55851b161c4.png",
+    "sourceUrl": "https://cousynicaragua.com/productos-promocionales-ecologicos"
+  }
+]
