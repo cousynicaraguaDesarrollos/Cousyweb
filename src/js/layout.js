@@ -29,12 +29,17 @@ function setActiveNav() {
   }
 }
 
-async function inject(targetSelector, partialPath) {
-  const target = document.querySelector(targetSelector);
-  if (!target) return;
-  const res = await fetch(fromRoot(partialPath), { cache: "no-store" });
-  if (!res.ok) return;
-  target.innerHTML = await res.text();
+async function inject(target, partialPath) {
+  if (!target) return false;
+  try {
+    const res = await fetch(fromRoot(partialPath), { cache: "no-store" });
+    if (!res.ok) return false;
+    target.innerHTML = await res.text();
+    target.dataset.partialInjected = "1";
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function setYear() {
@@ -44,17 +49,76 @@ function setYear() {
   }
 }
 
-window.addEventListener("DOMContentLoaded", async () => {
+let siteConfigPromise = null;
+
+async function loadSiteConfig() {
+  if (!siteConfigPromise) {
+    siteConfigPromise = fetch(fromRoot("config/site.json"), { cache: "no-store" }).then((res) => {
+      if (!res.ok) throw new Error("No se pudo cargar site.json");
+      return res.json();
+    });
+  }
+  return siteConfigPromise;
+}
+
+function enableSocialLinks(social) {
+  const cfg = social && typeof social === "object" ? social : {};
+  for (const el of document.querySelectorAll("[data-social-link]")) {
+    if (!(el instanceof HTMLAnchorElement)) continue;
+    const key = el.getAttribute("data-social-link") ?? "";
+    const href = String(cfg[key] ?? "").trim();
+    if (!href) continue;
+    el.href = href;
+    el.target = "_blank";
+    el.rel = "noopener noreferrer";
+    el.removeAttribute("aria-disabled");
+    el.removeAttribute("tabindex");
+    el.classList.remove("pointer-events-none");
+  }
+}
+
+async function initLayout() {
   const path = String(window.location?.pathname ?? "");
   const lang = path.includes("/en/") ? "en" : "es";
 
-  // Por ahora, solo hay parciales ES/EN (y las páginas actuales viven en /es).
-  await inject("[data-site-header]", `partials/header-${lang}.html`);
-  await inject("[data-site-footer]", `partials/footer-${lang}.html`);
+  const header = document.querySelector("[data-site-header]");
+  const footer = document.querySelector("[data-site-footer]");
+
+  if (header && !header.dataset.partialInjected) {
+    await inject(header, `partials/header-${lang}.html`);
+  }
+  if (footer && !footer.dataset.partialInjected) {
+    await inject(footer, `partials/footer-${lang}.html`);
+  }
 
   setActiveNav();
   setYear();
 
-  // Recalcular badge del carrito si el header se inyectó después.
+  // Recalcular badge del carrito en cada navegación.
   window.dispatchEvent(new CustomEvent("cousy:cart-changed"));
-});
+
+  try {
+    const cfg = await loadSiteConfig();
+    enableSocialLinks(cfg?.social);
+  } catch {
+    // noop
+  }
+}
+
+let initPromise = null;
+
+function runInit() {
+  if (initPromise) return initPromise;
+  initPromise = initLayout().finally(() => {
+    initPromise = null;
+  });
+  return initPromise;
+}
+
+function onLoad() {
+  void runInit();
+}
+
+window.addEventListener("DOMContentLoaded", onLoad);
+document.addEventListener("turbo:load", onLoad);
+onLoad();

@@ -11,4 +11,6 @@ function updateBadge() {
 window.addEventListener("cousy:cart-changed", updateBadge);
 window.addEventListener("storage", updateBadge);
 window.addEventListener("DOMContentLoaded", updateBadge);
+document.addEventListener("turbo:load", updateBadge);
 
+updateBadge();

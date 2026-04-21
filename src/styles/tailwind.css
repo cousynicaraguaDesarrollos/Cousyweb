@@ -20,7 +20,11 @@
   }
 
   body {
-    @apply bg-brand-muted font-sans font-normal text-brand-ink antialiased;
+    @apply min-h-screen bg-brand-muted font-sans font-normal text-brand-ink antialiased flex flex-col;
+  }
+
+  main {
+    flex: 1 0 auto;
   }
 
   h1 {

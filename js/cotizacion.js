@@ -25,6 +25,12 @@ async function loadConfig() {
   return await res.json();
 }
 
+let cfgPromise = null;
+function loadConfigCached() {
+  if (!cfgPromise) cfgPromise = loadConfig();
+  return cfgPromise;
+}
+
 function itemRow(item) {
   const row = document.createElement("div");
   row.className =
@@ -34,7 +40,7 @@ function itemRow(item) {
   left.className = "flex items-center gap-4";
 
   const img = document.createElement("img");
-  img.src = item.image || "./assets/placeholder.svg";
+  img.src = item.image || fromRoot("assets/placeholder.svg");
   img.alt = item.name || "Producto";
   img.loading = "lazy";
   img.className = "h-16 w-16 rounded-xl object-cover ring-1 ring-black/10";
@@ -98,16 +104,29 @@ function render(items) {
   for (const item of items) list.append(itemRow(item));
 }
 
-window.addEventListener("DOMContentLoaded", async () => {
+let cartListenerBound = false;
+function ensureCartListener() {
+  if (cartListenerBound) return;
+  cartListenerBound = true;
+  window.addEventListener("cousy:cart-changed", () => render(readCart()));
+}
+
+async function initCotizacion() {
+  const list = document.querySelector("#quote-items");
+  const empty = document.querySelector("#quote-empty");
+  if (!list || !empty) return;
+
   render(readCart());
+  ensureCartListener();
 
   const notes = document.querySelector("#quote-notes");
-  if (notes) {
+  if (notes instanceof HTMLTextAreaElement) {
     notes.value = readNotes();
-    notes.addEventListener("input", () => writeNotes(notes.value));
+    if (!notes.dataset.bound) {
+      notes.dataset.bound = "1";
+      notes.addEventListener("input", () => writeNotes(notes.value));
+    }
   }
-
-  window.addEventListener("cousy:cart-changed", () => render(readCart()));
 
   const sendBtn = document.querySelector("#quote-send");
   const clearBtn = document.querySelector("#quote-clear");
@@ -115,26 +134,38 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   let cfg = null;
   try {
-    cfg = await loadConfig();
+    cfg = await loadConfigCached();
   } catch (e) {
     if (error) error.textContent = String(e?.message ?? e);
   }
 
-  sendBtn?.addEventListener("click", () => {
-    const current = readCart();
-    if (!current.length) return;
-    const greeting = cfg?.whatsappGreeting || "";
-    const number = cfg?.whatsappNumber || "";
-    const message = buildWhatsappText({
-      greeting,
-      items: current,
-      notes: readNotes()
+  if (sendBtn instanceof HTMLElement && !sendBtn.dataset.bound) {
+    sendBtn.dataset.bound = "1";
+    sendBtn.addEventListener("click", () => {
+      const current = readCart();
+      if (!current.length) return;
+      const greeting = cfg?.whatsappGreeting || "";
+      const number = cfg?.whatsappNumber || "";
+      const message = buildWhatsappText({
+        greeting,
+        items: current,
+        notes: readNotes()
+      });
+      const url = whatsappLink({ number, text: message });
+      window.open(url, "_blank", "noopener,noreferrer");
     });
-    const url = whatsappLink({ number, text: message });
-    window.open(url, "_blank", "noopener,noreferrer");
-  });
+  }
 
-  clearBtn?.addEventListener("click", () => {
-    clearCart();
-  });
-});
+  if (clearBtn instanceof HTMLElement && !clearBtn.dataset.bound) {
+    clearBtn.dataset.bound = "1";
+    clearBtn.addEventListener("click", () => clearCart());
+  }
+}
+
+function onLoad() {
+  void initCotizacion();
+}
+
+window.addEventListener("DOMContentLoaded", onLoad);
+document.addEventListener("turbo:load", onLoad);
+onLoad();

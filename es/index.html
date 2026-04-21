@@ -31,6 +31,10 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../assets/app.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@hotwired/turbo/dist/turbo.es2017-umd.js"
+      defer
+    ></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -41,7 +45,12 @@
     </script>
   </head>
   <body>
-    <header data-site-header class="sticky top-0 z-50 border-b border-black/10 bg-white"></header>
+    <header
+      id="site-header-es"
+      data-site-header
+      data-turbo-permanent
+      class="sticky top-0 z-50 border-b border-black/10 bg-white"
+    ></header>
 
     <main>
       <section
@@ -229,11 +238,15 @@
                     class="h-12 w-12 rounded-full bg-white/10 p-1 ring-2 ring-white/30"
                   />
                   <p class="text-sm font-semibold">María López</p>
-                </d
-
+                </d>
     </main>
 
-    <footer data-site-footer class="border-t border-black/5"></footer>
+    <footer
+      id="site-footer-es"
+      data-site-footer
+      data-turbo-permanent
+      class="border-t border-black/5"
+    ></footer>
 
     <script type="module" src="../js/layout.js"></script>
     <script type="module" src="../js/site.js"></script>

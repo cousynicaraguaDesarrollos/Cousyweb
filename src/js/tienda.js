@@ -20,9 +20,10 @@ function card(product) {
   const el = document.createElement("article");
   el.className =
     "group flex flex-col overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-black/5";
+  if (product.id) el.id = product.id;
 
   const img = document.createElement("img");
-  img.src = product.image || "./assets/placeholder.svg";
+  img.src = product.image || fromRoot("assets/placeholder.svg");
   img.alt = product.name
     ? `${product.name} | producto promocional para empresas`
     : "Producto promocional para empresas";
@@ -117,9 +118,7 @@ function mountFilters(all) {
     const cat = select?.value ?? "Todas";
     const filtered = all.filter((p) => {
       const matchesText =
-        !q ||
-        normalize(p.name).includes(q) ||
-        normalize(p.category).includes(q);
+        !q || normalize(p.name).includes(q) || normalize(p.category).includes(q);
       const matchesCat = cat === "Todas" || p.category === cat;
       return matchesText && matchesCat;
     });
@@ -133,12 +132,26 @@ function mountFilters(all) {
   apply();
 }
 
-window.addEventListener("DOMContentLoaded", async () => {
+async function initTienda() {
+  const grid = document.querySelector("#products-grid");
+  if (!grid) return;
+  if (grid.dataset.tiendaInit === "1") return;
+  grid.dataset.tiendaInit = "1";
+
   try {
     const products = await loadProducts();
     mountFilters(products);
   } catch (err) {
+    grid.dataset.tiendaInit = "";
     const msg = document.querySelector("#products-error");
     if (msg) msg.textContent = String(err?.message ?? err);
   }
-});
+}
+
+function onLoad() {
+  void initTienda();
+}
+
+window.addEventListener("DOMContentLoaded", onLoad);
+document.addEventListener("turbo:load", onLoad);
+onLoad();
