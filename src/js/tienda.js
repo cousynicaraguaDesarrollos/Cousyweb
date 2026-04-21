@@ -28,15 +28,19 @@ function card(product) {
     : "Producto promocional para empresas";
   img.loading = "lazy";
   img.className = "w-full object-cover";
-  img.style.aspectRatio = "5 / 4";
+  // ~20% shorter card: smaller image area + tighter padding.
+  // Add width/height as a cross-browser fallback to reserve space and keep cards compact on mobile too.
+  img.width = 13;
+  img.height = 8;
+  img.style.aspectRatio = "13 / 8";
 
   const body = document.createElement("div");
-  body.className = "flex flex-1 flex-col gap-2 p-4";
+  body.className = "flex flex-1 flex-col gap-1.5 p-3";
 
   const title = document.createElement("h3");
   title.className = "text-base font-semibold leading-snug text-brand-ink";
   title.textContent = product.name || product.id;
-  title.style.minHeight = "2.75rem";
+  title.style.minHeight = "2.5rem";
   title.style.display = "-webkit-box";
   title.style.webkitBoxOrient = "vertical";
   title.style.webkitLineClamp = "2";
@@ -54,7 +58,7 @@ function card(product) {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className =
-    "mt-3 w-full rounded-xl bg-brand-accent px-4 py-2.5 text-sm font-normal text-white hover:brightness-95 active:brightness-90";
+    "mt-2 w-full rounded-xl bg-brand-accent px-4 py-2 text-sm font-normal text-white hover:brightness-95 active:brightness-90";
   btn.textContent = "Añadir a cotización";
   btn.addEventListener("click", () => {
     addToCart(
