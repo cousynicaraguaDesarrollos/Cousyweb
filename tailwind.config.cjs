@@ -14,7 +14,9 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Poppins", "ui-sans-serif", "system-ui", "sans-serif"],
-        serif: ["Taviraj", "ui-serif", "Georgia", "serif"]
+        serif: ["Taviraj", "ui-serif", "Georgia", "serif"],
+        playfair: ["Playfair Display", "ui-serif", "Georgia", "serif"],
+        montserrat: ["Montserrat", "ui-sans-serif", "system-ui", "sans-serif"]
       },
       boxShadow: {
         soft: "0 10px 30px rgba(0,0,0,.10)"
