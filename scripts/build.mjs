@@ -21,6 +21,16 @@ function normalizeSiteUrl(siteUrl) {
   return u.endsWith("/") ? u.slice(0, -1) : u;
 }
 
+function normalizeSitemapPath(rawPath) {
+  const trimmed = String(rawPath ?? "").trim();
+  if (!trimmed) return "";
+
+  const p = trimmed.replaceAll("\\", "/");
+  if (p === "/index.html" || p === "index.html") return "/";
+  if (p.endsWith("/index.html")) return `${p.slice(0, -"/index.html".length)}/`;
+  return p.startsWith("/") ? p : `/${p}`;
+}
+
 function canonicalPathForOutPath(relOutPath) {
   const rel = String(relOutPath).replaceAll("\\", "/").replaceAll(/^\.\//g, "");
   if (!rel || rel === "index.html") return "/";
@@ -101,7 +111,7 @@ function listHtmlRelPaths(dir) {
   return out;
 }
 
-function writeSitemapAndRobots({ siteUrl }) {
+function writeSitemapAndRobots({ siteUrl, manualPaths = [] }) {
   if (!siteUrl) return;
 
   const relHtml = listHtmlRelPaths(distDir)
@@ -114,9 +124,11 @@ function writeSitemapAndRobots({ siteUrl }) {
     return !/<meta\s+name="robots"\s+content="[^"]*\bnoindex\b/i.test(html);
   });
 
-  const paths = Array.from(
-    new Set(indexable.map((p) => canonicalPathForOutPath(p)).filter(Boolean))
-  ).sort((a, b) => a.localeCompare(b));
+  const discoveredPaths = indexable.map((p) => canonicalPathForOutPath(p)).filter(Boolean);
+  const normalizedManualPaths = manualPaths.map((p) => normalizeSitemapPath(p)).filter(Boolean);
+  const paths = Array.from(new Set([...discoveredPaths, ...normalizedManualPaths])).sort((a, b) =>
+    a.localeCompare(b)
+  );
 
   const xml =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
@@ -138,6 +150,9 @@ fs.mkdirSync(path.join(distDir, "config"), { recursive: true });
 
 const siteConfig = readJson(path.join(srcConfigDir, "site.json"));
 const siteUrl = normalizeSiteUrl(siteConfig.siteUrl);
+const manualSitemapPaths = Array.isArray(siteConfig.manualSitemapPaths)
+  ? siteConfig.manualSitemapPaths
+  : [];
 
 copyPages({ siteUrl });
 copyDir(srcDataDir, path.join(distDir, "data"));
@@ -146,4 +161,4 @@ copyDir(srcConfigDir, path.join(distDir, "config"));
 copyDir(publicDir, distDir);
 
 // These must be generated from config (so we don't depend on hardcoded files in /public).
-writeSitemapAndRobots({ siteUrl });
+writeSitemapAndRobots({ siteUrl, manualPaths: manualSitemapPaths });

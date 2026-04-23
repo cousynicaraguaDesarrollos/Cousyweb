@@ -1,3 +1,5 @@
+import { initHeaderView } from "./header.js";
+
 function rootPrefix() {
   const p = String(window.location?.pathname ?? "");
   return p.includes("/es/") || p.includes("/en/") ? ".." : ".";
@@ -16,15 +18,25 @@ function setActiveNav() {
     const href = a.getAttribute("href") ?? "";
     const hrefFile = href.split("/").pop() || "";
     const isActive = hrefFile === currentFile;
-    a.classList.toggle("border-b-2", isActive);
-    a.classList.toggle("border-brand-ink", isActive);
-    a.classList.toggle("pb-1", isActive);
+    const isDesktopNav = !!a.closest(".js-site-nav");
+    if (isDesktopNav) {
+      a.classList.toggle("border-b-2", isActive);
+      a.classList.toggle("border-brand-ink", isActive);
+      a.classList.toggle("pb-1", isActive);
+    } else {
+      a.classList.remove("border-b-2", "border-brand-ink", "pb-1", "bg-brand-muted");
+    }
     if (isActive) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
   }
 
   const quoteActive = currentFile === "cotizacion.html" || currentFile === "quote.html";
   for (const el of document.querySelectorAll(".js-quote-link")) {
+    const keepSolidBg = el.classList.contains("bg-brand-cta");
+    if (keepSolidBg) {
+      el.classList.remove("bg-black/5");
+      continue;
+    }
     el.classList.toggle("bg-black/5", quoteActive);
   }
 }
@@ -92,6 +104,7 @@ async function initLayout() {
   }
 
   setActiveNav();
+  initHeaderView(header ?? document);
   setYear();
 
   // Recalcular badge del carrito en cada navegación.

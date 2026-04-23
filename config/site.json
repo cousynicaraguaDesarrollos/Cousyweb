@@ -1,6 +1,25 @@
 {
   "siteUrl": "https://cousynicaragua.com",
   "brandName": "Cousy Nicaragua",
+  "manualSitemapPaths": [
+    "/es/tote-bags-personalizadas.html",
+    "/es/bolsas-ecologicas-personalizadas.html",
+    "/es/bolsas-de-lona-personalizadas.html",
+    "/es/mochilas-personalizadas.html",
+    "/es/loncheras-personalizadas.html",
+    "/es/neceseres-personalizados.html",
+    "/es/regalos-corporativos.html",
+    "/es/productos-promocionales-para-empresas.html",
+    "/es/productos-promocionales-ecologicos.html",
+    "/es/merchandising-corporativo.html",
+    "/es/sectores.html",
+    "/es/sectores/universidades.html",
+    "/es/sectores/colegios.html",
+    "/es/sectores/hoteles.html",
+    "/es/sectores/restaurantes.html",
+    "/es/sectores/organizaciones.html",
+    "/es/contacto.html"
+  ],
   "whatsappNumber": "50578545739",
   "whatsappGreeting": "¡Hola! ✨ Quiero una cotización de productos para mi empresa.",
   "social": {
