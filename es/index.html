@@ -301,8 +301,7 @@
                     <img
                       id="hero-google-review-photo"
                       src="../assets/logo-cousy.webp"
-                      alt=""
-                      aria-hidden="true"
+                      alt="Logo de Cousy Nicaragua"
                       class="h-11 w-11 rounded-full bg-white/10 p-1 ring-2 ring-white/30"
                     />
                     <p id="hero-google-review-author" class="text-sm font-semibold">Cliente de Google</p>
@@ -466,7 +465,7 @@
                 const autor = escapeHtml(review.author_name || 'Cliente');
                 const fotoUrl = safeImageUrl(review.profile_photo_url);
                 const foto = fotoUrl
-                  ? '<img src="' + fotoUrl + '" alt="" class="review-avatar" loading="lazy" />'
+                  ? '<img src="' + fotoUrl + '" alt="Foto de perfil de ' + autor + '" class="review-avatar" loading="lazy" />'
                   : '<div class="review-avatar"></div>';
 
                 html +=
