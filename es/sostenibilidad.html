@@ -29,6 +29,112 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../assets/app.css" />
+    <style>
+      :root {
+        --cousy-white: #ffffff;
+        --cousy-pink: #ec1665;
+        --cousy-green: #73a35a;
+        --cousy-soft-gray: #dde0e1;
+      }
+
+      .sustainability-pillars-card {
+        border-top: 4px solid var(--cousy-green);
+      }
+
+      .sustainability-step-badge {
+        display: inline-flex;
+        height: 2rem;
+        width: 2rem;
+        min-height: 2rem;
+        min-width: 2rem;
+        flex: 0 0 2rem;
+        flex-shrink: 0;
+        aspect-ratio: 1 / 1;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        background-color: var(--cousy-green);
+        color: var(--cousy-white);
+        font-size: 0.875rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .sustainability-summary {
+        list-style: none;
+        cursor: pointer;
+      }
+
+      .sustainability-summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .sustainability-chevron {
+        transition: transform 180ms ease;
+      }
+
+      details[open] .sustainability-chevron {
+        transform: rotate(180deg);
+      }
+
+      .sustainability-cta {
+        background: linear-gradient(135deg, var(--cousy-pink) 0%, #d63163 100%);
+      }
+
+      .sustainability-photo-slot {
+        position: relative;
+        min-height: 15.5rem;
+        overflow: hidden;
+        border-radius: 1rem;
+        border: 1px dashed rgba(115, 163, 90, 0.7);
+        background: linear-gradient(155deg, rgba(221, 224, 225, 0.75) 0%, rgba(255, 255, 255, 0.98) 100%);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.72);
+      }
+
+      .sustainability-photo-slot::before {
+        content: "";
+        position: absolute;
+        inset: -30% -8% auto;
+        height: 72%;
+        background:
+          radial-gradient(circle at 20% 30%, rgba(115, 163, 90, 0.3), transparent 58%),
+          radial-gradient(circle at 74% 20%, rgba(236, 22, 101, 0.24), transparent 56%);
+        pointer-events: none;
+      }
+
+      .sustainability-photo-slot::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.45) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.45) 1px, transparent 1px);
+        background-size: 24px 24px;
+        opacity: 0.4;
+        pointer-events: none;
+      }
+
+      .sustainability-photo-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 1rem;
+      }
+
+      .sustainability-photo-chip {
+        display: inline-flex;
+        align-self: flex-start;
+        border-radius: 9999px;
+        padding: 0.25rem 0.625rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #1d1e20;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(29, 30, 32, 0.1);
+      }
+    </style>
     <script
       src="https://cdn.jsdelivr.net/npm/@hotwired/turbo/dist/turbo.es2017-umd.js"
       defer
@@ -114,6 +220,332 @@
           </div>
         </div>
       </section>
+
+      <section id="pilares-sostenibles" class="container pb-10 sm:pb-14">
+        <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5 sm:p-8">
+          <p class="text-sm font-semibold" style="color: #73a35a">Estrategia sostenible B2B</p>
+          <h2 class="mt-3 text-3xl tracking-tight text-brand-ink sm:text-4xl">
+            Pilares de sostenibilidad textil para empresas
+          </h2>
+          <p class="mt-4 max-w-4xl text-base leading-relaxed text-black/70 sm:text-lg">
+            Como fabricante de productos promocionales sostenibles en Nicaragua, trabajamos para que cada pedido
+            corporativo tenga durabilidad, uso real y menor impacto ambiental. Esta estrategia aplica a tote bags
+            personalizadas, mochilas promocionales, loncheras corporativas y otros textiles reutilizables.
+          </p>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <article class="sustainability-pillars-card rounded-2xl bg-white p-5 ring-1 ring-black/5">
+              <h3 class="text-lg font-extrabold text-brand-ink">Materiales reutilizables</h3>
+              <p class="mt-2 text-sm leading-relaxed text-black/70">
+                Priorizamos telas resistentes para reemplazar productos desechables en activaciones, eventos y kits
+                corporativos.
+              </p>
+            </article>
+            <article class="sustainability-pillars-card rounded-2xl bg-white p-5 ring-1 ring-black/5">
+              <h3 class="text-lg font-extrabold text-brand-ink">Diseño para larga vida útil</h3>
+              <p class="mt-2 text-sm leading-relaxed text-black/70">
+                Diseñamos costuras, cierres y asas para uso frecuente, buscando que cada pieza dure más tiempo en
+                manos del usuario final.
+              </p>
+            </article>
+            <article class="sustainability-pillars-card rounded-2xl bg-white p-5 ring-1 ring-black/5">
+              <h3 class="text-lg font-extrabold text-brand-ink">Producción local responsable</h3>
+              <p class="mt-2 text-sm leading-relaxed text-black/70">
+                Fabricamos en Nicaragua con equipo local, fortaleciendo empleo y conocimiento técnico en confección
+                textil B2B.
+              </p>
+            </article>
+            <article class="sustainability-pillars-card rounded-2xl bg-white p-5 ring-1 ring-black/5">
+              <h3 class="text-lg font-extrabold text-brand-ink">Producción bajo cotización</h3>
+              <p class="mt-2 text-sm leading-relaxed text-black/70">
+                Trabajamos por lotes según necesidad para reducir sobreproducción y evitar inventario innecesario en
+                campañas promocionales.
+              </p>
+            </article>
+          </div>
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#proceso-sostenible"
+              class="rounded-2xl px-6 py-3 text-center text-sm text-white shadow-soft"
+              style="background-color: #73a35a"
+            >
+              Ver proceso responsable
+            </a>
+            <a
+              href="#faq-sostenibilidad"
+              class="rounded-2xl border border-black/20 bg-white px-6 py-3 text-center text-sm text-brand-ink hover:bg-black/5"
+            >
+              Ver preguntas frecuentes
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="proceso-sostenible" class="container pb-10 sm:pb-14">
+        <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">Proceso de producción textil responsable</h2>
+        <p class="mt-4 max-w-4xl text-base leading-relaxed text-black/70 sm:text-lg">
+          Nuestro proceso busca alinear sostenibilidad, calidad y cumplimiento para compras corporativas por volumen,
+          desde el brief inicial hasta la entrega local o internacional.
+        </p>
+        <ol class="mt-6 grid gap-4">
+          <li class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <div class="flex gap-4">
+              <span class="sustainability-step-badge" aria-hidden="true">1</span>
+              <div>
+                <h3 class="text-base font-extrabold text-brand-ink">Diagnóstico de necesidad B2B</h3>
+                <p class="mt-2 text-sm leading-relaxed text-black/70">
+                  Definimos uso del producto, cantidades, tiempos y objetivos de marca para proponer la mejor solución.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <div class="flex gap-4">
+              <span class="sustainability-step-badge" aria-hidden="true">2</span>
+              <div>
+                <h3 class="text-base font-extrabold text-brand-ink">Selección de materiales y acabados</h3>
+                <p class="mt-2 text-sm leading-relaxed text-black/70">
+                  Priorizamos opciones reutilizables y resistentes, con personalización acorde al branding de tu empresa.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <div class="flex gap-4">
+              <span class="sustainability-step-badge" aria-hidden="true">3</span>
+              <div>
+                <h3 class="text-base font-extrabold text-brand-ink">Confección en taller local</h3>
+                <p class="mt-2 text-sm leading-relaxed text-black/70">
+                  El equipo de Cousy produce cada lote en Nicaragua con controles internos de costura y terminación.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <div class="flex gap-4">
+              <span class="sustainability-step-badge" aria-hidden="true">4</span>
+              <div>
+                <h3 class="text-base font-extrabold text-brand-ink">Control de calidad y empaque eficiente</h3>
+                <p class="mt-2 text-sm leading-relaxed text-black/70">
+                  Revisamos funcionalidad, medidas y presentación final para minimizar reprocesos y desperdicio.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <div class="flex gap-4">
+              <span class="sustainability-step-badge" aria-hidden="true">5</span>
+              <div>
+                <h3 class="text-base font-extrabold text-brand-ink">Entrega y seguimiento postventa</h3>
+                <p class="mt-2 text-sm leading-relaxed text-black/70">
+                  Entregamos con logística local o internacional y acompañamos nuevos pedidos para continuidad sostenible.
+                </p>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section id="galeria-sostenible" class="container pb-10 sm:pb-14">
+        <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5 sm:p-8">
+          <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">
+            Galería sostenible: espacios listos para fotos reales
+          </h2>
+          <p class="mt-4 max-w-4xl text-base leading-relaxed text-black/70 sm:text-lg">
+            Estos espacios están pensados para mostrar evidencia visual del proceso de Cousy Nicaragua. Puedes reemplazar
+            cada bloque por imágenes del taller, productos terminados y entregas corporativas.
+          </p>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <figure class="sustainability-photo-slot" role="img" aria-label="Espacio para foto del equipo de costura de Cousy">
+              <figcaption class="sustainability-photo-content">
+                <span class="sustainability-photo-chip">Foto sugerida 01</span>
+                <p class="mt-3 text-lg font-bold text-brand-ink">Equipo de costura en acción</p>
+                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                  Mostrar manos trabajando y detalle de confección en productos B2B.
+                </p>
+              </figcaption>
+            </figure>
+            <figure class="sustainability-photo-slot" role="img" aria-label="Espacio para foto de materiales y corte textil de Cousy">
+              <figcaption class="sustainability-photo-content">
+                <span class="sustainability-photo-chip">Foto sugerida 02</span>
+                <p class="mt-3 text-lg font-bold text-brand-ink">Selección de materiales</p>
+                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                  Incluir tela, corte y control de calidad inicial.
+                </p>
+              </figcaption>
+            </figure>
+            <figure
+              class="sustainability-photo-slot"
+              role="img"
+              aria-label="Espacio para foto de productos promocionales sostenibles terminados"
+            >
+              <figcaption class="sustainability-photo-content">
+                <span class="sustainability-photo-chip">Foto sugerida 03</span>
+                <p class="mt-3 text-lg font-bold text-brand-ink">Productos terminados</p>
+                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                  Tote bags, mochilas o loncheras listas para clientes corporativos.
+                </p>
+              </figcaption>
+            </figure>
+            <figure
+              class="sustainability-photo-slot"
+              role="img"
+              aria-label="Espacio para foto de lote corporativo y empaque final"
+            >
+              <figcaption class="sustainability-photo-content">
+                <span class="sustainability-photo-chip">Foto sugerida 04</span>
+                <p class="mt-3 text-lg font-bold text-brand-ink">Lotes corporativos listos para entrega</p>
+                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                  Ideal para mostrar volumen, empaque y consistencia de marca.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="impacto-local" class="container pb-10 sm:pb-14">
+        <div class="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
+          <article class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5 sm:p-8">
+            <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">Impacto local y economía circular</h2>
+            <p class="mt-4 text-base leading-relaxed text-black/70 sm:text-lg">
+              Apostamos por producción textil responsable en Nicaragua para que los regalos corporativos y productos
+              promocionales no sean de un solo uso, sino una herramienta útil y duradera para cada marca.
+            </p>
+            <div class="mt-6 grid gap-3 sm:grid-cols-2">
+              <div class="rounded-2xl p-4" style="background-color: #dde0e1">
+                <p class="text-sm font-semibold text-black/60">Fabricación</p>
+                <p class="mt-1 text-base font-extrabold text-brand-ink">Hecho en Nicaragua</p>
+              </div>
+              <div class="rounded-2xl p-4" style="background-color: #dde0e1">
+                <p class="text-sm font-semibold text-black/60">Modelo operativo</p>
+                <p class="mt-1 text-base font-extrabold text-brand-ink">Lotes por cotización</p>
+              </div>
+              <div class="rounded-2xl p-4" style="background-color: #dde0e1">
+                <p class="text-sm font-semibold text-black/60">Uso esperado</p>
+                <p class="mt-1 text-base font-extrabold text-brand-ink">Reutilización continua</p>
+              </div>
+              <div class="rounded-2xl p-4" style="background-color: #dde0e1">
+                <p class="text-sm font-semibold text-black/60">Valor B2B</p>
+                <p class="mt-1 text-base font-extrabold text-brand-ink">Branding con propósito</p>
+              </div>
+            </div>
+          </article>
+          <article class="rounded-3xl p-6 shadow-soft ring-1 ring-black/5 sm:p-8" style="background-color: #dde0e1">
+            <h3 class="text-2xl tracking-tight text-brand-ink">Indicadores que medimos por lote</h3>
+            <ul class="mt-4 grid gap-3 text-sm leading-relaxed text-black/70">
+              <li class="rounded-xl bg-white p-4">Durabilidad de costura y resistencia de asas según tipo de uso.</li>
+              <li class="rounded-xl bg-white p-4">Aprovechamiento de material para reducir recortes evitables.</li>
+              <li class="rounded-xl bg-white p-4">Consistencia de personalización para disminuir piezas descartadas.</li>
+              <li class="rounded-xl bg-white p-4">Satisfacción postentrega y recurrencia de compra de clientes B2B.</li>
+            </ul>
+            <p class="mt-4 text-xs font-semibold text-black/60">Actualizado: abril de 2026.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="faq-sostenibilidad" class="container pb-10 sm:pb-14">
+        <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">
+          Preguntas frecuentes sobre sostenibilidad y compras corporativas
+        </h2>
+        <p class="mt-4 max-w-4xl text-base leading-relaxed text-black/70 sm:text-lg">
+          Resolvemos las dudas más comunes sobre materiales, personalización, tiempos y logística para pedidos B2B.
+        </p>
+        <div class="mt-6 grid gap-3">
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              ¿Qué hace sostenible a un producto promocional textil?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              Principalmente su vida útil, reutilización frecuente y la calidad de confección. Un producto que dura más
+              reemplaza opciones desechables y reduce reposiciones constantes.
+            </p>
+          </details>
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              ¿Pueden personalizar productos sostenibles con logo empresarial?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              Sí. Personalizamos tote bags, mochilas, loncheras y otros productos promocionales con identidad visual de
+              marca para campañas corporativas y eventos institucionales.
+            </p>
+          </details>
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              ¿Trabajan pedidos por volumen para empresas?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              Sí. Cousy Nicaragua trabaja en modelo B2B, con producción por lote y cotización previa para adaptar
+              cantidades, tiempos y acabados a cada empresa.
+            </p>
+          </details>
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              ¿Realizan envíos fuera de Nicaragua?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              Sí. Atendemos envíos locales en Nicaragua y coordinamos envíos internacionales para marcas y organizaciones
+              en otros mercados.
+            </p>
+          </details>
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              ¿Cómo solicito una cotización sostenible por WhatsApp?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              Puedes ir a nuestra <a href="./tienda.html" class="underline underline-offset-4">tienda</a>, agregar
+              productos a cotización y luego enviarnos el resumen desde
+              <a href="./cotizacion.html" class="underline underline-offset-4">cotización</a>.
+            </p>
+          </details>
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              ¿Qué beneficios obtiene una empresa al elegir merchandising sostenible?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              Mejora percepción de marca, utilidad real del obsequio, mayor recordación y coherencia con políticas de
+              sostenibilidad corporativa.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section class="container pb-12 sm:pb-16">
+        <div class="sustainability-cta rounded-3xl p-6 text-white shadow-soft sm:p-8">
+          <h2 class="text-3xl tracking-tight text-white sm:text-4xl">
+            ¿Listo para cotizar una línea sostenible para tu empresa?
+          </h2>
+          <p class="mt-4 max-w-3xl text-base leading-relaxed text-white/95 sm:text-lg">
+            Te ayudamos a definir productos, cantidades y personalización para campañas corporativas con enfoque
+            sostenible y producción local responsable.
+          </p>
+          <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="./cotizacion.html"
+              class="rounded-2xl px-6 py-3 text-center text-sm font-semibold text-brand-ink shadow-soft"
+              style="background-color: #ffffff"
+            >
+              Cotizar por WhatsApp
+            </a>
+            <a
+              href="./tienda.html"
+              class="rounded-2xl border px-6 py-3 text-center text-sm text-white hover:bg-white/10"
+              style="border-color: rgba(255, 255, 255, 0.6)"
+            >
+              Ver catálogo sostenible
+            </a>
+          </div>
+          <p class="mt-4 text-sm text-white/90">
+            También puedes conocer más sobre nuestra historia en
+            <a href="./nosotros.html" class="underline underline-offset-4">Nosotros</a>.
+          </p>
+        </div>
+      </section>
     </main>
 
     <footer
@@ -123,6 +555,62 @@
       class="border-t border-black/5"
     ></footer>
 
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Qué hace sostenible a un producto promocional textil?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Su vida útil, reutilización y calidad de confección. Un producto duradero reduce el uso de opciones desechables y minimiza reposiciones."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Pueden personalizar productos sostenibles con logo empresarial?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. Cousy personaliza tote bags, mochilas, loncheras y otros productos promocionales con la identidad visual de cada marca."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Trabajan pedidos por volumen para empresas?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. Operamos bajo un modelo B2B con producción por lote y cotización previa según cantidades, tiempos y personalización."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Realizan envíos fuera de Nicaragua?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. Coordinamos envíos locales en Nicaragua y envíos internacionales para empresas y organizaciones en otros mercados."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo solicito una cotización sostenible por WhatsApp?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Selecciona productos en la tienda, agrégalos a cotización y envía el resumen final por WhatsApp desde la página de cotización."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué beneficios obtiene una empresa al elegir merchandising sostenible?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Mejora la percepción de marca, aumenta la utilidad del obsequio y fortalece la coherencia con objetivos de sostenibilidad corporativa."
+            }
+          }
+        ]
+      }
+    </script>
     <script type="module" src="../js/layout.js"></script>
     <script type="module" src="../js/site.js"></script>
   </body>

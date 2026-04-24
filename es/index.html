@@ -101,6 +101,15 @@
         font-weight: 700;
         line-height: 1.25;
       }
+
+      @media (max-width: 639px) {
+        .cousy-workers-mobile-full {
+          width: 100vw;
+          max-width: none;
+          margin-left: calc(50% - 50vw);
+          margin-right: calc(50% - 50vw);
+        }
+      }
     </style>
     <script
       src="https://cdn.jsdelivr.net/npm/@hotwired/turbo/dist/turbo.es2017-umd.js"
@@ -280,7 +289,7 @@
           </p>
           <div class="mt-8 grid items-center gap-8 lg:grid-cols-[1.25fr_1fr]">
             <div>
-              <div class="hero-square-media w-full max-w-[328px] shadow-soft ring-1 ring-black/5 min-[920px]:max-w-[612px]">
+              <div class="hero-square-media cousy-workers-mobile-full w-full max-w-[328px] shadow-soft ring-1 ring-black/5 min-[920px]:max-w-[612px]">
                 <img
                   src="../assets/img/CousyTrabajadores.webp"
                   alt="Equipo de Cousy fabricando productos promocionales sostenibles para empresas"
