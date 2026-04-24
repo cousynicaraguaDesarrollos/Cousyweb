@@ -42,27 +42,78 @@
       class="sticky top-0 z-50 border-b border-black/10 bg-white"
     ></header>
 
-    <main class="container py-10">
-      <div class="rounded-3xl bg-white p-8 shadow-soft ring-1 ring-black/5">
-        <h1 class="text-4xl tracking-tight">Sostenibilidad</h1>
-        <p class="mt-4 text-black/70">
-          Nuestro enfoque busca reducir el impacto ambiental, crear productos duraderos y fortalecer el trabajo local.
-        </p>
-        <div class="mt-8 grid gap-4 sm:grid-cols-3">
-          <div class="rounded-2xl bg-brand-muted p-5">
+    <main class="bg-brand-muted">
+      <section class="container py-10 sm:py-14 lg:py-16">
+        <div class="grid gap-8 lg:grid-cols-[1fr_1.05fr] lg:items-center">
+          <div class="max-w-2xl">
+            <p class="inline-flex rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs font-semibold text-black/70">
+              Compromiso sostenible
+            </p>
+            <h1 class="mt-4 text-4xl leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+              Cousy Nicaragua: textiles sostenibles para empresas
+            </h1>
+            <p class="mt-5 text-base leading-relaxed text-black/70 sm:text-lg">
+              Diseñamos productos textiles reutilizables y duraderos para marcas, instituciones y compras por volumen.
+              Apostamos por procesos responsables y por el talento de la mano de obra nicaragüense.
+            </p>
+            <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="./tienda.html"
+                class="rounded-2xl bg-brand-accent px-6 py-3 text-center text-sm text-white shadow-soft hover:brightness-95 active:brightness-90"
+              >
+                Explorar catálogo B2B
+              </a>
+              <a
+                href="./cotizacion.html"
+                class="rounded-2xl border border-black/20 bg-white px-6 py-3 text-center text-sm text-brand-ink hover:bg-black/5"
+              >
+                Cotizar por WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <div class="relative lg:pl-8">
+            <div class="aspect-square overflow-hidden rounded-3xl shadow-soft ring-1 ring-black/5">
+              <img
+                src="../assets/img/costurando_lona.jpg"
+                alt="Proceso textil sostenible de Cousy Nicaragua para producción B2B"
+                loading="lazy"
+                width="800"
+                height="800"
+                class="h-full w-full object-cover object-[58%_42%]"
+              />
+            </div>
+
+            <div class="mt-4 grid grid-cols-2 gap-6 rounded-2xl bg-brand-accent px-6 py-6 text-white shadow-soft lg:absolute lg:-bottom-8 lg:left-[-3rem] lg:right-8">
+              <div>
+                <p class="text-4xl font-extrabold leading-none">150+</p>
+                <p class="mt-2 text-sm font-semibold text-white/90">Lotes por año</p>
+              </div>
+              <div>
+                <p class="text-4xl font-extrabold leading-none">15</p>
+                <p class="mt-2 text-sm font-semibold text-white/90">Años de experiencia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="container pb-10 sm:pb-14 lg:pb-24">
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
             <p class="text-sm font-semibold text-black/60">Menos desperdicio</p>
             <p class="mt-2 text-lg font-extrabold">Diseño consciente</p>
           </div>
-          <div class="rounded-2xl bg-brand-muted p-5">
+          <div class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
             <p class="text-sm font-semibold text-black/60">Más vida útil</p>
-            <p class="mt-2 text-lg font-extrabold">Durabilidad</p>
+            <p class="mt-2 text-lg font-extrabold">Durabilidad real</p>
           </div>
-          <div class="rounded-2xl bg-brand-muted p-5">
+          <div class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
             <p class="text-sm font-semibold text-black/60">Impacto local</p>
             <p class="mt-2 text-lg font-extrabold">Hecho en Nicaragua</p>
           </div>
         </div>
-      </div>
+      </section>
     </main>
 
     <footer

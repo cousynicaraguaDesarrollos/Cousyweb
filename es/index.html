@@ -35,6 +35,73 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../assets/app.css" />
+    <style>
+      .reviews-minimal-shell {
+        border-top: 1px solid rgba(15, 23, 42, 0.08);
+      }
+
+      .reviews-minimal-head {
+        border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+      }
+
+      .reviews-minimal-stars {
+        color: #f4b400;
+        letter-spacing: 0.02em;
+      }
+
+      .reviews-minimal-grid {
+        color: #6b7280;
+      }
+
+      .review-card {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #e5e7eb;
+        border-radius: 1rem;
+        background: #ffffff;
+        padding: 1.25rem;
+      }
+
+      .review-stars {
+        color: #f4b400;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      .review-text {
+        margin-top: 0.75rem;
+        margin-bottom: 1.2rem;
+        color: #374151;
+        font-size: 0.92rem;
+        line-height: 1.6;
+        font-style: italic;
+      }
+
+      .review-footer {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        border-top: 1px solid #eceff3;
+        padding-top: 0.85rem;
+      }
+
+      .review-avatar {
+        height: 2.5rem;
+        width: 2.5rem;
+        border-radius: 9999px;
+        background: #f3f4f6;
+        object-fit: cover;
+      }
+
+      .review-author {
+        color: #111827;
+        font-size: 0.88rem;
+        font-weight: 700;
+        line-height: 1.25;
+      }
+    </style>
     <script
       src="https://cdn.jsdelivr.net/npm/@hotwired/turbo/dist/turbo.es2017-umd.js"
       defer
@@ -213,62 +280,55 @@
           </p>
           <div class="mt-8 grid items-center gap-8 lg:grid-cols-[1.25fr_1fr]">
             <div>
-              <div class="aspect-square overflow-hidden rounded-3xl shadow-soft ring-1 ring-black/5">
+              <div class="hero-square-media w-full max-w-[328px] shadow-soft ring-1 ring-black/5 min-[920px]:max-w-[612px]">
                 <img
                   src="../assets/img/CousyTrabajadores.webp"
                   alt="Equipo de Cousy fabricando productos promocionales sostenibles para empresas"
                   loading="lazy"
-                  width="1200"
-                  height="800"
-                  class="h-full w-full object-cover"
+                  width="612"
+                  height="612"
                 />
               </div>
             </div>
             <div class="lg:-ml-24">
               <div class="rounded-3xl bg-brand-accent px-8 py-11 text-center text-white shadow-soft">
-                <div aria-hidden="true" class="flex justify-center gap-1 text-white/90">
-                  <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.709c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292Z"
+                <div class="mx-auto flex max-w-2xl flex-col items-center text-center">
+                  <p id="hero-google-stars" aria-hidden="true" class="text-white/90">★★★★★</p>
+                  <p id="hero-google-review-text" class="mx-auto mt-6 max-w-[34ch] text-center text-lg leading-relaxed text-white/95">
+                    Cargando reseña real de Google...
+                  </p>
+                  <div class="mt-8 flex flex-col items-center gap-3">
+                    <img
+                      id="hero-google-review-photo"
+                      src="../assets/logo-cousy.webp"
+                      alt=""
+                      aria-hidden="true"
+                      class="h-11 w-11 rounded-full bg-white/10 p-1 ring-2 ring-white/30"
                     />
-                  </svg>
-                  <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.709c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292Z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.709c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292Z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.709c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292Z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                    <path
-                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.709c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292Z"
-                    />
-                  </svg>
-                </div>
-                <p class="mx-auto mt-6 max-w-md text-lg leading-relaxed text-white/95">
-                  Cousy es un proveedor de regalos corporativos y productos promocionales sostenibles confiable para
-                  eventos empresariales y compras por volumen. Excelente calidad y personalizaci&oacute;n.
-                </p>
-                <div class="mt-8 flex flex-col items-center gap-3">
-                  <img
-                    src="../assets/logo-cousy.webp"
-                    alt=""
-                    aria-hidden="true"
-                    class="h-11 w-11 rounded-full bg-white/10 p-1 ring-2 ring-white/30"
-                  />
-                  <p class="text-sm font-semibold">Mar&iacute;a L&oacute;pez</p>
+                    <p id="hero-google-review-author" class="text-sm font-semibold">Cliente de Google</p>
+                    <p class="text-xs text-white/80">Reseña real de Google</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section class="bg-white reviews-minimal-shell">
+        <div class="container py-8 sm:py-12">
+          <div class="reviews-minimal-head mb-8 flex items-center justify-between gap-3 pb-4">
+            <h2 class="text-2xl font-semibold tracking-tight text-brand-ink sm:text-3xl">Opiniones de clientes</h2>
+            <span class="reviews-minimal-stars text-xl sm:text-2xl" aria-hidden="true">★★★★★</span>
+          </div>
+          <div
+            id="cousy-reviews"
+            class="reviews-minimal-grid grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
+            aria-live="polite"
+          >
+            Cargando experiencias de nuestros clientes...
+          </div>
+          <div id="map-shadow" class="hidden" aria-hidden="true"></div>
         </div>
       </section>
     </main>
@@ -280,6 +340,170 @@
       class="border-t border-black/5"
     ></footer>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHwkfqKMx7R0ICMmoaoHPdoQSJCdo8nFQ&libraries=places"></script>
+    <script>
+      const PLACE_ID = 'ChIJT9-dQ47_c48ReYqe68wQwYA';
+      let cousyReviewsLoaded = false;
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function safeImageUrl(value) {
+        if (typeof value !== 'string') {
+          return '';
+        }
+        if (value.startsWith('https://') || value.startsWith('http://')) {
+          return value;
+        }
+        return '';
+      }
+
+      function renderReviewsMessage(message) {
+        const reviewsContainer = document.getElementById('cousy-reviews');
+        if (reviewsContainer) {
+          reviewsContainer.textContent = message;
+        }
+      }
+
+      function renderHeroReviewMessage(message) {
+        const heroText = document.getElementById('hero-google-review-text');
+        if (heroText) {
+          heroText.textContent = message;
+        }
+      }
+
+      function applyHeroReview(review) {
+        if (!review) {
+          return;
+        }
+
+        const heroStars = document.getElementById('hero-google-stars');
+        const heroText = document.getElementById('hero-google-review-text');
+        const heroAuthor = document.getElementById('hero-google-review-author');
+        const heroPhoto = document.getElementById('hero-google-review-photo');
+        if (!heroText || !heroAuthor) {
+          return;
+        }
+
+        const rawText = typeof review.text === 'string' ? review.text.trim() : '';
+        const rawAuthor = typeof review.author_name === 'string' ? review.author_name.trim() : '';
+        if (!rawText || !rawAuthor) {
+          return;
+        }
+
+        const rating = Math.max(0, Math.min(5, Number(review.rating) || 0));
+        const estrellas = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        const clippedText = rawText.length > 220 ? rawText.slice(0, 220).trimEnd() + '...' : rawText;
+
+        if (heroStars) {
+          heroStars.textContent = estrellas;
+        }
+        heroText.textContent = '"' + clippedText + '"';
+        heroAuthor.textContent = rawAuthor;
+
+        if (heroPhoto) {
+          const photoUrl = safeImageUrl(review.profile_photo_url);
+          if (photoUrl) {
+            heroPhoto.src = photoUrl;
+            heroPhoto.alt = 'Foto de perfil de ' + rawAuthor;
+            heroPhoto.removeAttribute('aria-hidden');
+          }
+        }
+      }
+
+      function initReviews() {
+        if (cousyReviewsLoaded) {
+          return;
+        }
+
+        const mapShadow = document.getElementById('map-shadow');
+        const reviewsContainer = document.getElementById('cousy-reviews');
+        if (!mapShadow || !reviewsContainer) {
+          return;
+        }
+
+        if (!window.google || !google.maps || !google.maps.places) {
+          renderReviewsMessage('Error en la carga del script de Google.');
+          renderHeroReviewMessage('No fue posible cargar la reseña real de Google.');
+          return;
+        }
+
+        try {
+          const service = new google.maps.places.PlacesService(mapShadow);
+          service.getDetails({ placeId: PLACE_ID, fields: ['reviews', 'rating'] }, (place, status) => {
+            if (status !== google.maps.places.PlacesServiceStatus.OK) {
+              renderReviewsMessage('Error de Google: ' + status + '. Verifica tu API Key y restricciones.');
+              renderHeroReviewMessage('No fue posible cargar la reseña real de Google.');
+              return;
+            }
+
+            if (place.reviews && place.reviews.length > 0) {
+              const heroReview = place.reviews.find((review) => {
+                return (
+                  typeof review.text === 'string' &&
+                  review.text.trim().length > 0 &&
+                  typeof review.author_name === 'string' &&
+                  review.author_name.trim().length > 0
+                );
+              });
+              if (heroReview) {
+                applyHeroReview(heroReview);
+              } else {
+                renderHeroReviewMessage('No hay una reseña de Google disponible en este momento.');
+              }
+
+              let html = '';
+              place.reviews.forEach((review) => {
+                const rating = Math.max(0, Math.min(5, Number(review.rating) || 0));
+                const estrellas = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+                const textoResena = review.text ? escapeHtml(review.text.substring(0, 150)) : '';
+                const autor = escapeHtml(review.author_name || 'Cliente');
+                const fotoUrl = safeImageUrl(review.profile_photo_url);
+                const foto = fotoUrl
+                  ? '<img src="' + fotoUrl + '" alt="" class="review-avatar" loading="lazy" />'
+                  : '<div class="review-avatar"></div>';
+
+                html +=
+                  '<article class="review-card">' +
+                  '<div>' +
+                  '<div class="mb-3 flex items-center"><span class="review-stars">' +
+                  estrellas +
+                  '</span></div>' +
+                  '<p class="review-text">"' +
+                  textoResena +
+                  '..."</p>' +
+                  '</div>' +
+                  '<div class="review-footer">' +
+                  foto +
+                  '<div><p class="review-author">' +
+                  autor +
+                  '</p></div>' +
+                  '</div>' +
+                  '</article>';
+              });
+              reviewsContainer.innerHTML = html;
+            } else {
+              renderReviewsMessage('No se encontraron reseñas públicas para este negocio.');
+              renderHeroReviewMessage('No se encontraron reseñas públicas de Google para mostrar aquí.');
+            }
+
+            cousyReviewsLoaded = true;
+          });
+        } catch (error) {
+          renderReviewsMessage('Error en la carga del script de Google.');
+          renderHeroReviewMessage('No fue posible cargar la reseña real de Google.');
+        }
+      }
+
+      window.addEventListener('load', initReviews);
+      document.addEventListener('turbo:load', initReviews);
+    </script>
     <script type="module" src="../js/layout.js"></script>
     <script type="module" src="../js/site.js"></script>
   </body>

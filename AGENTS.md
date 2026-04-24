@@ -195,3 +195,10 @@ La estructura base recomendada sería:
 - Describir cambios en bullets cortos.
 - Incluir cómo validar: comando(s) exactos (`npm run ...`) y qué revisar.
 - Si el cambio afecta SEO/i18n, listar explícitamente: canonical, sitemap, robots y navegación ES/EN.
+
+
+# Colores que debes utilizar
+- #ffffff principal
+- #ec1665 secundario (para botones o donde se requiera la atencion del cliente)
+- #73a35a secundario Para destacar ecologia en secmentos
+- #dde0e1 secundario
