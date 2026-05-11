@@ -9,9 +9,13 @@
       content="Regalos corporativos y productos ecológicos hechos a mano en Nicaragua. Armá tu cotización B2B y envíanos tu lista por WhatsApp."
     />
     <meta name="robots" content="index,follow" />
-    <meta name="theme-color" content="#d63163" />
+    <meta name="theme-color" content="#ec1665" />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Cousy" />
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="./assets/logo-cousy.png" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
     <style>
       :root {
         color-scheme: light;
@@ -121,6 +125,16 @@
         </div>
       </div>
     </main>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("./service-worker.js").catch(function (error) {
+            console.error("Service worker registration failed:", error);
+          });
+        });
+      }
+    </script>
 
     <script>
       (function () {

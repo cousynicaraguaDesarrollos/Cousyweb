@@ -9,7 +9,11 @@
       content="Proveedor de productos promocionales personalizados en Nicaragua: bolsas ecol&oacute;gicas personalizadas, tote bags, mochilas y regalos corporativos sostenibles para empresas."
     />
     <meta name="robots" content="index,follow" />
-    <meta name="theme-color" content="#d63163" />
+    <meta name="theme-color" content="#ec1665" />
+    <link rel="manifest" href="../manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Cousy" />
     <link rel="canonical" href="https://cousynicaragua.com/es/" />
     <link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/" />
     <link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/" />
@@ -27,7 +31,7 @@
     <meta property="og:url" content="https://cousynicaragua.com/es/" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="../assets/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="../assets/logo-cousy.png" />
+    <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -511,6 +515,15 @@
 
       window.addEventListener('load', initReviews);
       document.addEventListener('turbo:load', initReviews);
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("../service-worker.js").catch(function (error) {
+            console.error("Service worker registration failed:", error);
+          });
+        });
+      }
     </script>
     <script type="module" src="../js/layout.js"></script>
     <script type="module" src="../js/site.js"></script>
