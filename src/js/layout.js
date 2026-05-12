@@ -2,20 +2,69 @@ import { initHeaderView } from "./header.js";
 
 const ROUTE_MAP = Object.freeze({
   es: Object.freeze({
-    home: "es",
-    store: "es/tienda",
-    about: "es/nosotros",
-    sustainability: "es/sostenibilidad",
-    quote: "es/cotizacion",
+    home: "es/",
+    store: "es/tienda/",
+    about: "es/nosotros/",
+    sustainability: "es/sostenibilidad/",
+    quote: "es/cotizacion/",
   }),
   en: Object.freeze({
-    home: "en",
-    store: "en/store",
-    about: "en/about",
-    sustainability: "en/sustainability",
-    quote: "en/quote",
+    home: "en/",
+    store: "en/store/",
+    about: "en/about/",
+    sustainability: "en/sustainability/",
+    quote: "en/quote/",
   }),
 });
+
+const VIEW_TRANSITION_CLASS = "is-view-transitioning";
+let pageTransitionsReady = false;
+
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function isPreviewRendered() {
+  return document.documentElement.hasAttribute("data-turbo-preview");
+}
+
+function clearViewTransitionClass() {
+  if (document.body) {
+    document.body.classList.remove(VIEW_TRANSITION_CLASS);
+  }
+}
+
+function initPageTransitions() {
+  if (pageTransitionsReady) return;
+  pageTransitionsReady = true;
+
+  document.addEventListener("turbo:visit", () => {
+    if (prefersReducedMotion()) return;
+    document.body?.classList.add(VIEW_TRANSITION_CLASS);
+  });
+
+  document.addEventListener("turbo:before-render", (event) => {
+    if (prefersReducedMotion()) return;
+    const newBody = event.detail?.newBody;
+    if (!(newBody instanceof HTMLBodyElement)) return;
+    newBody.classList.add(VIEW_TRANSITION_CLASS);
+  });
+
+  document.addEventListener("turbo:render", () => {
+    if (prefersReducedMotion()) {
+      clearViewTransitionClass();
+      return;
+    }
+    if (isPreviewRendered()) return;
+    requestAnimationFrame(() => {
+      clearViewTransitionClass();
+    });
+  });
+
+  document.addEventListener("turbo:before-cache", () => {
+    clearViewTransitionClass();
+  });
+}
 
 function rootPrefix() {
   const pathname = String(window.location?.pathname ?? "/").replace(/\/+/g, "/");
@@ -255,6 +304,7 @@ function onLoad() {
   void runInit();
 }
 
+initPageTransitions();
 window.addEventListener("DOMContentLoaded", onLoad);
 document.addEventListener("turbo:load", onLoad);
 onLoad();

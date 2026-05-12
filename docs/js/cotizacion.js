@@ -10,32 +10,26 @@ import {
   writeNotes
 } from "./cart.js";
 
-function rootPrefix() {
-  const pathname = String(window.location?.pathname ?? "/").replace(/\/+/g, "/");
-  let dirPath = pathname;
-
-  if (dirPath.endsWith("/")) {
-    // already a directory path
-  } else if (/\/[^/]+\.[a-z0-9]+$/i.test(dirPath)) {
-    dirPath = dirPath.replace(/\/[^/]+$/, "/");
-  } else {
-    dirPath = `${dirPath}/`;
-  }
-
-  const depth = dirPath.split("/").filter(Boolean).length;
-  if (depth <= 0) return ".";
-  return Array(depth).fill("..").join("/");
-}
+const siteBaseUrl = new URL("../", import.meta.url);
+const siteBasePath = siteBaseUrl.pathname.replace(/\/$/, "");
 
 function fromRoot(relPath) {
-  return `${rootPrefix()}/${String(relPath).replace(/^\.?\//, "")}`;
+  const cleanRelPath = String(relPath ?? "").replace(/^\.?\//, "");
+  return new URL(cleanRelPath, siteBaseUrl).toString();
+}
+
+function fromBasePath(pathname) {
+  const cleanPath = String(pathname ?? "");
+  if (!cleanPath.startsWith("/")) return cleanPath;
+  if (!siteBasePath || siteBasePath === "/") return cleanPath;
+  return `${siteBasePath}${cleanPath}`;
 }
 
 function resolveSiteUrl(value) {
   const raw = String(value ?? "").trim();
   if (!raw) return "";
   if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("data:") || raw.startsWith("blob:")) return raw;
-  if (raw.startsWith("/")) return raw;
+  if (raw.startsWith("/")) return fromBasePath(raw);
   const cleaned = raw.replace(/^(\.\/)+/, "").replace(/^(\.\.\/)+/, "");
   return fromRoot(cleaned);
 }

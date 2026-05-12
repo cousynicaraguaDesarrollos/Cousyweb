@@ -25,6 +25,28 @@
 
   main {
     flex: 1 0 auto;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 220ms ease, transform 220ms ease;
+    will-change: opacity, transform;
+  }
+
+  body.is-view-transitioning main {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    main {
+      transition: none;
+      transform: none;
+      will-change: auto;
+    }
+
+    body.is-view-transitioning main {
+      opacity: 1;
+      transform: none;
+    }
   }
 
   h1 {

@@ -29,6 +29,64 @@ function exportDistToDocs() {
 
   removePath(docsDir);
   copyDir(distDir, docsDir);
+  normalizeVentasGastosRoute();
+}
+
+function relativeHref(fromFile, toFile) {
+  let rel = path.relative(path.dirname(fromFile), toFile).replaceAll("\\", "/");
+  if (!rel || rel === ".") return "./";
+  if (!rel.startsWith(".")) rel = `./${rel}`;
+  return rel;
+}
+
+function buildRedirectHtml(targetHref) {
+  const safeTarget = String(targetHref || "./");
+  return `<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,follow" />
+    <title>Redirecting...</title>
+    <link rel="canonical" href="${safeTarget}" />
+    <noscript><meta http-equiv="refresh" content="0; url=${safeTarget}" /></noscript>
+    <script>
+      (function () {
+        var target = ${JSON.stringify(safeTarget)};
+        window.location.replace(target + window.location.search + window.location.hash);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
+`;
+}
+
+function normalizeVentasGastosRoute() {
+  const esDir = path.join(docsDir, "es");
+  const oldDir = path.join(esDir, "ventas-gastos-panel");
+  const oldIndex = path.join(oldDir, "index.html");
+  const vgDir = path.join(esDir, "vg");
+  const vgFile = path.join(vgDir, "vg.html");
+  const oldLegacyFile = path.join(esDir, "ventas-gastos-panel.html");
+  const vgAliasFile = path.join(esDir, "vg.html");
+
+  if (!fs.existsSync(oldIndex)) return;
+
+  removePath(vgDir);
+  fs.renameSync(oldDir, vgDir);
+
+  const movedIndex = path.join(vgDir, "index.html");
+  if (fs.existsSync(movedIndex)) {
+    fs.renameSync(movedIndex, vgFile);
+  }
+
+  if (fs.existsSync(oldLegacyFile)) {
+    const target = relativeHref(oldLegacyFile, vgFile);
+    fs.writeFileSync(oldLegacyFile, buildRedirectHtml(target), "utf8");
+  }
+
+  const aliasTarget = relativeHref(vgAliasFile, vgFile);
+  fs.writeFileSync(vgAliasFile, buildRedirectHtml(aliasTarget), "utf8");
 }
 
 exportDistToDocs();
