@@ -1,31 +1,25 @@
 import { addToCart } from "./cart.js";
 
-function rootPrefix() {
-  const pathname = String(window.location?.pathname ?? "/").replace(/\/+/g, "/");
-  let dirPath = pathname;
-
-  if (dirPath.endsWith("/")) {
-    // already a directory path
-  } else if (/\/[^/]+\.[a-z0-9]+$/i.test(dirPath)) {
-    dirPath = dirPath.replace(/\/[^/]+$/, "/");
-  } else {
-    dirPath = `${dirPath}/`;
-  }
-
-  const depth = dirPath.split("/").filter(Boolean).length;
-  if (depth <= 0) return ".";
-  return Array(depth).fill("..").join("/");
-}
+const siteBaseUrl = new URL("../", import.meta.url);
+const siteBasePath = siteBaseUrl.pathname.replace(/\/$/, "");
 
 function fromRoot(relPath) {
-  return `${rootPrefix()}/${String(relPath).replace(/^\.?\//, "")}`;
+  const cleanRelPath = String(relPath ?? "").replace(/^\.?\//, "");
+  return new URL(cleanRelPath, siteBaseUrl).toString();
+}
+
+function fromBasePath(pathname) {
+  const cleanPath = String(pathname ?? "");
+  if (!cleanPath.startsWith("/")) return cleanPath;
+  if (!siteBasePath || siteBasePath === "/") return cleanPath;
+  return `${siteBasePath}${cleanPath}`;
 }
 
 function resolveSiteUrl(value) {
   const raw = String(value ?? "").trim();
   if (!raw) return "";
   if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("data:") || raw.startsWith("blob:")) return raw;
-  if (raw.startsWith("/")) return raw;
+  if (raw.startsWith("/")) return fromBasePath(raw);
   const cleaned = raw.replace(/^(\.\/)+/, "").replace(/^(\.\.\/)+/, "");
   return fromRoot(cleaned);
 }
@@ -105,10 +99,35 @@ function card(product) {
 }
 
 async function loadProducts() {
-  const res = await fetch(fromRoot("data/products.json"), { cache: "no-store" });
-  if (!res.ok) throw new Error("No se pudo cargar products.json");
-  const data = await res.json();
-  return Array.isArray(data) ? data : [];
+  const candidates = Array.from(
+    new Set([
+      fromRoot("data/products.json"),
+      new URL("../data/products.json", window.location.href).toString(),
+      `${window.location.origin}/data/products.json`,
+      `${window.location.origin}/docs/data/products.json`
+    ])
+  );
+
+  const failures = [];
+  for (const url of candidates) {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) {
+        failures.push(`${url} -> ${res.status}`);
+        continue;
+      }
+      const data = await res.json();
+      return Array.isArray(data) ? data : [];
+    } catch (err) {
+      failures.push(`${url} -> error`);
+      if (err && typeof err === "object" && "message" in err) {
+        failures.push(String(err.message));
+      }
+    }
+  }
+
+  const detail = failures.length ? ` (${failures.join(" | ")})` : "";
+  throw new Error(`No se pudo cargar products.json${detail}`);
 }
 
 function render(products) {

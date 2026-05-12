@@ -1,4 +1,4 @@
-const CACHE_NAME = "cousy-cache-v5";
+const CACHE_NAME = "cousy-cache-v9";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -77,7 +77,7 @@ async function networkFirst(request) {
     }
     return networkResponse;
   } catch (_error) {
-    const cachedResponse = await cache.match(request, { ignoreSearch: true });
+    const cachedResponse = await cache.match(request);
     if (cachedResponse) {
       return cachedResponse;
     }
@@ -94,7 +94,7 @@ async function networkFirst(request) {
 
 async function staleWhileRevalidate(request) {
   const cache = await caches.open(CACHE_NAME);
-  const cachedResponse = await cache.match(request, { ignoreSearch: true });
+  const cachedResponse = await cache.match(request);
 
   const networkPromise = fetch(request)
     .then((networkResponse) => {

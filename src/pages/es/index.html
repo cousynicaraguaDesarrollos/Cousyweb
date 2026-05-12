@@ -142,10 +142,23 @@
         class="relative flex items-center overflow-hidden min-h-[calc(100vh-5rem)]"
       >
         <div aria-hidden="true" class="absolute inset-0">
-          <div
-            class="absolute inset-0 scale-110 bg-cover bg-center"
-            style="background-image: url('../assets/img/Intro-cousy-Nicaragua.gif'); filter: brightness(90%);"
-          ></div>
+          <div class="absolute inset-0 scale-110 overflow-hidden">
+            <video
+              class="h-full w-full object-cover"
+              style="filter: brightness(90%);"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="../assets/img/intro-cousy-nicaragua-poster.webp"
+              aria-hidden="true"
+            >
+              <source src="../assets/video/intro-cousy-nicaragua-loop.webm" type="video/webm" />
+              <source src="../assets/video/intro-cousy-nicaragua-loop.mp4" type="video/mp4" />
+              <img src="../assets/img/intro-cousy-nicaragua-poster.webp" alt="" />
+            </video>
+          </div>
           <div class="absolute inset-0 bg-black/40"></div>
         </div>
 

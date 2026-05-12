@@ -34,8 +34,31 @@ function rootPrefix() {
   return Array(depth).fill("..").join("/");
 }
 
+function basePathPrefix() {
+  const pathname = String(window.location?.pathname ?? "/").replace(/\/+/g, "/");
+  let dirPath = pathname;
+
+  if (dirPath.endsWith("/")) {
+    // already a directory path
+  } else if (/\/[^/]+\.[a-z0-9]+$/i.test(dirPath)) {
+    dirPath = dirPath.replace(/\/[^/]+$/, "/");
+  } else {
+    dirPath = `${dirPath}/`;
+  }
+
+  const segments = dirPath.split("/").filter(Boolean);
+  const langIndex = segments.findIndex((segment) => segment === "es" || segment === "en");
+  if (langIndex <= 0) return "";
+
+  return `/${segments.slice(0, langIndex).join("/")}`;
+}
+
 function fromRoot(relPath) {
-  return `${rootPrefix()}/${String(relPath).replace(/^\.?\//, "")}`;
+  const cleaned = String(relPath).replace(/^\.?\//, "");
+  const basePath = basePathPrefix();
+
+  if (!basePath) return `${rootPrefix()}/${cleaned}`;
+  return `${basePath}/${cleaned}`.replace(/\/{2,}/g, "/");
 }
 
 function normalizePathname(pathname) {
@@ -170,6 +193,22 @@ function enableSocialLinks(social) {
   }
 }
 
+let swRegisterPromise = null;
+
+async function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  if (swRegisterPromise) return swRegisterPromise;
+
+  swRegisterPromise = navigator.serviceWorker
+    .register(fromRoot("service-worker.js"))
+    .catch(() => null)
+    .finally(() => {
+      swRegisterPromise = null;
+    });
+
+  return swRegisterPromise;
+}
+
 async function initLayout() {
   const path = String(window.location?.pathname ?? "");
   const lang = path.includes("/en/") ? "en" : "es";
@@ -198,6 +237,8 @@ async function initLayout() {
   } catch {
     // noop
   }
+
+  void registerServiceWorker();
 }
 
 let initPromise = null;
