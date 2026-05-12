@@ -1,23 +1,95 @@
 import { initHeaderView } from "./header.js";
 
+const ROUTE_MAP = Object.freeze({
+  es: Object.freeze({
+    home: "es",
+    store: "es/tienda",
+    about: "es/nosotros",
+    sustainability: "es/sostenibilidad",
+    quote: "es/cotizacion",
+  }),
+  en: Object.freeze({
+    home: "en",
+    store: "en/store",
+    about: "en/about",
+    sustainability: "en/sustainability",
+    quote: "en/quote",
+  }),
+});
+
 function rootPrefix() {
-  const p = String(window.location?.pathname ?? "");
-  return p.includes("/es/") || p.includes("/en/") ? ".." : ".";
+  const pathname = String(window.location?.pathname ?? "/").replace(/\/+/g, "/");
+  let dirPath = pathname;
+
+  if (dirPath.endsWith("/")) {
+    // already a directory path
+  } else if (/\/[^/]+\.[a-z0-9]+$/i.test(dirPath)) {
+    dirPath = dirPath.replace(/\/[^/]+$/, "/");
+  } else {
+    dirPath = `${dirPath}/`;
+  }
+
+  const depth = dirPath.split("/").filter(Boolean).length;
+  if (depth <= 0) return ".";
+  return Array(depth).fill("..").join("/");
 }
 
 function fromRoot(relPath) {
   return `${rootPrefix()}/${String(relPath).replace(/^\.?\//, "")}`;
 }
 
+function normalizePathname(pathname) {
+  let normalized = String(pathname ?? "/").replace(/\/+/g, "/");
+  if (!normalized.startsWith("/")) normalized = `/${normalized}`;
+
+  if (normalized.endsWith("/index.html")) {
+    normalized = normalized.slice(0, -"index.html".length);
+  } else if (normalized.endsWith(".html")) {
+    normalized = normalized.slice(0, -".html".length);
+  }
+
+  if (normalized.length > 1 && normalized.endsWith("/")) {
+    normalized = normalized.slice(0, -1);
+  }
+
+  return normalized || "/";
+}
+
+function normalizeHrefToPath(href) {
+  if (!href) return "";
+  try {
+    const url = new URL(href, window.location.origin);
+    return normalizePathname(url.pathname);
+  } catch {
+    return "";
+  }
+}
+
+function applyHeaderRoutes(header, lang) {
+  if (!header) return;
+
+  const langRoutes = ROUTE_MAP[lang] ?? ROUTE_MAP.es;
+  for (const el of header.querySelectorAll("[data-nav-route]")) {
+    if (!(el instanceof HTMLAnchorElement)) continue;
+    const key = el.getAttribute("data-nav-route") ?? "";
+    const route = langRoutes[key];
+    if (!route) continue;
+    el.href = fromRoot(route);
+  }
+
+  for (const el of header.querySelectorAll("[data-nav-asset='logo']")) {
+    if (!(el instanceof HTMLImageElement)) continue;
+    el.src = fromRoot("assets/logo-cousy.webp");
+  }
+}
+
 function setActiveNav() {
-  const currentPath = String(window.location?.pathname ?? "");
-  const currentFile = currentPath.split("/").pop() || "index.html";
+  const currentPath = normalizePathname(window.location?.pathname ?? "/");
   const links = document.querySelectorAll(".js-nav-link");
   for (const a of links) {
     if (!(a instanceof HTMLAnchorElement)) continue;
-    const href = a.getAttribute("href") ?? "";
-    const hrefFile = href.split("/").pop() || "";
-    const isActive = hrefFile === currentFile;
+    const targetPath = normalizeHrefToPath(a.getAttribute("href") ?? "");
+    const isActive = targetPath !== "" && targetPath === currentPath;
     const isDesktopNav = !!a.closest(".js-site-nav");
     if (isDesktopNav) {
       a.classList.toggle("border-b-2", isActive);
@@ -30,7 +102,16 @@ function setActiveNav() {
     else a.removeAttribute("aria-current");
   }
 
-  const quoteActive = currentFile === "cotizacion.html" || currentFile === "quote.html";
+  let quoteActive = false;
+  for (const el of document.querySelectorAll(".js-quote-link")) {
+    if (!(el instanceof HTMLAnchorElement)) continue;
+    const quotePath = normalizeHrefToPath(el.getAttribute("href") ?? "");
+    if (quotePath && quotePath === currentPath) {
+      quoteActive = true;
+      break;
+    }
+  }
+
   for (const el of document.querySelectorAll(".js-quote-link")) {
     const keepSolidBg = el.classList.contains("bg-brand-cta");
     if (keepSolidBg) {
@@ -103,6 +184,7 @@ async function initLayout() {
     await inject(footer, `partials/footer-${lang}.html`);
   }
 
+  applyHeaderRoutes(header, lang);
   setActiveNav();
   initHeaderView(header ?? document);
   setYear();

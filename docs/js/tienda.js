@@ -1,12 +1,33 @@
 import { addToCart } from "./cart.js";
 
 function rootPrefix() {
-  const p = String(window.location?.pathname ?? "");
-  return p.includes("/es/") || p.includes("/en/") ? ".." : ".";
+  const pathname = String(window.location?.pathname ?? "/").replace(/\/+/g, "/");
+  let dirPath = pathname;
+
+  if (dirPath.endsWith("/")) {
+    // already a directory path
+  } else if (/\/[^/]+\.[a-z0-9]+$/i.test(dirPath)) {
+    dirPath = dirPath.replace(/\/[^/]+$/, "/");
+  } else {
+    dirPath = `${dirPath}/`;
+  }
+
+  const depth = dirPath.split("/").filter(Boolean).length;
+  if (depth <= 0) return ".";
+  return Array(depth).fill("..").join("/");
 }
 
 function fromRoot(relPath) {
   return `${rootPrefix()}/${String(relPath).replace(/^\.?\//, "")}`;
+}
+
+function resolveSiteUrl(value) {
+  const raw = String(value ?? "").trim();
+  if (!raw) return "";
+  if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("data:") || raw.startsWith("blob:")) return raw;
+  if (raw.startsWith("/")) return raw;
+  const cleaned = raw.replace(/^(\.\/)+/, "").replace(/^(\.\.\/)+/, "");
+  return fromRoot(cleaned);
 }
 
 function normalize(text) {
@@ -23,7 +44,10 @@ function card(product) {
   if (product.id) el.id = product.id;
 
   const img = document.createElement("img");
-  img.src = product.image || fromRoot("assets/placeholder.svg");
+  const imageUrl = resolveSiteUrl(product.image) || fromRoot("assets/placeholder.svg");
+  const sourceUrl = resolveSiteUrl(product.sourceUrl) || product.sourceUrl;
+
+  img.src = imageUrl;
   img.alt = product.name
     ? `${product.name} | producto promocional para empresas`
     : "Producto promocional para empresas";
@@ -66,8 +90,8 @@ function card(product) {
       {
         id: product.id,
         name: product.name,
-        image: product.image,
-        sourceUrl: product.sourceUrl
+        image: imageUrl,
+        sourceUrl
       },
       1
     );

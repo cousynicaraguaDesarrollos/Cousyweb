@@ -11,12 +11,33 @@ import {
 } from "./cart.js";
 
 function rootPrefix() {
-  const p = String(window.location?.pathname ?? "");
-  return p.includes("/es/") || p.includes("/en/") ? ".." : ".";
+  const pathname = String(window.location?.pathname ?? "/").replace(/\/+/g, "/");
+  let dirPath = pathname;
+
+  if (dirPath.endsWith("/")) {
+    // already a directory path
+  } else if (/\/[^/]+\.[a-z0-9]+$/i.test(dirPath)) {
+    dirPath = dirPath.replace(/\/[^/]+$/, "/");
+  } else {
+    dirPath = `${dirPath}/`;
+  }
+
+  const depth = dirPath.split("/").filter(Boolean).length;
+  if (depth <= 0) return ".";
+  return Array(depth).fill("..").join("/");
 }
 
 function fromRoot(relPath) {
   return `${rootPrefix()}/${String(relPath).replace(/^\.?\//, "")}`;
+}
+
+function resolveSiteUrl(value) {
+  const raw = String(value ?? "").trim();
+  if (!raw) return "";
+  if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("data:") || raw.startsWith("blob:")) return raw;
+  if (raw.startsWith("/")) return raw;
+  const cleaned = raw.replace(/^(\.\/)+/, "").replace(/^(\.\.\/)+/, "");
+  return fromRoot(cleaned);
 }
 
 async function loadConfig() {
@@ -40,7 +61,7 @@ function itemRow(item) {
   left.className = "flex items-center gap-4";
 
   const img = document.createElement("img");
-  img.src = item.image || fromRoot("assets/placeholder.svg");
+  img.src = resolveSiteUrl(item.image) || fromRoot("assets/placeholder.svg");
   img.alt = item.name || "Producto";
   img.loading = "lazy";
   img.className = "h-16 w-16 rounded-xl object-cover ring-1 ring-black/10";
@@ -52,10 +73,11 @@ function itemRow(item) {
 
   const link = document.createElement("a");
   link.className = "text-sm text-black/60 hover:text-brand-accent";
-  link.href = item.sourceUrl || "#";
+  const sourceUrl = resolveSiteUrl(item.sourceUrl);
+  link.href = sourceUrl || "#";
   link.target = "_blank";
   link.rel = "noopener noreferrer";
-  link.textContent = item.sourceUrl ? "Ver producto" : "";
+  link.textContent = sourceUrl ? "Ver producto" : "";
 
   meta.append(title, link);
   left.append(img, meta);

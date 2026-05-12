@@ -1,4 +1,4 @@
-const CACHE_NAME = "cousy-cache-v3";
+const CACHE_NAME = "cousy-cache-v5";
 const PRECACHE_URLS = [
   "./",
   "./index.html",

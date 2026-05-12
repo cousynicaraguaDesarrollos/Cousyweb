@@ -1,7 +1,8 @@
 <div class="container relative">
   <div class="flex h-20 items-center justify-between gap-4">
-    <a href="./index.html" class="flex items-center gap-3">
+    <a href="./index.html" data-nav-route="home" class="flex items-center gap-3">
       <img
+        data-nav-asset="logo"
         src="../assets/logo-cousy.webp"
         alt="Cousy Nicaragua logo"
         class="h-12 w-12"
@@ -11,11 +12,12 @@
     </a>
 
     <nav class="js-site-nav ml-auto hidden items-center gap-10 text-sm sm:flex">
-      <a class="js-nav-link text-brand-ink hover:text-brand-accent" href="./index.html">Home</a>
-      <a class="js-nav-link text-brand-ink hover:text-brand-accent" href="./store.html">Products</a>
-      <a class="js-nav-link text-brand-ink hover:text-brand-accent" href="./about.html">About</a>
-      <a class="js-nav-link text-brand-ink hover:text-brand-accent" href="./sustainability.html">Sustainability</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="home" href="./index.html">Home</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="store" href="./store.html">Products</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="about" href="./about.html">About</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="sustainability" href="./sustainability.html">Sustainability</a>
       <a
+        data-nav-route="quote"
         href="./quote.html"
         class="js-quote-link relative inline-flex h-11 w-11 items-center justify-center rounded-xl hover:bg-black/5"
         aria-label="Quote"
@@ -87,23 +89,24 @@
     >
       <ul class="flex flex-col p-3 text-center">
         <li>
-          <a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" href="./index.html"
+          <a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="home" href="./index.html"
             >Home</a
           >
         </li>
         <li>
-          <a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" href="./store.html"
+          <a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="store" href="./store.html"
             >Products</a
           >
         </li>
         <li>
-          <a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" href="./about.html"
+          <a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="about" href="./about.html"
             >About</a
           >
         </li>
         <li>
           <a
             class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted"
+            data-nav-route="sustainability"
             href="./sustainability.html"
             >Sustainability</a
           >
@@ -111,6 +114,7 @@
       </ul>
       <div class="px-3 pb-16 text-center">
         <a
+          data-nav-route="quote"
           href="./quote.html"
           class="js-quote-link relative mb-5 inline-flex h-12 w-full items-center justify-center rounded-xl bg-brand-cta px-5 text-sm font-semibold text-white shadow-soft"
         >
