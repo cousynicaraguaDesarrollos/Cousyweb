@@ -38,6 +38,93 @@ function canonicalPathForOutPath(relOutPath) {
   return `/${rel}`;
 }
 
+function toPosixRelPath(filePath) {
+  return String(filePath).replaceAll("\\", "/").replaceAll(/^\.\//g, "");
+}
+
+function splitUrlParts(urlValue) {
+  const match = String(urlValue).match(/^([^?#]*)([?#].*)?$/);
+  return {
+    pathname: match?.[1] ?? "",
+    suffix: match?.[2] ?? ""
+  };
+}
+
+function isExternalOrSpecialUrl(urlValue) {
+  const value = String(urlValue).trim().toLowerCase();
+  return (
+    value.startsWith("http://") ||
+    value.startsWith("https://") ||
+    value.startsWith("//") ||
+    value.startsWith("mailto:") ||
+    value.startsWith("tel:") ||
+    value.startsWith("javascript:") ||
+    value.startsWith("data:") ||
+    value.startsWith("#")
+  );
+}
+
+function toExtensionlessPath(pathname) {
+  const p = String(pathname);
+  if (!p.endsWith(".html")) return p;
+  if (p.endsWith("/index.html")) return p.slice(0, -"index.html".length);
+  if (p === "index.html" || p === "./index.html") return "./";
+  if (p === "../index.html") return "../";
+  return p.slice(0, -".html".length);
+}
+
+function rewriteInternalHtmlLinks(html) {
+  return String(html).replace(/\b(href|action)=("([^"]*)"|'([^']*)')/gi, (full, attr, quoted, dVal, sVal) => {
+    const value = dVal ?? sVal ?? "";
+    if (!value || isExternalOrSpecialUrl(value)) return full;
+
+    const { pathname, suffix } = splitUrlParts(value);
+    if (!pathname.endsWith(".html")) return full;
+
+    const next = `${toExtensionlessPath(pathname)}${suffix}`;
+    if (dVal != null) return `${attr}="${next}"`;
+    return `${attr}='${next}'`;
+  });
+}
+
+function sourceHtmlRelToOutputRel(sourceHtmlRelPath) {
+  const rel = toPosixRelPath(sourceHtmlRelPath);
+  if (!rel.endsWith(".html")) return rel;
+  if (rel === "index.html" || rel.endsWith("/index.html")) return rel;
+
+  const dir = path.posix.dirname(rel);
+  const name = path.posix.basename(rel, ".html");
+  return dir === "." ? `${name}/index.html` : `${dir}/${name}/index.html`;
+}
+
+function extractHtmlLang(html) {
+  const match = String(html).match(/<html[^>]*\blang=(["'])([^"']+)\1/i);
+  return match?.[2] || "es";
+}
+
+function buildLegacyRedirectHtml({ targetPath, lang }) {
+  const safeTarget = String(targetPath || "./");
+  const safeLang = String(lang || "es");
+  return `<!doctype html>
+<html lang="${safeLang}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,follow" />
+    <title>Redirecting...</title>
+    <link rel="canonical" href="${safeTarget}" />
+    <noscript><meta http-equiv="refresh" content="0; url=${safeTarget}" /></noscript>
+    <script>
+      (function () {
+        var target = ${JSON.stringify(safeTarget)};
+        window.location.replace(target + window.location.search + window.location.hash);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
+`;
+}
+
 function applySeoToHtml(html, { relOutPath, siteUrl }) {
   const canonicalPath = canonicalPathForOutPath(relOutPath);
   const canonicalUrl = `${siteUrl}${canonicalPath === "/" ? "/" : canonicalPath}`;
@@ -78,24 +165,49 @@ function copyDir(fromDir, toDir) {
   }
 }
 
-function copyHtmlDir(fromDir, toDir, { siteUrl } = {}) {
-  if (!fs.existsSync(fromDir)) return;
-  fs.mkdirSync(toDir, { recursive: true });
-  for (const entry of fs.readdirSync(fromDir, { withFileTypes: true })) {
-    const from = path.join(fromDir, entry.name);
-    const to = path.join(toDir, entry.name);
-    if (entry.isDirectory()) copyHtmlDir(from, to, { siteUrl });
-    else if (entry.isFile() && entry.name.endsWith(".html")) {
-      const raw = fs.readFileSync(from, "utf8");
-      const relOutPath = path.relative(distDir, to);
-      const next = siteUrl ? applySeoToHtml(raw, { relOutPath, siteUrl }) : raw;
-      fs.writeFileSync(to, next, "utf8");
-    }
+function listHtmlFiles(dirPath) {
+  const out = [];
+  if (!fs.existsSync(dirPath)) return out;
+
+  for (const entry of fs.readdirSync(dirPath, { withFileTypes: true })) {
+    const full = path.join(dirPath, entry.name);
+    if (entry.isDirectory()) out.push(...listHtmlFiles(full));
+    else if (entry.isFile() && entry.name.endsWith(".html")) out.push(full);
   }
+
+  return out;
 }
 
 function copyPages({ siteUrl } = {}) {
-  copyHtmlDir(srcPagesDir, distDir, { siteUrl });
+  for (const sourceHtmlFile of listHtmlFiles(srcPagesDir)) {
+    const sourceRel = toPosixRelPath(path.relative(srcPagesDir, sourceHtmlFile));
+    const outputRel = sourceHtmlRelToOutputRel(sourceRel);
+    const outputFile = path.join(distDir, outputRel);
+
+    const sourceRaw = fs.readFileSync(sourceHtmlFile, "utf8");
+    const rewritten = rewriteInternalHtmlLinks(sourceRaw);
+    const relOutPath = toPosixRelPath(path.relative(distDir, outputFile));
+    const next = siteUrl ? applySeoToHtml(rewritten, { relOutPath, siteUrl }) : rewritten;
+
+    fs.mkdirSync(path.dirname(outputFile), { recursive: true });
+    fs.writeFileSync(outputFile, next, "utf8");
+
+    // Backward compatibility: keep legacy .html URLs and redirect to clean URL.
+    if (outputRel !== sourceRel) {
+      const legacyOutFile = path.join(distDir, sourceRel);
+      const legacyDir = path.posix.dirname(sourceRel);
+      const cleanDir = path.posix.dirname(outputRel);
+      const relTarget = path.posix.relative(legacyDir === "." ? "" : legacyDir, cleanDir) || ".";
+      const targetPath = relTarget.endsWith("/") ? relTarget : `${relTarget}/`;
+      const legacyHtml = buildLegacyRedirectHtml({
+        targetPath,
+        lang: extractHtmlLang(sourceRaw)
+      });
+
+      fs.mkdirSync(path.dirname(legacyOutFile), { recursive: true });
+      fs.writeFileSync(legacyOutFile, legacyHtml, "utf8");
+    }
+  }
 }
 
 function listHtmlRelPaths(dir) {
