@@ -87,6 +87,26 @@ function rewriteInternalHtmlLinks(html) {
   });
 }
 
+function rewriteRelativeAssetPathsForNestedOutput(html) {
+  return String(html).replace(
+    /\b(href|src|action|poster)=("([^"]*)"|'([^']*)')/gi,
+    (full, attr, quoted, dVal, sVal) => {
+      const value = dVal ?? sVal ?? "";
+      if (!value || isExternalOrSpecialUrl(value)) return full;
+
+      const { pathname, suffix } = splitUrlParts(value);
+      if (!pathname || pathname.startsWith("/")) return full;
+
+      // Output pages moved from /foo.html to /foo/index.html are one level deeper.
+      // Prefix local relative paths so they keep resolving to the same target.
+      const normalizedPath = path.posix.normalize(`../${pathname}`);
+      const next = `${normalizedPath}${suffix}`;
+      if (dVal != null) return `${attr}="${next}"`;
+      return `${attr}='${next}'`;
+    }
+  );
+}
+
 function sourceHtmlRelToOutputRel(sourceHtmlRelPath) {
   const rel = toPosixRelPath(sourceHtmlRelPath);
   if (!rel.endsWith(".html")) return rel;
@@ -185,7 +205,11 @@ function copyPages({ siteUrl } = {}) {
     const outputFile = path.join(distDir, outputRel);
 
     const sourceRaw = fs.readFileSync(sourceHtmlFile, "utf8");
-    const rewritten = rewriteInternalHtmlLinks(sourceRaw);
+    const outputWasNested = outputRel !== sourceRel;
+    let rewritten = rewriteInternalHtmlLinks(sourceRaw);
+    if (outputWasNested) {
+      rewritten = rewriteRelativeAssetPathsForNestedOutput(rewritten);
+    }
     const relOutPath = toPosixRelPath(path.relative(distDir, outputFile));
     const next = siteUrl ? applySeoToHtml(rewritten, { relOutPath, siteUrl }) : rewritten;
 
