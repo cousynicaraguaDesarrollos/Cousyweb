@@ -6,7 +6,7 @@ Este archivo elimina la key de Google del frontend y mueve la llamada a un backe
 
 1. Abre `script.new` con tu cuenta de Google.
 2. Crea un proyecto nuevo.
-3. Copia el contenido de `google-reviews-proxy.gs` en `Code.gs`.
+3. Pega tu script proxy local en `Code.gs` (este repo no versiona archivos `.gs`).
 4. Ve a `Project Settings` -> `Script properties` y agrega:
    - `GOOGLE_PLACES_API_KEY` = tu API key de servidor
    - `COUSY_PLACE_ID` = `ChIJT9-dQ47_c48ReYqe68wQwYA`
@@ -20,7 +20,7 @@ Este archivo elimina la key de Google del frontend y mueve la llamada a un backe
 
 ## 2) Conectar con el sitio
 
-Actualiza `config/site.json` y `src/config/site.json`:
+Actualiza `src/config/site.json`:
 
 - `googleReviewsApiUrl`: URL `/exec` del web app
 - `googleReviewsPlaceId`: `ChIJT9-dQ47_c48ReYqe68wQwYA`

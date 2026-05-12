@@ -3,13 +3,13 @@ import path from "node:path";
 
 const projectRoot = path.resolve(process.cwd());
 const distDir = path.join(projectRoot, "dist");
-const rootIndexHtml = path.join(projectRoot, "index.html");
-const esPagesDir = path.join(projectRoot, "es");
-const enPagesDir = path.join(projectRoot, "en");
+const srcPagesDir = path.join(projectRoot, "src", "pages");
 const srcDataDir = path.join(projectRoot, "src", "data");
 const srcJsDir = path.join(projectRoot, "src", "js");
 const srcConfigDir = path.join(projectRoot, "src", "config");
 const publicDir = path.join(projectRoot, "public");
+const rootCnameFile = path.join(projectRoot, "CNAME");
+const rootNoJekyllFile = path.join(projectRoot, ".nojekyll");
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -95,9 +95,7 @@ function copyHtmlDir(fromDir, toDir, { siteUrl } = {}) {
 }
 
 function copyPages({ siteUrl } = {}) {
-  if (fs.existsSync(rootIndexHtml)) fs.copyFileSync(rootIndexHtml, path.join(distDir, "index.html"));
-  copyHtmlDir(esPagesDir, path.join(distDir, "es"), { siteUrl });
-  copyHtmlDir(enPagesDir, path.join(distDir, "en"), { siteUrl });
+  copyHtmlDir(srcPagesDir, distDir, { siteUrl });
 }
 
 function listHtmlRelPaths(dir) {
@@ -159,6 +157,9 @@ copyDir(srcDataDir, path.join(distDir, "data"));
 copyDir(srcJsDir, path.join(distDir, "js"));
 copyDir(srcConfigDir, path.join(distDir, "config"));
 copyDir(publicDir, distDir);
+
+if (fs.existsSync(rootCnameFile)) fs.copyFileSync(rootCnameFile, path.join(distDir, "CNAME"));
+if (fs.existsSync(rootNoJekyllFile)) fs.copyFileSync(rootNoJekyllFile, path.join(distDir, ".nojekyll"));
 
 // These must be generated from config (so we don't depend on hardcoded files in /public).
 writeSitemapAndRobots({ siteUrl, manualPaths: manualSitemapPaths });

@@ -1,8 +1,9 @@
-const CACHE_NAME = "cousy-cache-v1";
+const CACHE_NAME = "cousy-cache-v2";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
   "./manifest.json",
+  "./manifest-ventas-gastos.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/apple-touch-icon.png",
@@ -11,6 +12,7 @@ const PRECACHE_URLS = [
   "./assets/logo-cousy.png",
   "./assets/logo-cousy.webp",
   "./es/index.html",
+  "./es/ventas-gastos-panel.html",
   "./es/tienda.html",
   "./es/cotizacion.html",
   "./es/nosotros.html",

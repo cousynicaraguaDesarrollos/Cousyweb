@@ -13,3 +13,6 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+
+# Apps Script local sources (do not publish to GitHub)
+dev-docs/apps-script/*.gs
