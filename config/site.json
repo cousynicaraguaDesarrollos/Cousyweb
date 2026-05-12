@@ -22,6 +22,9 @@
   ],
   "whatsappNumber": "50578545739",
   "whatsappGreeting": "¡Hola! ✨ Quiero una cotización de productos para mi empresa.",
+  "googleReviewsApiUrl": "https://script.google.com/macros/s/AKfycbx80GOA49H9VHB6ZhLTTMu6Og7__TL37m0PIPHv5Xar7AArnzRbtsbE0h5aTKxrtW1r/exec",
+  "googleReviewsPlaceId": "ChIJT9-dQ47_c48ReYqe68wQwYA",
+  "googleReviewsPublicToken": "s8JV0LKJVdpY8z7uXIKSk+kD2UgmxhsL7ANs44Au0a46V+s71M9Fbv6WxLd1Xw4g",
   "social": {
     "facebook": "https://www.facebook.com/cousynicaraguaoficial",
     "instagram": "https://www.instagram.com/cousynicaragua",

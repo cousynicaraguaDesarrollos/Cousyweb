@@ -352,10 +352,30 @@
       class="border-t border-black/5"
     ></footer>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHwkfqKMx7R0ICMmoaoHPdoQSJCdo8nFQ&libraries=places"></script>
     <script>
-      const PLACE_ID = 'ChIJT9-dQ47_c48ReYqe68wQwYA';
+      const DEFAULT_PLACE_ID = 'ChIJT9-dQ47_c48ReYqe68wQwYA';
+      const SITE_CONFIG_PATH = '../config/site.json';
       let cousyReviewsLoaded = false;
+      let siteConfigPromise = null;
+
+      function getSiteConfig() {
+        if (siteConfigPromise) {
+          return siteConfigPromise;
+        }
+
+        siteConfigPromise = fetch(SITE_CONFIG_PATH, { cache: 'no-store' })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('CONFIG_HTTP_' + response.status);
+            }
+            return response.json();
+          })
+          .catch(() => {
+            return {};
+          });
+
+        return siteConfigPromise;
+      }
 
       function escapeHtml(value) {
         return String(value)
@@ -429,86 +449,120 @@
         }
       }
 
-      function initReviews() {
+      async function fetchReviewsPayload() {
+        const siteConfig = await getSiteConfig();
+        const endpoint =
+          siteConfig && typeof siteConfig.googleReviewsApiUrl === 'string'
+            ? siteConfig.googleReviewsApiUrl.trim()
+            : '';
+        const placeId =
+          siteConfig && typeof siteConfig.googleReviewsPlaceId === 'string' && siteConfig.googleReviewsPlaceId.trim()
+            ? siteConfig.googleReviewsPlaceId.trim()
+            : DEFAULT_PLACE_ID;
+        const publicToken =
+          siteConfig && typeof siteConfig.googleReviewsPublicToken === 'string'
+            ? siteConfig.googleReviewsPublicToken.trim()
+            : '';
+
+        if (!endpoint) {
+          throw new Error('NO_REVIEWS_ENDPOINT');
+        }
+
+        const endpointUrl = new URL(endpoint);
+        endpointUrl.searchParams.set('placeId', placeId);
+        endpointUrl.searchParams.set('lang', 'es');
+        if (publicToken) {
+          endpointUrl.searchParams.set('token', publicToken);
+        }
+
+        const response = await fetch(endpointUrl.toString(), { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error('REVIEWS_HTTP_' + response.status);
+        }
+
+        const payload = await response.json();
+        if (!payload || payload.ok !== true || !Array.isArray(payload.reviews)) {
+          const apiError =
+            payload && typeof payload.error === 'string' && payload.error ? payload.error : 'INVALID_REVIEWS_PAYLOAD';
+          throw new Error(apiError);
+        }
+
+        return payload;
+      }
+
+      function renderReviewsFromPayload(payload) {
+        const reviewsContainer = document.getElementById('cousy-reviews');
+        if (!reviewsContainer) {
+          return;
+        }
+
+        const reviews = payload.reviews.filter((review) => {
+          return (
+            review &&
+            typeof review.text === 'string' &&
+            review.text.trim().length > 0 &&
+            typeof review.author_name === 'string' &&
+            review.author_name.trim().length > 0
+          );
+        });
+
+        if (reviews.length === 0) {
+          renderReviewsMessage('No se encontraron reseñas públicas para este negocio.');
+          renderHeroReviewMessage('No se encontraron reseñas públicas de Google para mostrar aquí.');
+          return;
+        }
+
+        applyHeroReview(reviews[0]);
+
+        let html = '';
+        reviews.forEach((review) => {
+          const rating = Math.max(0, Math.min(5, Number(review.rating) || 0));
+          const estrellas = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+          const textoResena = review.text ? escapeHtml(review.text.substring(0, 150)) : '';
+          const autor = escapeHtml(review.author_name || 'Cliente');
+          const fotoUrl = safeImageUrl(review.profile_photo_url);
+          const foto = fotoUrl
+            ? '<img src="' + fotoUrl + '" alt="Foto de perfil de ' + autor + '" class="review-avatar" loading="lazy" />'
+            : '<div class="review-avatar"></div>';
+
+          html +=
+            '<article class="review-card">' +
+            '<div>' +
+            '<div class="mb-3 flex items-center"><span class="review-stars">' +
+            estrellas +
+            '</span></div>' +
+            '<p class="review-text">"' +
+            textoResena +
+            '..."</p>' +
+            '</div>' +
+            '<div class="review-footer">' +
+            foto +
+            '<div><p class="review-author">' +
+            autor +
+            '</p></div>' +
+            '</div>' +
+            '</article>';
+        });
+
+        reviewsContainer.innerHTML = html;
+      }
+
+      async function initReviews() {
         if (cousyReviewsLoaded) {
           return;
         }
 
-        const mapShadow = document.getElementById('map-shadow');
         const reviewsContainer = document.getElementById('cousy-reviews');
-        if (!mapShadow || !reviewsContainer) {
-          return;
-        }
-
-        if (!window.google || !google.maps || !google.maps.places) {
-          renderReviewsMessage('Error en la carga del script de Google.');
-          renderHeroReviewMessage('No fue posible cargar la reseña real de Google.');
+        if (!reviewsContainer) {
           return;
         }
 
         try {
-          const service = new google.maps.places.PlacesService(mapShadow);
-          service.getDetails({ placeId: PLACE_ID, fields: ['reviews', 'rating'] }, (place, status) => {
-            if (status !== google.maps.places.PlacesServiceStatus.OK) {
-              renderReviewsMessage('Error de Google: ' + status + '. Verifica tu API Key y restricciones.');
-              renderHeroReviewMessage('No fue posible cargar la reseña real de Google.');
-              return;
-            }
-
-            if (place.reviews && place.reviews.length > 0) {
-              const heroReview = place.reviews.find((review) => {
-                return (
-                  typeof review.text === 'string' &&
-                  review.text.trim().length > 0 &&
-                  typeof review.author_name === 'string' &&
-                  review.author_name.trim().length > 0
-                );
-              });
-              if (heroReview) {
-                applyHeroReview(heroReview);
-              } else {
-                renderHeroReviewMessage('No hay una reseña de Google disponible en este momento.');
-              }
-
-              let html = '';
-              place.reviews.forEach((review) => {
-                const rating = Math.max(0, Math.min(5, Number(review.rating) || 0));
-                const estrellas = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-                const textoResena = review.text ? escapeHtml(review.text.substring(0, 150)) : '';
-                const autor = escapeHtml(review.author_name || 'Cliente');
-                const fotoUrl = safeImageUrl(review.profile_photo_url);
-                const foto = fotoUrl
-                  ? '<img src="' + fotoUrl + '" alt="Foto de perfil de ' + autor + '" class="review-avatar" loading="lazy" />'
-                  : '<div class="review-avatar"></div>';
-
-                html +=
-                  '<article class="review-card">' +
-                  '<div>' +
-                  '<div class="mb-3 flex items-center"><span class="review-stars">' +
-                  estrellas +
-                  '</span></div>' +
-                  '<p class="review-text">"' +
-                  textoResena +
-                  '..."</p>' +
-                  '</div>' +
-                  '<div class="review-footer">' +
-                  foto +
-                  '<div><p class="review-author">' +
-                  autor +
-                  '</p></div>' +
-                  '</div>' +
-                  '</article>';
-              });
-              reviewsContainer.innerHTML = html;
-            } else {
-              renderReviewsMessage('No se encontraron reseñas públicas para este negocio.');
-              renderHeroReviewMessage('No se encontraron reseñas públicas de Google para mostrar aquí.');
-            }
-
-            cousyReviewsLoaded = true;
-          });
-        } catch (error) {
-          renderReviewsMessage('Error en la carga del script de Google.');
+          const payload = await fetchReviewsPayload();
+          renderReviewsFromPayload(payload);
+          cousyReviewsLoaded = true;
+        } catch (_error) {
+          renderReviewsMessage('No fue posible cargar reseñas en este momento.');
           renderHeroReviewMessage('No fue posible cargar la reseña real de Google.');
         }
       }
