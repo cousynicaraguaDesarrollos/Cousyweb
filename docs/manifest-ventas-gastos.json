@@ -1,10 +1,10 @@
 {
-  "id": "/es/vg/vg.html?pwa=1",
+  "id": "/es/vg/?pwa=1",
   "name": "Ventas vs Gastos",
   "short_name": "Ventas/Gastos",
   "description": "Panel interno para registro y resumen de ventas y gastos de Cousy Nicaragua.",
   "lang": "es-NI",
-  "start_url": "./es/vg/vg.html",
+  "start_url": "./es/vg/",
   "scope": "./es/",
   "display": "standalone",
   "orientation": "portrait",
