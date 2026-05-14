@@ -8,13 +8,6 @@ const ROUTE_MAP = Object.freeze({
     sustainability: "es/sostenibilidad/",
     quote: "es/cotizacion/",
   }),
-  en: Object.freeze({
-    home: "en/",
-    store: "en/store/",
-    about: "en/about/",
-    sustainability: "en/sustainability/",
-    quote: "en/quote/",
-  }),
 });
 
 const VIEW_TRANSITION_CLASS = "is-view-transitioning";
@@ -96,7 +89,7 @@ function basePathPrefix() {
   }
 
   const segments = dirPath.split("/").filter(Boolean);
-  const langIndex = segments.findIndex((segment) => segment === "es" || segment === "en");
+  const langIndex = segments.findIndex((segment) => segment === "es");
   if (langIndex <= 0) return "";
 
   return `/${segments.slice(0, langIndex).join("/")}`;
@@ -259,8 +252,7 @@ async function registerServiceWorker() {
 }
 
 async function initLayout() {
-  const path = String(window.location?.pathname ?? "");
-  const lang = path.includes("/en/") ? "en" : "es";
+  const lang = "es";
 
   const header = document.querySelector("[data-site-header]");
   const footer = document.querySelector("[data-site-footer]");

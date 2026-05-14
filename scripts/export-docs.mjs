@@ -20,6 +20,37 @@ function removePath(targetPath) {
   fs.rmSync(targetPath, { recursive: true, force: true });
 }
 
+function normalizeSiteUrl(siteUrl) {
+  const raw = String(siteUrl ?? "").trim();
+  if (!raw) return "";
+  return raw.endsWith("/") ? raw.slice(0, -1) : raw;
+}
+
+function readPublishedSiteUrl() {
+  const siteConfigFile = path.join(docsDir, "config", "site.json");
+  if (!fs.existsSync(siteConfigFile)) return "";
+
+  try {
+    const config = JSON.parse(fs.readFileSync(siteConfigFile, "utf8"));
+    return normalizeSiteUrl(config?.siteUrl);
+  } catch {
+    return "";
+  }
+}
+
+function rewriteCanonical(filePath, canonicalUrl) {
+  if (!fs.existsSync(filePath) || !canonicalUrl) return;
+
+  const canonicalTag = `<link rel="canonical" href="${canonicalUrl}" />`;
+  const ogUrlTag = `<meta property="og:url" content="${canonicalUrl}" />`;
+  let html = fs.readFileSync(filePath, "utf8");
+
+  html = html.replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i, canonicalTag);
+  html = html.replace(/<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i, ogUrlTag);
+
+  fs.writeFileSync(filePath, html, "utf8");
+}
+
 function exportDistToDocs() {
   if (!fs.existsSync(distDir)) {
     console.error("No existe `dist/`. Ejecutá `npm run build` primero.");
@@ -72,6 +103,7 @@ function normalizeVentasGastosRoute() {
   const vgCompatFile = path.join(vgDir, "vg.html");
   const oldLegacyFile = path.join(esDir, "ventas-gastos-panel.html");
   const vgAliasFile = path.join(esDir, "vg.html");
+  const siteUrl = readPublishedSiteUrl();
 
   if (!fs.existsSync(oldIndex)) return;
 
@@ -90,6 +122,10 @@ function normalizeVentasGastosRoute() {
 
   const aliasTarget = relativeHref(vgAliasFile, vgIndexFile);
   fs.writeFileSync(vgAliasFile, buildRedirectHtml(aliasTarget), "utf8");
+
+  if (siteUrl) {
+    rewriteCanonical(vgIndexFile, `${siteUrl}/es/vg/`);
+  }
 }
 
 exportDistToDocs();

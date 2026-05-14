@@ -250,7 +250,7 @@ function writeSitemapAndRobots({ siteUrl, manualPaths = [] }) {
 
   const relHtml = listHtmlRelPaths(distDir)
     .map((p) => String(p).replaceAll("\\", "/"))
-    .filter((p) => p === "index.html" || p.startsWith("es/") || p.startsWith("en/"));
+    .filter((p) => p === "index.html" || p.startsWith("es/"));
 
   const indexable = relHtml.filter((rel) => {
     const full = path.join(distDir, rel);

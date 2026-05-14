@@ -1,4 +1,4 @@
-const CACHE_NAME = "cousy-cache-v11";
+const CACHE_NAME = "cousy-cache-v12";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -17,7 +17,6 @@ const PRECACHE_URLS = [
   "./es/cotizacion.html",
   "./es/nosotros.html",
   "./es/sostenibilidad.html",
-  "./en/index.html",
   "./js/layout.js",
   "./js/site.js",
   "./js/cart.js",
@@ -27,9 +26,7 @@ const PRECACHE_URLS = [
   "./config/site.json",
   "./data/products.json",
   "./partials/header-es.html",
-  "./partials/footer-es.html",
-  "./partials/header-en.html",
-  "./partials/footer-en.html"
+  "./partials/footer-es.html"
 ];
 
 async function preCache() {
@@ -82,8 +79,7 @@ async function networkFirst(request) {
       return cachedResponse;
     }
 
-    const fallbackUrl = request.url.includes("/en/") ? "./en/index.html" : "./es/index.html";
-    const fallbackResponse = await cache.match(fallbackUrl);
+    const fallbackResponse = await cache.match("./es/index.html");
     if (fallbackResponse) {
       return fallbackResponse;
     }

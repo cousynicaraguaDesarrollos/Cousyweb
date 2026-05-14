@@ -14,6 +14,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Cousy" />
+    <link rel="canonical" href="https://cousynicaragua.com/" />
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
     <style>
@@ -68,11 +69,6 @@
         gap: 12px;
         margin-top: 18px;
       }
-      @media (min-width: 640px) {
-        .grid {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
       .btn {
         display: flex;
         align-items: center;
@@ -112,15 +108,11 @@
           Armá tu lista de productos, definí cantidades y enviánosla por WhatsApp para cotizar rápido.
         </p>
 
-        <h2>Elegí tu idioma</h2>
+        <h2>Entrá al sitio</h2>
         <div class="grid" role="list">
           <a class="btn" role="listitem" href="./es/">
             <span>Español</span>
-            <span class="muted">LatAm</span>
-          </a>
-          <a class="btn" role="listitem" href="./en/">
-            <span>English</span>
-            <span class="muted">US/Global</span>
+            <span class="muted">Catálogo y cotización</span>
           </a>
         </div>
       </div>
@@ -139,20 +131,9 @@
     <script>
       (function () {
         var path = window.location.pathname || "";
-        var isAlreadyLang = path.indexOf("/es/") !== -1 || path.indexOf("/en/") !== -1;
-        if (isAlreadyLang) return;
-        var lang = (navigator.language || "").toLowerCase();
-        if (lang.indexOf("es") === 0) {
-          window.location.replace("./es/index.html");
-          return;
-        }
-        fetch("./en/index.html", { method: "HEAD" })
-          .then(function (res) {
-            window.location.replace(res && res.ok ? "./en/index.html" : "./es/index.html");
-          })
-          .catch(function () {
-            window.location.replace("./es/index.html");
-          });
+        var isSpanishRoute = path.indexOf("/es/") !== -1;
+        if (isSpanishRoute) return;
+        window.location.replace("./es/index.html" + window.location.search + window.location.hash);
       })();
     </script>
   </body>
