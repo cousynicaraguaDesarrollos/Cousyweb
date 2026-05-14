@@ -15,6 +15,7 @@ const PRECACHE_URLS = [
   "./es/vg/",
   "./es/tienda.html",
   "./es/cotizacion.html",
+  "./es/casos-de-exito.html",
   "./es/nosotros.html",
   "./es/sostenibilidad.html",
   "./js/layout.js",

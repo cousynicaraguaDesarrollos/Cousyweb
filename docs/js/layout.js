@@ -4,6 +4,7 @@ const ROUTE_MAP = Object.freeze({
   es: Object.freeze({
     home: "es/",
     store: "es/tienda/",
+    successCases: "es/casos-de-exito/",
     about: "es/nosotros/",
     sustainability: "es/sostenibilidad/",
     quote: "es/cotizacion/",
