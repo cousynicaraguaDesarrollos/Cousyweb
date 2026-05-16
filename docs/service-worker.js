@@ -1,4 +1,4 @@
-const CACHE_NAME = "cousy-cache-v13";
+const CACHE_NAME = "cousy-cache-v14";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -70,9 +70,7 @@ async function networkFirst(request) {
 
   try {
     const networkResponse = await fetch(request);
-    if (shouldCacheResponse(networkResponse)) {
-      cache.put(request, networkResponse.clone());
-    }
+    await safeCachePut(cache, request, networkResponse);
     return networkResponse;
   } catch (_error) {
     const cachedResponse = await cache.match(request);
@@ -94,10 +92,8 @@ async function staleWhileRevalidate(request) {
   const cachedResponse = await cache.match(request);
 
   const networkPromise = fetch(request)
-    .then((networkResponse) => {
-      if (shouldCacheResponse(networkResponse)) {
-        cache.put(request, networkResponse.clone());
-      }
+    .then(async (networkResponse) => {
+      await safeCachePut(cache, request, networkResponse);
       return networkResponse;
     })
     .catch(() => null);
@@ -125,21 +121,52 @@ function shouldCacheResponse(response) {
   return true;
 }
 
+async function safeCachePut(cache, request, response) {
+  if (!shouldCacheResponse(response)) return;
+  try {
+    await cache.put(request, response.clone());
+  } catch {
+    // noop: evita romper por respuestas no cacheables en navegadores estrictos.
+  }
+}
+
+function normalizeRequest(request) {
+  const url = new URL(request.url);
+  let pathname = url.pathname;
+
+  if (pathname.startsWith("/es/assets/")) {
+    pathname = pathname.replace("/es/assets/", "/assets/");
+  } else if (pathname.startsWith("/es/config/")) {
+    pathname = pathname.replace("/es/config/", "/config/");
+  }
+
+  if (pathname === url.pathname) return request;
+
+  const nextUrl = `${url.origin}${pathname}${url.search}`;
+  return new Request(nextUrl, request);
+}
+
 self.addEventListener("fetch", (event) => {
   const { request } = event;
   if (request.method !== "GET") {
     return;
   }
 
-  const url = new URL(request.url);
+  if (request.headers.has("range")) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
+  const normalizedRequest = normalizeRequest(request);
+  const url = new URL(normalizedRequest.url);
   if (url.origin !== self.location.origin) {
     return;
   }
 
-  if (request.mode === "navigate") {
-    event.respondWith(networkFirst(request));
+  if (normalizedRequest.mode === "navigate") {
+    event.respondWith(networkFirst(normalizedRequest));
     return;
   }
 
-  event.respondWith(staleWhileRevalidate(request));
+  event.respondWith(staleWhileRevalidate(normalizedRequest));
 });

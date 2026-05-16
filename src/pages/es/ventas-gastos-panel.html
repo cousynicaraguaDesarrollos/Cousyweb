@@ -275,16 +275,6 @@
     </main>
 
     <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", function () {
-          navigator.serviceWorker.register("../service-worker.js").catch(function (error) {
-            console.error("Service worker registration failed:", error);
-          });
-        });
-      }
-    </script>
-
-    <script>
       const WEB_APP_URL =
         "https://script.google.com/macros/s/AKfycbxsKfsQ--Y1h4ub-o3hoT6lladiHt389M6O4xgyHvS68XwAWchQI4DJ3qMfZ_4NotfuXQ/exec";
 
