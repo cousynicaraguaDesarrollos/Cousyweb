@@ -1,4 +1,4 @@
-const CACHE_NAME = "cousy-cache-v12";
+const CACHE_NAME = "cousy-cache-v13";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -70,7 +70,7 @@ async function networkFirst(request) {
 
   try {
     const networkResponse = await fetch(request);
-    if (networkResponse && networkResponse.ok) {
+    if (shouldCacheResponse(networkResponse)) {
       cache.put(request, networkResponse.clone());
     }
     return networkResponse;
@@ -95,7 +95,7 @@ async function staleWhileRevalidate(request) {
 
   const networkPromise = fetch(request)
     .then((networkResponse) => {
-      if (networkResponse && networkResponse.ok) {
+      if (shouldCacheResponse(networkResponse)) {
         cache.put(request, networkResponse.clone());
       }
       return networkResponse;
@@ -116,6 +116,13 @@ async function staleWhileRevalidate(request) {
   }
 
   return new Response("", { status: 504, statusText: "Offline" });
+}
+
+function shouldCacheResponse(response) {
+  if (!(response instanceof Response)) return false;
+  // Cache API no soporta respuestas parciales 206.
+  if (response.status !== 200) return false;
+  return true;
 }
 
 self.addEventListener("fetch", (event) => {

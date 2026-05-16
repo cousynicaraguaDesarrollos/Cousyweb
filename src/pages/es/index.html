@@ -11,6 +11,7 @@
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#ec1665" />
     <link rel="manifest" href="../manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Cousy" />
@@ -383,231 +384,242 @@
     ></footer>
 
     <script>
-      const DEFAULT_PLACE_ID = 'ChIJT9-dQ47_c48ReYqe68wQwYA';
-      const SITE_CONFIG_PATH = '../config/site.json';
-      let cousyReviewsLoaded = false;
-      let siteConfigPromise = null;
+      (() => {
+        const DEFAULT_PLACE_ID = 'ChIJT9-dQ47_c48ReYqe68wQwYA';
+        const SITE_CONFIG_PATH = resolveFromRoot('config/site.json');
+        let cousyReviewsLoaded = false;
+        let siteConfigPromise = null;
 
-      function getSiteConfig() {
-        if (siteConfigPromise) {
+        function resolveFromRoot(relPath) {
+          const cleaned = String(relPath).replace(/^\.?\//, '');
+          const pathname = String(window.location?.pathname ?? '/').replace(/\/+/g, '/');
+          let dirPath = pathname;
+
+          if (dirPath.endsWith('/')) {
+            // already a directory path
+          } else if (/\/[^/]+\.[a-z0-9]+$/i.test(dirPath)) {
+            dirPath = dirPath.replace(/\/[^/]+$/, '/');
+          } else {
+            dirPath = `${dirPath}/`;
+          }
+
+          const depth = dirPath.split('/').filter(Boolean).length;
+          const prefix = depth <= 0 ? '.' : Array(depth).fill('..').join('/');
+          return `${prefix}/${cleaned}`;
+        }
+
+        function getSiteConfig() {
+          if (siteConfigPromise) {
+            return siteConfigPromise;
+          }
+
+          siteConfigPromise = fetch(SITE_CONFIG_PATH, { cache: 'no-store' })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error('CONFIG_HTTP_' + response.status);
+              }
+              return response.json();
+            })
+            .catch(() => {
+              return {};
+            });
+
           return siteConfigPromise;
         }
 
-        siteConfigPromise = fetch(SITE_CONFIG_PATH, { cache: 'no-store' })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('CONFIG_HTTP_' + response.status);
-            }
-            return response.json();
-          })
-          .catch(() => {
-            return {};
-          });
+        function escapeHtml(value) {
+          return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+        }
 
-        return siteConfigPromise;
-      }
-
-      function escapeHtml(value) {
-        return String(value)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-      }
-
-      function safeImageUrl(value) {
-        if (typeof value !== 'string') {
+        function safeImageUrl(value) {
+          if (typeof value !== 'string') {
+            return '';
+          }
+          if (value.startsWith('https://') || value.startsWith('http://')) {
+            return value;
+          }
           return '';
         }
-        if (value.startsWith('https://') || value.startsWith('http://')) {
-          return value;
-        }
-        return '';
-      }
 
-      function renderReviewsMessage(message) {
-        const reviewsContainer = document.getElementById('cousy-reviews');
-        if (reviewsContainer) {
-          reviewsContainer.textContent = message;
-        }
-      }
-
-      function renderHeroReviewMessage(message) {
-        const heroText = document.getElementById('hero-google-review-text');
-        if (heroText) {
-          heroText.textContent = message;
-        }
-      }
-
-      function applyHeroReview(review) {
-        if (!review) {
-          return;
-        }
-
-        const heroStars = document.getElementById('hero-google-stars');
-        const heroText = document.getElementById('hero-google-review-text');
-        const heroAuthor = document.getElementById('hero-google-review-author');
-        const heroPhoto = document.getElementById('hero-google-review-photo');
-        if (!heroText || !heroAuthor) {
-          return;
-        }
-
-        const rawText = typeof review.text === 'string' ? review.text.trim() : '';
-        const rawAuthor = typeof review.author_name === 'string' ? review.author_name.trim() : '';
-        if (!rawText || !rawAuthor) {
-          return;
-        }
-
-        const rating = Math.max(0, Math.min(5, Number(review.rating) || 0));
-        const estrellas = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-        const clippedText = rawText.length > 220 ? rawText.slice(0, 220).trimEnd() + '...' : rawText;
-
-        if (heroStars) {
-          heroStars.textContent = estrellas;
-        }
-        heroText.textContent = '"' + clippedText + '"';
-        heroAuthor.textContent = rawAuthor;
-
-        if (heroPhoto) {
-          const photoUrl = safeImageUrl(review.profile_photo_url);
-          if (photoUrl) {
-            heroPhoto.src = photoUrl;
-            heroPhoto.alt = 'Foto de perfil de ' + rawAuthor;
-            heroPhoto.removeAttribute('aria-hidden');
+        function renderReviewsMessage(message) {
+          const reviewsContainer = document.getElementById('cousy-reviews');
+          if (reviewsContainer) {
+            reviewsContainer.textContent = message;
           }
         }
-      }
 
-      async function fetchReviewsPayload() {
-        const siteConfig = await getSiteConfig();
-        const endpoint =
-          siteConfig && typeof siteConfig.googleReviewsApiUrl === 'string'
-            ? siteConfig.googleReviewsApiUrl.trim()
-            : '';
-        const placeId =
-          siteConfig && typeof siteConfig.googleReviewsPlaceId === 'string' && siteConfig.googleReviewsPlaceId.trim()
-            ? siteConfig.googleReviewsPlaceId.trim()
-            : DEFAULT_PLACE_ID;
-        const publicToken =
-          siteConfig && typeof siteConfig.googleReviewsPublicToken === 'string'
-            ? siteConfig.googleReviewsPublicToken.trim()
-            : '';
-
-        if (!endpoint) {
-          throw new Error('NO_REVIEWS_ENDPOINT');
+        function renderHeroReviewMessage(message) {
+          const heroText = document.getElementById('hero-google-review-text');
+          if (heroText) {
+            heroText.textContent = message;
+          }
         }
 
-        const endpointUrl = new URL(endpoint);
-        endpointUrl.searchParams.set('placeId', placeId);
-        endpointUrl.searchParams.set('lang', 'es');
-        if (publicToken) {
-          endpointUrl.searchParams.set('token', publicToken);
-        }
+        function applyHeroReview(review) {
+          if (!review) {
+            return;
+          }
 
-        const response = await fetch(endpointUrl.toString(), { cache: 'no-store' });
-        if (!response.ok) {
-          throw new Error('REVIEWS_HTTP_' + response.status);
-        }
+          const heroStars = document.getElementById('hero-google-stars');
+          const heroText = document.getElementById('hero-google-review-text');
+          const heroAuthor = document.getElementById('hero-google-review-author');
+          const heroPhoto = document.getElementById('hero-google-review-photo');
+          if (!heroText || !heroAuthor) {
+            return;
+          }
 
-        const payload = await response.json();
-        if (!payload || payload.ok !== true || !Array.isArray(payload.reviews)) {
-          const apiError =
-            payload && typeof payload.error === 'string' && payload.error ? payload.error : 'INVALID_REVIEWS_PAYLOAD';
-          throw new Error(apiError);
-        }
+          const rawText = typeof review.text === 'string' ? review.text.trim() : '';
+          const rawAuthor = typeof review.author_name === 'string' ? review.author_name.trim() : '';
+          if (!rawText || !rawAuthor) {
+            return;
+          }
 
-        return payload;
-      }
-
-      function renderReviewsFromPayload(payload) {
-        const reviewsContainer = document.getElementById('cousy-reviews');
-        if (!reviewsContainer) {
-          return;
-        }
-
-        const reviews = payload.reviews.filter((review) => {
-          return (
-            review &&
-            typeof review.text === 'string' &&
-            review.text.trim().length > 0 &&
-            typeof review.author_name === 'string' &&
-            review.author_name.trim().length > 0
-          );
-        });
-
-        if (reviews.length === 0) {
-          renderReviewsMessage('No se encontraron reseñas públicas para este negocio.');
-          renderHeroReviewMessage('No se encontraron reseñas públicas de Google para mostrar aquí.');
-          return;
-        }
-
-        applyHeroReview(reviews[0]);
-
-        let html = '';
-        reviews.forEach((review) => {
           const rating = Math.max(0, Math.min(5, Number(review.rating) || 0));
           const estrellas = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-          const textoResena = review.text ? escapeHtml(review.text.substring(0, 150)) : '';
-          const autor = escapeHtml(review.author_name || 'Cliente');
-          const fotoUrl = safeImageUrl(review.profile_photo_url);
-          const foto = fotoUrl
-            ? '<img src="' + fotoUrl + '" alt="Foto de perfil de ' + autor + '" class="review-avatar" loading="lazy" />'
-            : '<div class="review-avatar"></div>';
+          const clippedText = rawText.length > 220 ? rawText.slice(0, 220).trimEnd() + '...' : rawText;
 
-          html +=
-            '<article class="review-card">' +
-            '<div>' +
-            '<div class="mb-3 flex items-center"><span class="review-stars">' +
-            estrellas +
-            '</span></div>' +
-            '<p class="review-text">"' +
-            textoResena +
-            '..."</p>' +
-            '</div>' +
-            '<div class="review-footer">' +
-            foto +
-            '<div><p class="review-author">' +
-            autor +
-            '</p></div>' +
-            '</div>' +
-            '</article>';
-        });
+          if (heroStars) {
+            heroStars.textContent = estrellas;
+          }
+          heroText.textContent = '"' + clippedText + '"';
+          heroAuthor.textContent = rawAuthor;
 
-        reviewsContainer.innerHTML = html;
-      }
-
-      async function initReviews() {
-        if (cousyReviewsLoaded) {
-          return;
+          if (heroPhoto) {
+            const photoUrl = safeImageUrl(review.profile_photo_url);
+            if (photoUrl) {
+              heroPhoto.src = photoUrl;
+              heroPhoto.alt = 'Foto de perfil de ' + rawAuthor;
+              heroPhoto.removeAttribute('aria-hidden');
+            }
+          }
         }
 
-        const reviewsContainer = document.getElementById('cousy-reviews');
-        if (!reviewsContainer) {
-          return;
+        async function fetchReviewsPayload() {
+          const siteConfig = await getSiteConfig();
+          const endpoint =
+            siteConfig && typeof siteConfig.googleReviewsApiUrl === 'string'
+              ? siteConfig.googleReviewsApiUrl.trim()
+              : '';
+          const placeId =
+            siteConfig && typeof siteConfig.googleReviewsPlaceId === 'string' && siteConfig.googleReviewsPlaceId.trim()
+              ? siteConfig.googleReviewsPlaceId.trim()
+              : DEFAULT_PLACE_ID;
+          const publicToken =
+            siteConfig && typeof siteConfig.googleReviewsPublicToken === 'string'
+              ? siteConfig.googleReviewsPublicToken.trim()
+              : '';
+
+          if (!endpoint) {
+            throw new Error('NO_REVIEWS_ENDPOINT');
+          }
+
+          const endpointUrl = new URL(endpoint);
+          endpointUrl.searchParams.set('placeId', placeId);
+          endpointUrl.searchParams.set('lang', 'es');
+          if (publicToken) {
+            endpointUrl.searchParams.set('token', publicToken);
+          }
+
+          const response = await fetch(endpointUrl.toString(), { cache: 'no-store' });
+          if (!response.ok) {
+            throw new Error('REVIEWS_HTTP_' + response.status);
+          }
+
+          const payload = await response.json();
+          if (!payload || payload.ok !== true || !Array.isArray(payload.reviews)) {
+            const apiError =
+              payload && typeof payload.error === 'string' && payload.error ? payload.error : 'INVALID_REVIEWS_PAYLOAD';
+            throw new Error(apiError);
+          }
+
+          return payload;
         }
 
-        try {
-          const payload = await fetchReviewsPayload();
-          renderReviewsFromPayload(payload);
-          cousyReviewsLoaded = true;
-        } catch (_error) {
-          renderReviewsMessage('No fue posible cargar reseñas en este momento.');
-          renderHeroReviewMessage('No fue posible cargar la reseña real de Google.');
-        }
-      }
+        function renderReviewsFromPayload(payload) {
+          const reviewsContainer = document.getElementById('cousy-reviews');
+          if (!reviewsContainer) {
+            return;
+          }
 
-      window.addEventListener('load', initReviews);
-      document.addEventListener('turbo:load', initReviews);
-    </script>
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", function () {
-          navigator.serviceWorker.register("../service-worker.js").catch(function (error) {
-            console.error("Service worker registration failed:", error);
+          const reviews = payload.reviews.filter((review) => {
+            return (
+              review &&
+              typeof review.text === 'string' &&
+              review.text.trim().length > 0 &&
+              typeof review.author_name === 'string' &&
+              review.author_name.trim().length > 0
+            );
           });
-        });
-      }
+
+          if (reviews.length === 0) {
+            renderReviewsMessage('No se encontraron reseñas públicas para este negocio.');
+            renderHeroReviewMessage('No se encontraron reseñas públicas de Google para mostrar aquí.');
+            return;
+          }
+
+          applyHeroReview(reviews[0]);
+
+          let html = '';
+          reviews.forEach((review) => {
+            const rating = Math.max(0, Math.min(5, Number(review.rating) || 0));
+            const estrellas = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+            const textoResena = review.text ? escapeHtml(review.text.substring(0, 150)) : '';
+            const autor = escapeHtml(review.author_name || 'Cliente');
+            const fotoUrl = safeImageUrl(review.profile_photo_url);
+            const foto = fotoUrl
+              ? '<img src="' + fotoUrl + '" alt="Foto de perfil de ' + autor + '" class="review-avatar" loading="lazy" />'
+              : '<div class="review-avatar"></div>';
+
+            html +=
+              '<article class="review-card">' +
+              '<div>' +
+              '<div class="mb-3 flex items-center"><span class="review-stars">' +
+              estrellas +
+              '</span></div>' +
+              '<p class="review-text">"' +
+              textoResena +
+              '..."</p>' +
+              '</div>' +
+              '<div class="review-footer">' +
+              foto +
+              '<div><p class="review-author">' +
+              autor +
+              '</p></div>' +
+              '</div>' +
+              '</article>';
+          });
+
+          reviewsContainer.innerHTML = html;
+        }
+
+        async function initReviews() {
+          if (cousyReviewsLoaded) {
+            return;
+          }
+
+          const reviewsContainer = document.getElementById('cousy-reviews');
+          if (!reviewsContainer) {
+            return;
+          }
+
+          try {
+            const payload = await fetchReviewsPayload();
+            renderReviewsFromPayload(payload);
+            cousyReviewsLoaded = true;
+          } catch (_error) {
+            renderReviewsMessage('No fue posible cargar reseñas en este momento.');
+            renderHeroReviewMessage('No fue posible cargar la reseña real de Google.');
+          }
+        }
+
+        window.addEventListener('load', initReviews);
+        document.addEventListener('turbo:load', initReviews);
+      })();
     </script>
     <script type="module" src="../js/layout.js"></script>
     <script type="module" src="../js/site.js"></script>
