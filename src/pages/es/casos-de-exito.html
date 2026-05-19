@@ -432,21 +432,21 @@
         </p>
 
         <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <div class="rounded-2xl bg-[#dde0e1] p-4">
-            <p class="text-xs font-semibold uppercase tracking-[0.12em] text-black/60">Pedidos corporativos</p>
-            <p class="mt-2 text-2xl font-extrabold text-brand-ink">+120</p>
+          <div class="rounded-2xl bg-[#73a35a] p-4">
+            <p class="text-xs font-semibold uppercase tracking-[0.12em] text-white/85">Pedidos corporativos</p>
+            <p class="mt-2 text-2xl font-extrabold text-white">+120</p>
           </div>
-          <div class="rounded-2xl bg-[#dde0e1] p-4">
-            <p class="text-xs font-semibold uppercase tracking-[0.12em] text-black/60">Sectores atendidos</p>
-            <p class="mt-2 text-2xl font-extrabold text-brand-ink">6+</p>
+          <div class="rounded-2xl bg-[#73a35a] p-4">
+            <p class="text-xs font-semibold uppercase tracking-[0.12em] text-white/85">Sectores atendidos</p>
+            <p class="mt-2 text-2xl font-extrabold text-white">6+</p>
           </div>
-          <div class="rounded-2xl bg-[#dde0e1] p-4">
-            <p class="text-xs font-semibold uppercase tracking-[0.12em] text-black/60">Cobertura</p>
-            <p class="mt-2 text-2xl font-extrabold text-brand-ink">Nicaragua + exportación</p>
+          <div class="rounded-2xl bg-[#73a35a] p-4">
+            <p class="text-xs font-semibold uppercase tracking-[0.12em] text-white/85">Cobertura</p>
+            <p class="mt-2 text-2xl font-extrabold text-white">Nicaragua + exportación</p>
           </div>
-          <div class="rounded-2xl bg-[#dde0e1] p-4">
-            <p class="text-xs font-semibold uppercase tracking-[0.12em] text-black/60">Modelo</p>
-            <p class="mt-2 text-2xl font-extrabold text-brand-ink">Producción por lote</p>
+          <div class="rounded-2xl bg-[#73a35a] p-4">
+            <p class="text-xs font-semibold uppercase tracking-[0.12em] text-white/85">Modelo</p>
+            <p class="mt-2 text-2xl font-extrabold text-white">Producción por lote</p>
           </div>
         </div>
 
@@ -1040,6 +1040,18 @@
                   />
                 </label>
                 <label class="block">
+                  <span class="text-[11px] font-medium uppercase tracking-[0.14em] text-black/55">Número de teléfono</span>
+                  <input
+                    id="catalogo-telefono"
+                    name="telefono"
+                    type="tel"
+                    required
+                    autocomplete="tel"
+                    inputmode="tel"
+                    class="mt-1.5 w-full rounded-xl border border-black/15 bg-[#fcfcfc] px-4 py-3 text-sm text-brand-ink outline-none transition focus:border-brand-accent focus:bg-white"
+                  />
+                </label>
+                <label class="block">
                   <span class="text-[11px] font-medium uppercase tracking-[0.14em] text-black/55">RUC</span>
                   <input
                     id="catalogo-ruc"
@@ -1065,7 +1077,7 @@
                     id="catalogo-download-btn"
                     type="submit"
                     disabled
-                    class="inline-flex h-11 w-full items-center justify-center rounded-xl bg-brand-accent px-5 text-sm font-semibold text-white transition hover:brightness-95 active:brightness-90 disabled:cursor-not-allowed disabled:opacity-50"
+                    class="inline-flex h-11 w-full items-center justify-center rounded-xl bg-[#ec1665] px-5 text-sm font-semibold text-white transition hover:brightness-95 active:brightness-90 disabled:cursor-not-allowed"
                   >
                     Descargar catálogo corporativo
                   </button>
@@ -1278,7 +1290,9 @@
 
           const requiredInputs = Array.from(form.querySelectorAll('input[required]'));
           const emailInput = form.querySelector('#catalogo-correo');
+          const phoneInput = form.querySelector('#catalogo-telefono');
           const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          const phonePattern = /^[0-9+\-() ]{8,}$/;
 
           function isFieldValid(input) {
             if (!(input instanceof HTMLInputElement)) {
@@ -1291,11 +1305,16 @@
             if (input === emailInput) {
               return emailPattern.test(value);
             }
+            if (input === phoneInput) {
+              return phonePattern.test(value);
+            }
             return true;
           }
 
           function refreshFormState() {
-            submitButton.disabled = !requiredInputs.every(isFieldValid);
+            const isFormValid = requiredInputs.every(isFieldValid);
+            submitButton.disabled = !isFormValid;
+            submitButton.style.backgroundColor = isFormValid ? '#73a35a' : '#ec1665';
           }
 
           requiredInputs.forEach((input) => {
