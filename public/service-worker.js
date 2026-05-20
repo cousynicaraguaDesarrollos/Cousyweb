@@ -1,4 +1,4 @@
-const CACHE_NAME = "cousy-cache-v16";
+const CACHE_NAME = "cousy-cache-v17";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -146,54 +146,9 @@ function normalizeRequest(request) {
   return new Request(nextUrl, request);
 }
 
-function isTurboCdnRequest(url) {
-  return (
-    url.hostname === "cdn.jsdelivr.net" &&
-    url.pathname.includes("/@hotwired/turbo/") &&
-    url.pathname.endsWith("/dist/turbo.es2017-umd.js")
-  );
-}
-
-function turboShimResponse() {
-  const source = `(() => {
-  if (window.Turbo && typeof window.Turbo === "object") return;
-  const Turbo = {
-    session: { drive: false },
-    start() {},
-    visit(url) {
-      if (typeof url === "string" && url) window.location.href = url;
-    }
-  };
-  window.Turbo = Turbo;
-  const emitLoad = () => {
-    document.dispatchEvent(new CustomEvent("turbo:load", { detail: { url: window.location.href } }));
-  };
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", emitLoad, { once: true });
-  } else {
-    queueMicrotask(emitLoad);
-  }
-  window.addEventListener("pageshow", emitLoad);
-})();`;
-
-  return new Response(source, {
-    status: 200,
-    headers: {
-      "content-type": "application/javascript; charset=utf-8",
-      "cache-control": "public, max-age=31536000, immutable"
-    }
-  });
-}
-
 self.addEventListener("fetch", (event) => {
   const { request } = event;
   if (request.method !== "GET") {
-    return;
-  }
-
-  const rawUrl = new URL(request.url);
-  if (isTurboCdnRequest(rawUrl)) {
-    event.respondWith(turboShimResponse());
     return;
   }
 
