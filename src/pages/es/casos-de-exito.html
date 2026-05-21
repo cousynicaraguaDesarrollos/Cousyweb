@@ -253,6 +253,64 @@
           animation: none;
         }
       }
+
+      .cde-masonry-window {
+        margin-top: 1.25rem;
+        height: 500px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border-radius: 1rem;
+        overscroll-behavior: contain;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .cde-masonry-window::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+
+      .cde-masonry-grid {
+        column-count: 2;
+        column-gap: 0.75rem;
+      }
+
+      .cde-masonry-item {
+        break-inside: avoid;
+        margin: 0 0 0.75rem;
+        overflow: hidden;
+        border-radius: 1rem;
+        border: 1px solid rgba(17, 24, 39, 0.08);
+        background: #ffffff;
+      }
+
+      .cde-masonry-item img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      @media (min-width: 768px) {
+        .cde-masonry-grid {
+          column-count: 3;
+          column-gap: 1rem;
+        }
+
+        .cde-masonry-item {
+          margin-bottom: 1rem;
+        }
+      }
+
+      @media (min-width: 1280px) {
+        .cde-masonry-grid {
+          column-count: 4;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .cde-masonry-window {
+          overflow-y: auto;
+        }
+      }
     </style>
     <script
       src="https://cdn.jsdelivr.net/npm/@hotwired/turbo/dist/turbo.es2017-umd.js"
@@ -479,515 +537,15 @@
         </div>
       </section>
 
-      <section class="cde-content pb-10 sm:pb-14">
-        <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">Collage de proyectos corporativos</h2>
-        <p class="mt-3 text-base leading-relaxed text-black/70 sm:text-lg">
-          Producciones reales para clientes corporativos en Nicaragua, con personalización por lote y acabados de marca.
-        </p>
-        <div class="cde-collage-grid mt-5">
-          <div class="cde-collage-column">
-            <div class="cde-collage-track">
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/estuche-remitly-corporativo.webp"
-                  alt="Estuche corporativo personalizado para Remitly en lona natural con cierre azul y asa"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolso-cilindrico-lona-natural.webp"
-                  alt="Bolso cilíndrico en lona natural con detalles de semicuero para regalo corporativo"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/capibara-set-amarillo-rosa.webp"
-                  alt="Set infantil color amarillo y rosa personalizado con diseño de capibara"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/set-infantil-gatito-celeste.webp"
-                  alt="Set infantil celeste personalizado con ilustración de gatito"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/lapiceras-personalizadas-amarillas.webp"
-                  alt="Lapiceras personalizadas en lona amarilla para obsequios escolares"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolso-deportivo-mundo-digital.webp"
-                  alt="Bolso deportivo personalizado para marca Mundo Digital con correas azules"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/tote-regala-local-maria.webp"
-                  alt="Bolsa tipo tote personalizada con mensaje Regala calidad regala local"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/estuche-remitly-corporativo.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolso-cilindrico-lona-natural.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/capibara-set-amarillo-rosa.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/set-infantil-gatito-celeste.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/lapiceras-personalizadas-amarillas.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolso-deportivo-mundo-digital.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/tote-regala-local-maria.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-            </div>
-          </div>
-
-          <div class="cde-collage-column">
-            <div class="cde-collage-track cde-collage-track--two">
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/kits-apotex-crea-conecta.webp"
-                  alt="Lote de bolsas personalizadas para activación de marca Apotex Crea y Conecta"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolso-people-managers-remitly.webp"
-                  alt="Bolso cilíndrico corporativo People Managers by Remitly con correas azules"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolsa-conejo-rosa-mayorista.webp"
-                  alt="Bolsa infantil en tonos rosa con orejas y personalización para pedidos mayoristas"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/tote-cafe-alicia.webp"
-                  alt="Tote bag personalizada para Cafe Alicia con diseño ecológico"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/tote-inmaculada-azul.webp"
-                  alt="Tote bags personalizadas con impresión religiosa en tonos azules"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/carteras-semicuero-corporativas.webp"
-                  alt="Carteras corporativas en lona natural y semicuero con personalización de nombres"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/estuches-lona-abc-stereo.webp"
-                  alt="Estuches promocionales en lona natural personalizados para ABC Stereo"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/kits-apotex-crea-conecta.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolso-people-managers-remitly.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolsa-conejo-rosa-mayorista.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/tote-cafe-alicia.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/tote-inmaculada-azul.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/carteras-semicuero-corporativas.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/estuches-lona-abc-stereo.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-            </div>
-          </div>
-
-          <div class="cde-collage-column">
-            <div class="cde-collage-track cde-collage-track--three">
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolso-deportivo-rhythms.webp"
-                  alt="Bolso deportivo promocional personalizado para marca Rhythms"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/tote-y-estuche-el-poder-en-vos.webp"
-                  alt="Tote bag y estuche promocional personalizados con diseño El poder empieza en vos"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/carpeta-semicuero-ecologica.webp"
-                  alt="Carpeta ejecutiva en semicuero para regalos corporativos sostenibles"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/mochila-cocatram-textil-sostenible.webp"
-                  alt="Mochila tipo saco en lona natural personalizada para COCATRAM"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/coleccion-capibara-amarilla.webp"
-                  alt="Colección capibara con mochila y bolso personalizados en amarillo y rosa"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolsa-hangover-recovery-kit.webp"
-                  alt="Bolsa tipo pouch personalizada para kits de recuperación de eventos"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/saco-navideno-personalizado.webp"
-                  alt="Saco navideño personalizado para empaque de regalos"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolso-deportivo-rhythms.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/tote-y-estuche-el-poder-en-vos.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/carpeta-semicuero-ecologica.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/mochila-cocatram-textil-sostenible.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/coleccion-capibara-amarilla.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolsa-hangover-recovery-kit.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/saco-navideno-personalizado.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-            </div>
-          </div>
-
-          <div class="cde-collage-column">
-            <div class="cde-collage-track cde-collage-track--four">
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/kit-managua-personalizado-azul.webp"
-                  alt="Set de bolsas personalizadas en tonos azul y blanco para kit corporativo en Managua"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/tote-amarillo-cree-todo-es-posible.webp"
-                  alt="Tote bag amarillo con estuches personalizados para campaña motivacional"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/set-azul-child-of-god.webp"
-                  alt="Set de tote y accesorios azules personalizados con frase Child of God"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolsas-llansa-ingenieria.webp"
-                  alt="Bolsas promocionales personalizadas para Llansa Ingeniería con tirantes rojos"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/empaque-navideno-ecologico.webp"
-                  alt="Empaque navideño ecológico en lona para regalos personalizados"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/funda-vino-navidena.webp"
-                  alt="Funda navideña para botella de vino con lazo decorativo"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/kit-managua-personalizado-azul.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/tote-amarillo-cree-todo-es-posible.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/set-azul-child-of-god.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/bolsas-llansa-ingenieria.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/empaque-navideno-ecologico.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-              <figure class="cde-collage-item" aria-hidden="true">
-                <img
-                  class="h-auto max-w-full rounded-base"
-                  src="../assets/casos-exito-collage/funda-vino-navidena.webp"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
+      <section class="cde-content pb-12 sm:pb-16">
+        <div class="rounded-2xl bg-white p-5 ring-1 ring-black/5 sm:p-6">
+          <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">Galería de proyectos corporativos</h2>
+          <p class="mt-3 text-base leading-relaxed text-black/70 sm:text-lg">
+            Producciones reales para clientes corporativos en Nicaragua, con personalización por lote y acabados de marca.
+          </p>
+          <div class="cde-masonry-window" aria-live="polite">
+            <div id="cde-masonry-gallery" class="cde-masonry-grid">
+              <p class="text-sm text-black/60">Cargando galería masonry...</p>
             </div>
           </div>
         </div>
@@ -1093,7 +651,8 @@
           </aside>
         </div>
       </section>
-    </main>
+
+</main>
 
     <footer
       id="site-footer-es"
@@ -1153,6 +712,239 @@
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
+        }
+
+        let masonryAutoScrollRaf = 0;
+        let masonryAutoScrollTarget = null;
+        let masonryAutoScrollLastTs = 0;
+        let masonryAutoScrollSpeed = 0;
+        let masonryAutoScrollPaused = false;
+        let masonryAutoScrollVisibilityBound = false;
+        let masonryAutoScrollRetryTimer = 0;
+
+        function stopMasonryAutoScroll() {
+          if (masonryAutoScrollRaf) {
+            window.cancelAnimationFrame(masonryAutoScrollRaf);
+            masonryAutoScrollRaf = 0;
+          }
+          if (masonryAutoScrollRetryTimer) {
+            window.clearTimeout(masonryAutoScrollRetryTimer);
+            masonryAutoScrollRetryTimer = 0;
+          }
+          masonryAutoScrollLastTs = 0;
+        }
+
+        function masonryAutoScrollStep(timestamp) {
+          if (!masonryAutoScrollTarget || masonryAutoScrollPaused) {
+            return;
+          }
+
+          const maxScroll = Math.max(0, masonryAutoScrollTarget.scrollHeight - masonryAutoScrollTarget.clientHeight);
+          if (maxScroll <= 0) {
+            stopMasonryAutoScroll();
+            return;
+          }
+
+          if (!masonryAutoScrollLastTs) {
+            masonryAutoScrollLastTs = timestamp;
+          }
+
+          const elapsedSeconds = (timestamp - masonryAutoScrollLastTs) / 1000;
+          masonryAutoScrollLastTs = timestamp;
+          masonryAutoScrollTarget.scrollTop += masonryAutoScrollSpeed * elapsedSeconds;
+
+          if (masonryAutoScrollTarget.scrollTop >= maxScroll) {
+            masonryAutoScrollTarget.scrollTop = 0;
+          }
+
+          masonryAutoScrollRaf = window.requestAnimationFrame(masonryAutoScrollStep);
+        }
+
+        function startMasonryAutoScroll(masonryWindow, itemCount, attempt = 0) {
+          if (!masonryWindow) {
+            return;
+          }
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return;
+          }
+
+          const maxScroll = Math.max(0, masonryWindow.scrollHeight - masonryWindow.clientHeight);
+          if (maxScroll <= 0) {
+            if (attempt < 60) {
+              if (masonryAutoScrollRetryTimer) {
+                window.clearTimeout(masonryAutoScrollRetryTimer);
+              }
+              const waitMs = Math.min(1200, 120 + attempt * 60);
+              masonryAutoScrollRetryTimer = window.setTimeout(() => {
+                startMasonryAutoScroll(masonryWindow, itemCount, attempt + 1);
+              }, waitMs);
+            }
+            return;
+          }
+
+          if (masonryAutoScrollRetryTimer) {
+            window.clearTimeout(masonryAutoScrollRetryTimer);
+            masonryAutoScrollRetryTimer = 0;
+          }
+
+          stopMasonryAutoScroll();
+          masonryAutoScrollTarget = masonryWindow;
+          masonryAutoScrollPaused = false;
+          masonryAutoScrollSpeed = Math.max(28, Math.min(72, Math.round(itemCount * 0.8)));
+          masonryAutoScrollRaf = window.requestAnimationFrame(masonryAutoScrollStep);
+
+          if (!masonryWindow.dataset.masonryHoverBound) {
+            masonryWindow.addEventListener('mouseenter', () => {
+              masonryAutoScrollPaused = true;
+              stopMasonryAutoScroll();
+            });
+            masonryWindow.addEventListener('mouseleave', () => {
+              masonryAutoScrollPaused = false;
+              stopMasonryAutoScroll();
+              masonryAutoScrollRaf = window.requestAnimationFrame(masonryAutoScrollStep);
+            });
+            masonryWindow.dataset.masonryHoverBound = '1';
+          }
+
+          if (!masonryAutoScrollVisibilityBound) {
+            document.addEventListener('visibilitychange', () => {
+              if (document.hidden) {
+                stopMasonryAutoScroll();
+                return;
+              }
+              if (!masonryAutoScrollTarget || masonryAutoScrollPaused) {
+                return;
+              }
+              stopMasonryAutoScroll();
+              masonryAutoScrollRaf = window.requestAnimationFrame(masonryAutoScrollStep);
+            });
+            masonryAutoScrollVisibilityBound = true;
+          }
+        }
+
+        function initMasonryGallery() {
+          const galleryContainer = document.getElementById('cde-masonry-gallery');
+          if (!galleryContainer) {
+            return;
+          }
+          const masonryWindow = galleryContainer.closest('.cde-masonry-window');
+          if (galleryContainer.dataset.masonryInit === '1') {
+            if (masonryWindow) {
+              startMasonryAutoScroll(masonryWindow, galleryContainer.children.length || 1);
+            }
+            return;
+          }
+          const masonryItems = [
+            { src: '../assets/casos-exito-collage/estuche-remitly-corporativo.webp', alt: 'Estuche corporativo personalizado para Remitly en lona natural con cierre azul y asa' },
+            { src: '../assets/casos-exito-collage/bolso-cilindrico-lona-natural.webp', alt: 'Bolso cilíndrico en lona natural con detalles de semicuero para regalo corporativo' },
+            { src: '../assets/casos-exito-collage/capibara-set-amarillo-rosa.webp', alt: 'Set infantil color amarillo y rosa personalizado con diseño de capibara' },
+            { src: '../assets/casos-exito-collage/set-infantil-gatito-celeste.webp', alt: 'Set infantil celeste personalizado con ilustración de gatito' },
+            { src: '../assets/casos-exito-collage/lapiceras-personalizadas-amarillas.webp', alt: 'Lapiceras personalizadas en lona amarilla para obsequios escolares' },
+            { src: '../assets/casos-exito-collage/bolso-deportivo-mundo-digital.webp', alt: 'Bolso deportivo personalizado para marca Mundo Digital con correas azules' },
+            { src: '../assets/casos-exito-collage/tote-regala-local-maria.webp', alt: 'Bolsa tipo tote personalizada con mensaje Regala calidad regala local' },
+            { src: '../assets/casos-exito-collage/kits-apotex-crea-conecta.webp', alt: 'Lote de bolsas personalizadas para activación de marca Apotex Crea y Conecta' },
+            { src: '../assets/casos-exito-collage/bolso-people-managers-remitly.webp', alt: 'Bolso cilíndrico corporativo People Managers by Remitly con correas azules' },
+            { src: '../assets/casos-exito-collage/bolsa-conejo-rosa-mayorista.webp', alt: 'Bolsa infantil en tonos rosa con orejas y personalización para pedidos mayoristas' },
+            { src: '../assets/casos-exito-collage/tote-cafe-alicia.webp', alt: 'Tote bag personalizada para Cafe Alicia con diseño ecológico' },
+            { src: '../assets/casos-exito-collage/tote-inmaculada-azul.webp', alt: 'Tote bags personalizadas con impresión religiosa en tonos azules' },
+            { src: '../assets/casos-exito-collage/carteras-semicuero-corporativas.webp', alt: 'Carteras corporativas en lona natural y semicuero con personalización de nombres' },
+            { src: '../assets/casos-exito-collage/estuches-lona-abc-stereo.webp', alt: 'Estuches promocionales en lona natural personalizados para ABC Stereo' },
+            { src: '../assets/casos-exito-collage/bolso-deportivo-rhythms.webp', alt: 'Bolso deportivo promocional personalizado para marca Rhythms' },
+            { src: '../assets/casos-exito-collage/tote-y-estuche-el-poder-en-vos.webp', alt: 'Tote bag y estuche promocional personalizados con diseño El poder empieza en vos' },
+            { src: '../assets/casos-exito-collage/carpeta-semicuero-ecologica.webp', alt: 'Carpeta ejecutiva en semicuero para regalos corporativos sostenibles' },
+            { src: '../assets/casos-exito-collage/mochila-cocatram-textil-sostenible.webp', alt: 'Mochila tipo saco en lona natural personalizada para COCATRAM' },
+            { src: '../assets/casos-exito-collage/coleccion-capibara-amarilla.webp', alt: 'Colección capibara con mochila y bolso personalizados en amarillo y rosa' },
+            { src: '../assets/casos-exito-collage/bolsa-hangover-recovery-kit.webp', alt: 'Bolsa tipo pouch personalizada para kits de recuperación de eventos' },
+            { src: '../assets/casos-exito-collage/saco-navideno-personalizado.webp', alt: 'Saco navideño personalizado para empaque de regalos' },
+            { src: '../assets/casos-exito-collage/kit-managua-personalizado-azul.webp', alt: 'Set de bolsas personalizadas en tonos azul y blanco para kit corporativo en Managua' },
+            { src: '../assets/casos-exito-collage/tote-amarillo-cree-todo-es-posible.webp', alt: 'Tote bag amarillo con estuches personalizados para campaña motivacional' },
+            { src: '../assets/casos-exito-collage/set-azul-child-of-god.webp', alt: 'Set de tote y accesorios azules personalizados con frase Child of God' },
+            { src: '../assets/casos-exito-collage/bolsas-llansa-ingenieria.webp', alt: 'Bolsas promocionales personalizadas para Llansa Ingeniería con tirantes rojos' },
+            { src: '../assets/casos-exito-collage/empaque-navideno-ecologico.webp', alt: 'Empaque navideño ecológico en lona para regalos personalizados' },
+            { src: '../assets/casos-exito-collage/funda-vino-navidena.webp', alt: 'Funda navideña para botella de vino con lazo decorativo' },
+            { src: '../assets/casos-exito-collage/mochila-conejo-floral-lona-natural.webp', alt: 'Mochila infantil de lona natural con diseño de conejito y flores rosadas' },
+            { src: '../assets/casos-exito-collage/mochila-azul-enicaragua-personalizada.webp', alt: 'Mochila azul personalizada para ENICARAGUA con estampado corporativo' },
+            { src: '../assets/casos-exito-collage/set-tote-rojo-y-neceser-crudo.webp', alt: 'Set promocional con tote rojo y neceser color crudo' },
+            { src: '../assets/casos-exito-collage/set-infantil-perrito-amarillo.webp', alt: 'Set infantil amarillo personalizado con diseño de perrito' },
+            { src: '../assets/casos-exito-collage/loncheras-celestes-best-mom.webp', alt: 'Dos loncheras celestes personalizadas con mensaje best mom' },
+            { src: '../assets/casos-exito-collage/carpeta-y-neceser-corporativo-naranja.webp', alt: 'Carpeta corporativa naranja junto a neceser crudo personalizado' },
+            { src: '../assets/casos-exito-collage/funda-lentes-lona-natural.webp', alt: 'Funda de lentes en lona natural con ilustración minimalista' },
+            { src: '../assets/casos-exito-collage/kit-totes-rojas-y-neceseres-crudos.webp', alt: 'Kit con tote bags rojas y neceseres crudos personalizados' },
+            { src: '../assets/casos-exito-collage/mochila-corporativa-loto-cruda.webp', alt: 'Mochila corporativa en lona cruda con logo de Loto' },
+            { src: '../assets/casos-exito-collage/bolsos-crudos-frases-florales-fucsia.webp', alt: 'Bolsos crudos con correas fucsias y frases florales personalizadas' },
+            { src: '../assets/casos-exito-collage/estuches-solapa-camel-personalizados.webp', alt: 'Estuches en lona cruda con solapa color camel y nombres personalizados' },
+            { src: '../assets/casos-exito-collage/bolso-mensajero-lona-cruda-hebilla.webp', alt: 'Bolso mensajero en lona cruda con hebilla frontal negra' },
+            { src: '../assets/casos-exito-collage/tote-loto-ilustrado-frutas.webp', alt: 'Tote personalizado para Loto con ilustraciones de frutas' },
+            { src: '../assets/casos-exito-collage/set-infantil-gatito-celeste-rosa.webp', alt: 'Set infantil celeste y rosa con ilustraciones de gatito' },
+            { src: '../assets/casos-exito-collage/set-infantil-helado-azul.webp', alt: 'Set infantil en lona cruda con diseño de helado y correas azules' },
+            { src: '../assets/casos-exito-collage/cartucheras-escolares-personalizadas-azules.webp', alt: 'Cartucheras escolares personalizadas con nombres y cierre azul' },
+            { src: '../assets/casos-exito-collage/cartucheras-moradas-loto-fila.webp', alt: 'Fila de cartucheras moradas personalizadas para Loto' },
+            { src: '../assets/casos-exito-collage/cartucheras-moradas-loto-logo.webp', alt: 'Cartucheras moradas con logo Loto Cambiando Vidas' },
+            { src: '../assets/casos-exito-collage/mochila-amarilla-princesa-bella.webp', alt: 'Mochila amarilla infantil personalizada con diseño de princesa' },
+            { src: '../assets/casos-exito-collage/mochila-roja-frase-dios-siempre.webp', alt: 'Mochila roja personalizada con frase motivacional y diseño floral' },
+            { src: '../assets/casos-exito-collage/mochila-cruda-correas-rosa.webp', alt: 'Mochila en lona cruda con correas rosas para personalización' },
+            { src: '../assets/casos-exito-collage/mochila-cruda-correas-beige.webp', alt: 'Mochila en lona cruda con correas beige para personalización' },
+            { src: '../assets/casos-exito-collage/mochila-cruda-logo-monograma-mk.webp', alt: 'Mochila cruda personalizada con monograma MK' },
+            { src: '../assets/casos-exito-collage/loncheras-hunterx-moradas-fucsia.webp', alt: 'Set de loncheras infantiles moradas y fucsias personalizadas' },
+            { src: '../assets/casos-exito-collage/lonchera-rosa-azul-sofia.webp', alt: 'Lonchera infantil rosa y azul personalizada con nombre Sofia' },
+            { src: '../assets/casos-exito-collage/cartucheras-mensajes-personalizados-mix.webp', alt: 'Set de cartucheras personalizadas con mensajes y diseños coloridos' },
+            { src: '../assets/casos-exito-collage/cartuchera-orar-en-todo-tiempo.webp', alt: 'Cartuchera personalizada con mensaje Orar en todo tiempo' },
+            { src: '../assets/casos-exito-collage/mochila-saco-llansa-y-mascarillas.webp', alt: 'Mochila tipo saco LLANSA junto a mascarillas personalizadas' },
+            { src: '../assets/casos-exito-collage/mochila-saco-cocatram-detalle.webp', alt: 'Detalle de mochila tipo saco personalizada para COCATRAM' },
+            { src: '../assets/casos-exito-collage/set-neceseres-vino-personalizable-cousy.webp', alt: 'Set de neceseres color vino personalizados con marca Cousy' },
+            { src: '../assets/casos-exito-collage/set-neceseres-morados-personalizables-cousy.webp', alt: 'Set de neceseres morados personalizables con logo Cousy' },
+            { src: '../assets/casos-exito-collage/set-neceseres-colores-personalizables-cousy.webp', alt: 'Set de neceseres personalizados en colores verde, vino y azul' },
+            { src: '../assets/casos-exito-collage/set-neceseres-negros-personalizables-cousy.webp', alt: 'Set de neceseres negros personalizables con acabado premium' },
+            { src: '../assets/casos-exito-collage/monederos-dia-de-la-madre-personalizados.webp', alt: 'Monederos personalizados para regalo del Día de la Madre' },
+            { src: '../assets/casos-exito-collage/monederos-lazo-rosa-loto.webp', alt: 'Monederos personalizados con lazo rosa para campaña de Loto' }
+          ];
+
+          if (masonryItems.length === 0) {
+            galleryContainer.innerHTML = '<p class="text-sm text-black/60">No se encontraron imágenes para mostrar.</p>';
+            galleryContainer.dataset.masonryInit = '1';
+            return;
+          }
+
+          function createMasonryItem(item) {
+            const figure = document.createElement('figure');
+            figure.className = 'cde-masonry-item';
+
+            const masonryImage = document.createElement('img');
+            masonryImage.src = item.src;
+            masonryImage.alt = item.alt;
+            masonryImage.loading = 'lazy';
+            masonryImage.decoding = 'async';
+            figure.appendChild(masonryImage);
+            return figure;
+          }
+
+          const fragment = document.createDocumentFragment();
+          masonryItems.forEach((item) => {
+            fragment.appendChild(createMasonryItem(item));
+          });
+
+          galleryContainer.innerHTML = '';
+          galleryContainer.appendChild(fragment);
+          galleryContainer.dataset.masonryInit = '1';
+
+          if (masonryWindow) {
+            const masonryImages = Array.from(galleryContainer.querySelectorAll('img'));
+            masonryImages.forEach((imageEl) => {
+              if (!(imageEl instanceof HTMLImageElement) || imageEl.complete) {
+                return;
+              }
+              const resumeAutoScroll = () => {
+                startMasonryAutoScroll(masonryWindow, masonryItems.length);
+              };
+              imageEl.addEventListener('load', resumeAutoScroll, { once: true });
+              imageEl.addEventListener('error', resumeAutoScroll, { once: true });
+            });
+
+            masonryWindow.scrollTop = 0;
+            window.requestAnimationFrame(() => {
+              startMasonryAutoScroll(masonryWindow, masonryItems.length);
+            });
+          }
         }
 
         function renderB2bReviewMessage(message) {
@@ -1349,6 +1141,10 @@
         document.addEventListener('turbo:load', initB2bReviews);
         window.addEventListener('load', initCatalogoForm);
         document.addEventListener('turbo:load', initCatalogoForm);
+        window.addEventListener('load', initMasonryGallery);
+        document.addEventListener('turbo:load', initMasonryGallery);
+        window.addEventListener('beforeunload', stopMasonryAutoScroll);
+        document.addEventListener('turbo:before-cache', stopMasonryAutoScroll);
       })();
     </script>
     <script type="module" src="../js/layout.js"></script>
