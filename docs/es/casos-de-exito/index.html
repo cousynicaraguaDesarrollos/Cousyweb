@@ -271,13 +271,14 @@
       }
 
       .cde-masonry-grid {
-        column-count: 2;
-        column-gap: 0.75rem;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: 8px;
+        gap: 0.75rem;
       }
 
       .cde-masonry-item {
-        break-inside: avoid;
-        margin: 0 0 0.75rem;
+        margin: 0;
         overflow: hidden;
         border-radius: 1rem;
         border: 1px solid rgba(17, 24, 39, 0.08);
@@ -291,18 +292,15 @@
       }
       @media (min-width: 768px) {
         .cde-masonry-grid {
-          column-count: 3;
-          column-gap: 1rem;
-        }
-
-        .cde-masonry-item {
-          margin-bottom: 1rem;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          grid-auto-rows: 10px;
+          gap: 1rem;
         }
       }
 
       @media (min-width: 1280px) {
         .cde-masonry-grid {
-          column-count: 4;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
         }
       }
 
@@ -569,6 +567,14 @@
                 <p class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]">Cliente B2B verificado</p>
                 <p class="mt-2 text-sm leading-relaxed text-black/75">Cargando reseña empresarial...</p>
               </article>
+              <article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">
+                <p class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]">Cliente B2B verificado</p>
+                <p class="mt-2 text-sm leading-relaxed text-black/75">Cargando reseña empresarial...</p>
+              </article>
+              <article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">
+                <p class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]">Cliente B2B verificado</p>
+                <p class="mt-2 text-sm leading-relaxed text-black/75">Cargando reseña empresarial...</p>
+              </article>
             </div>
           </div>
 
@@ -723,6 +729,7 @@
         let masonryAutoScrollPaused = false;
         let masonryAutoScrollVisibilityBound = false;
         let masonryAutoScrollRetryTimer = 0;
+        let masonryResizeBound = false;
 
         function stopMasonryAutoScroll() {
           if (masonryAutoScrollRaf) {
@@ -824,6 +831,43 @@
           }
         }
 
+        function updateMasonryLayout(galleryContainer) {
+          if (!galleryContainer) {
+            return;
+          }
+
+          const style = window.getComputedStyle(galleryContainer);
+          const rowHeight = Number.parseFloat(style.getPropertyValue('grid-auto-rows')) || 8;
+          const rowGap =
+            Number.parseFloat(style.getPropertyValue('row-gap')) ||
+            Number.parseFloat(style.getPropertyValue('grid-row-gap')) ||
+            0;
+
+          const items = Array.from(galleryContainer.querySelectorAll('.cde-masonry-item'));
+          items.forEach((item) => {
+            if (!(item instanceof HTMLElement)) {
+              return;
+            }
+
+            const image = item.querySelector('img');
+            if (!(image instanceof HTMLImageElement)) {
+              return;
+            }
+
+            let mediaHeight = image.getBoundingClientRect().height;
+            if (!mediaHeight && image.naturalWidth > 0) {
+              const itemWidth = item.getBoundingClientRect().width;
+              mediaHeight = itemWidth * (image.naturalHeight / image.naturalWidth);
+            }
+            if (!mediaHeight) {
+              return;
+            }
+
+            const span = Math.max(1, Math.ceil((mediaHeight + rowGap) / (rowHeight + rowGap)));
+            item.style.gridRowEnd = `span ${span}`;
+          });
+        }
+
         function initMasonryGallery() {
           const galleryContainer = document.getElementById('cde-masonry-gallery');
           if (!galleryContainer) {
@@ -831,6 +875,7 @@
           }
           const masonryWindow = galleryContainer.closest('.cde-masonry-window');
           if (galleryContainer.dataset.masonryInit === '1') {
+            updateMasonryLayout(galleryContainer);
             if (masonryWindow) {
               startMasonryAutoScroll(masonryWindow, galleryContainer.children.length || 1);
             }
@@ -928,6 +973,7 @@
           galleryContainer.innerHTML = '';
           galleryContainer.appendChild(fragment);
           galleryContainer.dataset.masonryInit = '1';
+          updateMasonryLayout(galleryContainer);
 
           if (masonryWindow) {
             const masonryImages = Array.from(galleryContainer.querySelectorAll('img'));
@@ -936,6 +982,7 @@
                 return;
               }
               const resumeAutoScroll = () => {
+                updateMasonryLayout(galleryContainer);
                 startMasonryAutoScroll(masonryWindow, masonryItems.length);
               };
               imageEl.addEventListener('load', resumeAutoScroll, { once: true });
@@ -944,115 +991,69 @@
 
             masonryWindow.scrollTop = 0;
             window.requestAnimationFrame(() => {
+              updateMasonryLayout(galleryContainer);
               startMasonryAutoScroll(masonryWindow, masonryItems.length);
             });
           }
-        }
 
-        function renderB2bReviewMessage(message) {
+          if (!masonryResizeBound) {
+            let resizeRaf = 0;
+            window.addEventListener('resize', () => {
+              if (resizeRaf) {
+                window.cancelAnimationFrame(resizeRaf);
+              }
+              resizeRaf = window.requestAnimationFrame(() => {
+                updateMasonryLayout(galleryContainer);
+              });
+            });
+            masonryResizeBound = true;
+          }
+        }
+        const STATIC_B2B_TESTIMONIALS = [
+          {
+            name: 'Xiheira Gurdian',
+            text: 'Toda mi compra la hice en linea y la atencion al cliente es excelente, todo salio perfecto tal como me lo imagine.',
+          },
+          {
+            name: 'Maria Jose Altamirano',
+            text: 'Cousy de calidad, es una empresa responsable y con buen trato. Encantada con el trabajo, lo recomiendo.',
+          },
+          {
+            name: 'Marcos Antonio Rivera',
+            text: 'Excelente atencion y calidad en los productos. Cumplieron tiempos de entrega y la personalizacion quedo muy bien.',
+          },
+          {
+            name: 'Ana Lucia Mairena',
+            text: 'Pedi articulos personalizados para un evento empresarial y todo llego con muy buen acabado y ordenado por lote.',
+          },
+        ];
+
+        function renderStaticB2bTestimonials() {
           const container = document.getElementById('b2b-google-snippets');
           if (!container) {
-            return;
-          }
-
-          container.innerHTML =
-            '<article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">' +
-            '<p class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]">Cliente B2B verificado</p>' +
-            '<p class="mt-2 text-sm leading-relaxed text-black/75">' +
-            escapeHtml(message) +
-            '</p>' +
-            '</article>' +
-            '<article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">' +
-            '<p class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]">Cliente B2B verificado</p>' +
-            '<p class="mt-2 text-sm leading-relaxed text-black/75">' +
-            escapeHtml(message) +
-            '</p>' +
-            '</article>';
-        }
-
-        function renderB2bReviewSnippets(reviews) {
-          const container = document.getElementById('b2b-google-snippets');
-          if (!container) {
-            return;
-          }
-
-          const picks = reviews
-            .filter((review) => {
-              return review && typeof review.text === 'string' && review.text.trim().length > 0;
-            })
-            .slice(0, 2);
-
-          if (picks.length === 0) {
-            renderB2bReviewMessage('No fue posible cargar reseñas empresariales en este momento.');
             return;
           }
 
           let html = '';
-          picks.forEach((review) => {
-            const author = escapeHtml((review.author_name || 'Cliente B2B').trim() || 'Cliente B2B');
-            const text = escapeHtml(review.text.trim().slice(0, 180));
+          STATIC_B2B_TESTIMONIALS.forEach((review) => {
+            const author = escapeHtml(review.name);
+            const text = escapeHtml(review.text);
             html +=
               '<article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">' +
               '<p class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]">Cliente B2B verificado</p>' +
               '<p class="mt-2 text-sm leading-relaxed text-black/75">"' +
               text +
-              '..."</p>' +
+              '"</p>' +
               '<p class="mt-3 text-xs font-semibold text-black/60">' +
               author +
-              ' · Reseña pública en Google</p>' +
+              ' · Testimonio de cliente</p>' +
               '</article>';
           });
-
-          if (picks.length === 1) {
-            html +=
-              '<article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">' +
-              '<p class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]">Cliente B2B verificado</p>' +
-              '<p class="mt-2 text-sm leading-relaxed text-black/75">Seguimos sumando reseñas empresariales verificadas.</p>' +
-              '</article>';
-          }
 
           container.innerHTML = html;
         }
 
-        async function fetchReviewsPayload() {
-          const siteConfig = await getSiteConfig();
-          const endpoint =
-            siteConfig && typeof siteConfig.googleReviewsApiUrl === 'string'
-              ? siteConfig.googleReviewsApiUrl.trim()
-              : '';
-          const placeId =
-            siteConfig && typeof siteConfig.googleReviewsPlaceId === 'string' && siteConfig.googleReviewsPlaceId.trim()
-              ? siteConfig.googleReviewsPlaceId.trim()
-              : DEFAULT_PLACE_ID;
-          const publicToken =
-            siteConfig && typeof siteConfig.googleReviewsPublicToken === 'string'
-              ? siteConfig.googleReviewsPublicToken.trim()
-              : '';
-
-          if (!endpoint) {
-            throw new Error('NO_REVIEWS_ENDPOINT');
-          }
-
-          const endpointUrl = new URL(endpoint);
-          endpointUrl.searchParams.set('placeId', placeId);
-          endpointUrl.searchParams.set('lang', 'es');
-          if (publicToken) {
-            endpointUrl.searchParams.set('token', publicToken);
-          }
-
-          const response = await fetch(endpointUrl.toString(), { cache: 'no-store' });
-          if (!response.ok) {
-            throw new Error('REVIEWS_HTTP_' + response.status);
-          }
-
-          const payload = await response.json();
-          if (!payload || payload.ok !== true || !Array.isArray(payload.reviews)) {
-            throw new Error('INVALID_REVIEWS_PAYLOAD');
-          }
-          return payload;
-        }
-
-        async function initB2bReviews() {
+        function initB2bReviews() {
           const container = document.getElementById('b2b-google-snippets');
           if (!container) {
             return;
@@ -1061,13 +1062,7 @@
             return;
           }
           container.dataset.reviewsInit = '1';
-
-          try {
-            const payload = await fetchReviewsPayload();
-            renderB2bReviewSnippets(payload.reviews || []);
-          } catch {
-            renderB2bReviewMessage('No fue posible cargar reseñas empresariales en este momento.');
-          }
+          renderStaticB2bTestimonials();
         }
 
         function initCatalogoForm() {
