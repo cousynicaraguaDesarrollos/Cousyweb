@@ -8,12 +8,30 @@ function handleLogin_(ss, data) {
     const usuario = String(rows[i][0] || "").trim();
     const password = String(rows[i][1] || "").trim();
     const activo = String(rows[i][2] || "").trim().toUpperCase();
+    const tipoAcceso = normalizarTipoAcceso_(rows[i][3]);
+
     if (usuario === usuarioInput && password === passwordInput && activo === "SI") {
-      return { success: true, usuario: usuario };
+      return {
+        success: true,
+        usuario: usuario,
+        tipoAcceso: tipoAcceso,
+        canViewDashboard: tipoAcceso === "Admin"
+      };
     }
   }
 
   return { success: false };
+}
+
+function normalizarTipoAcceso_(tipoAccesoRaw) {
+  const tipoAcceso = String(tipoAccesoRaw || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  if (tipoAcceso === "admin" || tipoAcceso === "administrador") return "Admin";
+  return "Empleado";
 }
 
 function saveRecord_(ss, tz, data) {

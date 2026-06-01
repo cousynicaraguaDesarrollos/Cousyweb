@@ -267,11 +267,15 @@
 
               <button
                 type="button"
+                id="verResumenBtn"
                 onclick="mostrarDashboard()"
                 class="w-full rounded-2xl border border-[#ec1665] bg-white px-4 py-3 text-[#ec1665] font-medium transition hover:bg-[#fff1f5]"
               >
                 Ver resumen grafico
               </button>
+              <p id="verResumenHint" class="hidden text-center text-sm text-neutral-500">
+                Solo usuarios Admin pueden ver el resumen grafico
+              </p>
             </div>
           </form>
 
@@ -332,6 +336,8 @@
       const loginView = document.getElementById("loginView");
       const appView = document.getElementById("appView");
       const dashboardView = document.getElementById("dashboardView");
+      const verResumenBtn = document.getElementById("verResumenBtn");
+      const verResumenHint = document.getElementById("verResumenHint");
 
       const tipo = document.getElementById("tipo");
       const fecha = document.getElementById("fecha");
@@ -339,13 +345,43 @@
       const tipoGastoBox = document.getElementById("tipoGastoBox");
       const tipoGastoError = document.getElementById("tipoGastoError");
       const tipoGastoOptions = Array.from(document.querySelectorAll(".tipo-gasto-option"));
+      const STORAGE_USUARIO_KEY = "usuarioVentasGastos";
+      const STORAGE_ACCESO_KEY = "tipoAccesoVentasGastos";
+      const ACCESO_ADMIN = "Admin";
+      const ACCESO_EMPLEADO = "Empleado";
 
       let resumenChart = null;
       let gastosPieChart = null;
       let clientesPieChart = null;
+      let tipoAccesoActual = ACCESO_EMPLEADO;
 
       function obtenerUsuarioActual() {
-        return (localStorage.getItem("usuarioVentasGastos") || "").trim();
+        return (localStorage.getItem(STORAGE_USUARIO_KEY) || "").trim();
+      }
+
+      function normalizarTipoAcceso(tipoAcceso) {
+        const limpio = String(tipoAcceso || "")
+          .trim()
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+
+        if (limpio === "admin" || limpio === "administrador") return ACCESO_ADMIN;
+        return ACCESO_EMPLEADO;
+      }
+
+      function getEtiquetaTipoAcceso(tipoAcceso) {
+        return tipoAcceso === ACCESO_ADMIN ? ACCESO_ADMIN : ACCESO_EMPLEADO;
+      }
+
+      function usuarioPuedeVerDashboard() {
+        return tipoAccesoActual === ACCESO_ADMIN;
+      }
+
+      function aplicarPermisosDashboardUI() {
+        const puedeVer = usuarioPuedeVerDashboard();
+        verResumenBtn.classList.toggle("hidden", !puedeVer);
+        verResumenHint.classList.toggle("hidden", puedeVer);
       }
 
       function obtenerTipoGastoSeleccionado() {
@@ -372,9 +408,10 @@
 
       fecha.valueAsDate = new Date();
 
-      const usuarioGuardado = localStorage.getItem("usuarioVentasGastos");
+      const usuarioGuardado = localStorage.getItem(STORAGE_USUARIO_KEY);
+      const accesoGuardado = localStorage.getItem(STORAGE_ACCESO_KEY);
       if (usuarioGuardado) {
-        mostrarApp(usuarioGuardado);
+        mostrarApp(usuarioGuardado, accesoGuardado);
       }
 
       document.getElementById("loginForm").addEventListener("submit", async function (e) {
@@ -397,8 +434,10 @@
           const data = await res.json();
 
           if (data.success) {
-            localStorage.setItem("usuarioVentasGastos", data.usuario);
-            mostrarApp(data.usuario);
+            const tipoAcceso = normalizarTipoAcceso(data.tipoAcceso);
+            localStorage.setItem(STORAGE_USUARIO_KEY, data.usuario);
+            localStorage.setItem(STORAGE_ACCESO_KEY, tipoAcceso);
+            mostrarApp(data.usuario, tipoAcceso);
           } else {
             loginMensaje.textContent = "Usuario o contrasena incorrectos";
           }
@@ -509,6 +548,13 @@
       }
 
       function mostrarDashboard() {
+        if (!usuarioPuedeVerDashboard()) {
+          const mensaje = document.getElementById("mensaje");
+          mensaje.textContent = "Solo usuarios Admin pueden ver el resumen grafico";
+          mensaje.className = "mt-4 text-center text-sm font-medium text-[#ec1665]";
+          return;
+        }
+
         appView.classList.add("hidden");
         dashboardView.classList.remove("hidden");
         cargarGraficoResumen();
@@ -634,15 +680,21 @@
         });
       }
 
-      function mostrarApp(usuario) {
+      function mostrarApp(usuario, tipoAcceso) {
+        tipoAccesoActual = normalizarTipoAcceso(tipoAcceso || localStorage.getItem(STORAGE_ACCESO_KEY));
+        localStorage.setItem(STORAGE_ACCESO_KEY, tipoAccesoActual);
+
         loginView.classList.add("hidden");
         appView.classList.remove("hidden");
-        document.getElementById("usuarioActivo").textContent = "Usuario: " + usuario;
+        document.getElementById("usuarioActivo").textContent =
+          "Usuario: " + usuario + " | Acceso: " + getEtiquetaTipoAcceso(tipoAccesoActual);
+        aplicarPermisosDashboardUI();
         actualizarFormulario();
       }
 
       function cerrarSesion() {
-        localStorage.removeItem("usuarioVentasGastos");
+        localStorage.removeItem(STORAGE_USUARIO_KEY);
+        localStorage.removeItem(STORAGE_ACCESO_KEY);
         location.reload();
       }
     </script>
