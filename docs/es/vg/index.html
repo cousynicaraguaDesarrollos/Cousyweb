@@ -190,7 +190,7 @@
 
             <div id="tipoGastoBox" class="hidden md:col-span-2 rounded-2xl border border-[#f1cad6] bg-[#fffafb] p-4 sm:p-5">
               <p class="block text-sm font-medium text-neutral-700 text-center mb-3">Tipo de gasto</p>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 <label
                   class="flex items-center justify-center gap-2 rounded-xl border border-[#ecd8df] bg-white px-3 py-2 text-sm text-neutral-700 cursor-pointer transition hover:border-[#73a35a]/40 hover:bg-[#f5faf2]"
                 >
@@ -217,6 +217,15 @@
                     class="h-5 w-5 shrink-0 rounded-full border border-neutral-400 bg-white transition peer-checked:border-[#2563eb] peer-checked:bg-[#2563eb] peer-focus-visible:ring-2 peer-focus-visible:ring-[#2563eb]/30"
                   ></span>
                   <span class="text-center">Gasto de Produccion</span>
+                </label>
+                <label
+                  class="flex items-center justify-center gap-2 rounded-xl border border-[#ecd8df] bg-white px-3 py-2 text-sm text-neutral-700 cursor-pointer transition hover:border-[#73a35a]/40 hover:bg-[#f5faf2]"
+                >
+                  <input type="checkbox" name="tipoGasto" value="Gastos variables" class="tipo-gasto-option peer sr-only" />
+                  <span
+                    class="h-5 w-5 shrink-0 rounded-full border border-neutral-400 bg-white transition peer-checked:border-[#2563eb] peer-checked:bg-[#2563eb] peer-focus-visible:ring-2 peer-focus-visible:ring-[#2563eb]/30"
+                  ></span>
+                  <span class="text-center">Gastos variables</span>
                 </label>
               </div>
               <p id="tipoGastoError" class="mt-2 text-sm text-red-600 hidden">Selecciona un tipo de gasto</p>

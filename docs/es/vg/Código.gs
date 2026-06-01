@@ -16,7 +16,13 @@ const APP_CFG = Object.freeze({
     EXPENSE: "gasto",
     PERSONAL_EXPENSE: "gasto_personal",
     SAVINGS: "ahorro"
-  })
+  }),
+  EXPENSE_TYPES: Object.freeze([
+    "Gasto Administrativo",
+    "Gasto Fijo",
+    "Gasto de Produccion",
+    "Gastos variables"
+  ])
 });
 
 function doPost(e) {

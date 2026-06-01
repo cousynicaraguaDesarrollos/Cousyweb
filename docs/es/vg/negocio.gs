@@ -55,6 +55,9 @@ function saveGastosRecord_(ss, tz, data) {
   if (!tipoGasto) {
     throw new Error("Debes seleccionar un tipo de gasto");
   }
+  if (!APP_CFG.EXPENSE_TYPES.includes(tipoGasto)) {
+    throw new Error("Tipo de gasto no valido: " + tipoGasto);
+  }
 
   const sheet = obtenerHoja(ss, APP_CFG.SHEETS.EXPENSES_OPTIONS);
   sheet.appendRow([
