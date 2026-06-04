@@ -454,13 +454,26 @@
 
         const tipoValor = tipo.value;
 
-        const datos = {
-          tipo: tipoValor,
-          fecha: document.getElementById("fecha").value,
-          descripcion: document.getElementById("descripcion").value.trim(),
-          monto: document.getElementById("monto").value,
-          usuario: obtenerUsuarioActual()
-        };
+        const usuarioActual = obtenerUsuarioActual();
+
+if (!usuarioActual) {
+  mensaje.textContent = "Sesión no válida. Cerrá sesión e ingresá nuevamente.";
+  mensaje.className = "mt-4 text-center text-sm font-medium text-red-600";
+  return;
+}
+
+const datos = {
+  tipo: tipoValor,
+  fecha: document.getElementById("fecha").value,
+  descripcion: document.getElementById("descripcion").value.trim(),
+  monto: document.getElementById("monto").value,
+
+  // Enviamos el usuario con varios nombres para hacerlo compatible
+  usuario: usuarioActual,
+  usuarioActivo: usuarioActual,
+  nombreUsuario: usuarioActual,
+  ingresoDeDatos: usuarioActual
+};
 
         if (tipoValor === "venta" || tipoValor === "ahorro") {
           datos.cliente = document.getElementById("cliente").value.trim();
