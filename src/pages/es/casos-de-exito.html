@@ -1066,6 +1066,17 @@
               return;
             }
 
+            window.CousyAnalytics?.trackContactSubmit?.({
+              form_id: 'catalogo-form',
+              lead_type: 'catalog_request',
+              form_context: 'success_cases'
+            });
+            window.CousyAnalytics?.trackCatalogDownload?.({
+              asset_name: 'catalogo-corporativo-cousy.pdf',
+              asset_type: 'pdf',
+              source_form: 'catalogo-form'
+            });
+
             const link = document.createElement('a');
             link.href = CATALOGO_CORPORATIVO_PATH;
             link.download = 'catalogo-corporativo-cousy.pdf';

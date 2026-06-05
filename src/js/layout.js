@@ -1,4 +1,5 @@
 import { initHeaderView } from "./header.js";
+import { initAnalytics } from "./analytics.js";
 
 const ROUTE_MAP = Object.freeze({
   es: Object.freeze({
@@ -297,6 +298,7 @@ function onLoad() {
   void runInit();
 }
 
+initAnalytics();
 initPageTransitions();
 window.addEventListener("DOMContentLoaded", onLoad);
 document.addEventListener("turbo:load", onLoad);

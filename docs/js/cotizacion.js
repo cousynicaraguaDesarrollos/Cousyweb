@@ -9,6 +9,7 @@ import {
   whatsappLink,
   writeNotes
 } from "./cart.js";
+import { trackWhatsAppClick } from "./analytics.js";
 
 const siteBaseUrl = new URL("../", import.meta.url);
 const siteBasePath = siteBaseUrl.pathname.replace(/\/$/, "");
@@ -168,6 +169,12 @@ async function initCotizacion() {
         notes: readNotes()
       });
       const url = whatsappLink({ number, text: message });
+      trackWhatsAppClick({
+        cta_label: "Enviar a WhatsApp",
+        cta_location: "quote_page",
+        items_count: current.length,
+        notes_length: readNotes().trim().length
+      });
       window.open(url, "_blank", "noopener,noreferrer");
     });
   }

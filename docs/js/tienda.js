@@ -1,7 +1,9 @@
 import { addToCart } from "./cart.js";
+import { trackProductView, trackQuoteClick } from "./analytics.js";
 
 const siteBaseUrl = new URL("../", import.meta.url);
 const siteBasePath = siteBaseUrl.pathname.replace(/\/$/, "");
+let productViewObserver = null;
 
 function fromRoot(relPath) {
   const cleanRelPath = String(relPath ?? "").replace(/^\.?\//, "");
@@ -36,6 +38,9 @@ function card(product) {
   el.className =
     "group flex flex-col overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-black/5";
   if (product.id) el.id = product.id;
+  el.dataset.productCard = "1";
+  el.dataset.productName = product.name || product.id || "";
+  el.dataset.productCategory = product.category || "";
 
   const img = document.createElement("img");
   const imageUrl = resolveSiteUrl(product.image) || fromRoot("assets/placeholder.svg");
@@ -80,6 +85,12 @@ function card(product) {
     "mt-2 w-full rounded-xl bg-brand-accent px-4 py-2 text-sm font-normal text-white hover:brightness-95 active:brightness-90";
   btn.textContent = "Añadir a cotización";
   btn.addEventListener("click", () => {
+    trackQuoteClick({
+      cta_label: "Añadir a cotización",
+      cta_location: "product_card",
+      product_name: product.name || product.id || "",
+      product_category: product.category || ""
+    });
     addToCart(
       {
         id: product.id,
@@ -96,6 +107,66 @@ function card(product) {
   body.append(title, meta, btn);
   el.append(img, body);
   return el;
+}
+
+function isElementMostlyVisible(element) {
+  const rect = element.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+  const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+  const visibleWidth = Math.min(rect.right, viewportWidth) - Math.max(rect.left, 0);
+  const visibleArea = Math.max(0, visibleHeight) * Math.max(0, visibleWidth);
+  const totalArea = Math.max(1, rect.height * rect.width);
+  return visibleArea / totalArea >= 0.55;
+}
+
+function tryTrackProductCard(card) {
+  if (!(card instanceof HTMLElement)) return false;
+  const productName = card.dataset.productName || "";
+  const productCategory = card.dataset.productCategory || "";
+  return trackProductView(productName, {
+    product_category: productCategory
+  });
+}
+
+function flushVisibleProductCards() {
+  for (const card of document.querySelectorAll("[data-product-card='1']")) {
+    if (!(card instanceof HTMLElement)) continue;
+    if (!isElementMostlyVisible(card)) continue;
+    const tracked = tryTrackProductCard(card);
+    if (tracked) {
+      productViewObserver?.unobserve(card);
+    }
+  }
+}
+
+function startProductViewTracking() {
+  const cards = Array.from(document.querySelectorAll("[data-product-card='1']"));
+  productViewObserver?.disconnect();
+  productViewObserver = null;
+
+  if (!cards.length) return;
+
+  if ("IntersectionObserver" in window) {
+    productViewObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const tracked = tryTrackProductCard(entry.target);
+          if (tracked) {
+            productViewObserver?.unobserve(entry.target);
+          }
+        }
+      },
+      {
+        threshold: 0.55
+      }
+    );
+
+    cards.forEach((card) => productViewObserver?.observe(card));
+  }
+
+  window.requestAnimationFrame(flushVisibleProductCards);
 }
 
 async function loadProducts() {
@@ -135,6 +206,7 @@ function render(products) {
   if (!grid) return;
   grid.innerHTML = "";
   for (const p of products) grid.append(card(p));
+  startProductViewTracking();
 }
 
 function categories(products) {
@@ -195,6 +267,9 @@ function onLoad() {
   void initTienda();
 }
 
+window.addEventListener("cousy:cookie-consent-resolved", () => {
+  window.requestAnimationFrame(flushVisibleProductCards);
+});
 window.addEventListener("DOMContentLoaded", onLoad);
 document.addEventListener("turbo:load", onLoad);
 onLoad();
