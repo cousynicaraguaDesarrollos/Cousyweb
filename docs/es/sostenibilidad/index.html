@@ -157,7 +157,144 @@
       data-site-header
       data-turbo-permanent
       class="sticky top-0 z-50 border-b border-black/10 bg-white"
-    ></header>
+     data-partial-injected="1"><div class="container relative">
+  <div class="flex h-20 items-center justify-between gap-4">
+    <a href="../" data-nav-route="home" class="flex items-center gap-3">
+      <img
+        data-nav-asset="logo"
+        src="../../assets/logo-cousy.webp"
+        alt="Logo de Cousy Nicaragua"
+        class="h-12 w-12"
+        style="height: 3.6rem; width: 3.6rem"
+      />
+      <span class="sr-only">Cousy Nicaragua</span>
+    </a>
+
+    <nav class="js-site-nav ml-auto hidden items-center gap-10 text-sm sm:flex">
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="home" href="../">Inicio</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="store" href="../tienda">Tienda</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="successCases" href="../casos-de-exito">Casos de éxito</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="about" href="../nosotros">Nosotros</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="sustainability" href="../sostenibilidad">Sostenibilidad</a>
+      <a
+        data-nav-route="quote"
+        href="../cotizacion"
+        class="js-quote-link relative inline-flex h-11 w-11 items-center justify-center rounded-xl hover:bg-black/5"
+        aria-label="Cotización"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          class="h-6 w-6"
+        >
+          <path d="M6 7h12l-1 14H7L6 7Z" />
+          <path d="M9 7a3 3 0 0 1 6 0" />
+        </svg>
+        <span
+          data-cart-count
+          class="hidden absolute -right-1 -top-1 rounded-full bg-brand-accent px-2 py-0.5 text-xs font-semibold text-white"
+          >0</span
+        >
+      </a>
+    </nav>
+
+    <button
+      type="button"
+      class="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-xl hover:bg-black/5 sm:hidden"
+      data-mobile-menu-toggle
+      aria-label="Abrir menú"
+      aria-controls="mobile-menu-es"
+      aria-expanded="false"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        class="h-6 w-6"
+        data-menu-icon="open"
+      >
+        <path d="M4 7h16" />
+        <path d="M4 12h16" />
+        <path d="M4 17h16" />
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        class="hidden h-6 w-6"
+        data-menu-icon="close"
+      >
+        <path d="M6 6l12 12" />
+        <path d="M18 6 6 18" />
+      </svg>
+    </button>
+  </div>
+
+  <nav
+    id="mobile-menu-es"
+    data-mobile-menu
+    aria-label="Menú móvil"
+    class="fixed inset-x-0 bottom-0 top-20 z-40 hidden bg-white sm:hidden"
+  >
+    <div
+      data-mobile-menu-panel
+      class="h-full max-h-0 overflow-y-auto border-b border-black/10 bg-white p-0 opacity-0 transition-[max-height,opacity,padding] duration-300 ease-out"
+    >
+      <ul class="flex flex-col p-3 text-center">
+        <li>
+          <a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="home" href="../"
+            >Inicio</a
+          >
+        </li>
+        <li>
+          <a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="store" href="../tienda"
+            >Tienda</a
+          >
+        </li>
+        <li>
+          <a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="successCases" href="../casos-de-exito"
+            >Casos de éxito</a
+          >
+        </li>
+        <li>
+          <a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="about" href="../nosotros"
+            >Nosotros</a
+          >
+        </li>
+        <li>
+          <a
+            class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted"
+            data-nav-route="sustainability"
+            href="../sostenibilidad"
+            >Sostenibilidad</a
+          >
+        </li>
+      </ul>
+      <div class="px-3 pb-16 text-center">
+        <a
+          data-nav-route="quote"
+          href="../cotizacion"
+          class="js-quote-link relative mb-5 inline-flex h-12 w-full items-center justify-center rounded-xl bg-brand-cta px-5 text-sm font-semibold text-white shadow-soft"
+        >
+          Ir a cotización
+          <span
+            data-cart-count
+            class="hidden absolute -right-2 -top-2 rounded-full bg-brand-accent px-2 py-0.5 text-xs font-semibold text-white"
+            >0</span
+          >
+        </a>
+      </div>
+    </div>
+  </nav>
+</div>
+</header>
 
     <main class="bg-brand-muted">
       <section class="container py-10 sm:py-14 lg:py-16">
@@ -607,7 +744,77 @@
       data-site-footer
       data-turbo-permanent
       class="border-t border-black/5"
-    ></footer>
+     data-partial-injected="1"><div class="bg-brand-accent text-white">
+  <div class="container py-16 sm:py-20">
+    <h2 class="text-center font-playfair not-italic text-3xl font-semibold tracking-tight sm:text-5xl">
+      Compromiso ambiental en cada costura
+    </h2>
+
+    <ul
+      class="mt-10 grid grid-cols-2 gap-4 text-center font-montserrat text-base font-light sm:mt-12 sm:flex sm:justify-center sm:gap-14 sm:text-lg"
+      role="list"
+    >
+      <li>Calidad</li>
+      <li>Sostenibilidad</li>
+      <li>Elegancia</li>
+      <li>Durabilidad</li>
+    </ul>
+
+    <div class="mt-14 text-center sm:mt-16">
+      <p class="font-playfair not-italic text-xl font-semibold sm:text-2xl">
+        Fábrica de Productos con Propósito
+      </p>
+
+      <div class="mt-8 flex items-center justify-center gap-10 sm:gap-14">
+        <a
+          data-social-link="facebook"
+          href="#"
+          tabindex="-1"
+          aria-disabled="true"
+          aria-label="Facebook"
+          class="group inline-flex h-14 w-14 items-center justify-center rounded-full ring-1 ring-white/30 pointer-events-none opacity-95 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        >
+          <svg viewBox="88 82 27 57" aria-hidden="true" class="h-7 w-7" fill="currentColor">
+            <path d="M114.3,110.203h-7.801v28.452H95.842v-28.452h-7.106v-9.802l7.106-0.015l-0.015-5.75 c0-8.023,2.172-12.878,11.597-12.878h7.857v9.817h-4.914c-3.656,0-3.869,1.385-3.869,3.91v4.901h8.845L114.3,110.203z M114.3,110.203" />
+          </svg>
+        </a>
+
+        <a
+          data-social-link="instagram"
+          href="#"
+          tabindex="-1"
+          aria-disabled="true"
+          aria-label="Instagram"
+          class="group inline-flex h-14 w-14 items-center justify-center rounded-full ring-1 ring-white/30 pointer-events-none opacity-95 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        >
+          <svg viewBox="221 81 58 58" aria-hidden="true" class="h-7 w-7" fill="currentColor">
+            <path d="M250.001,95.547c-8.085,0-14.661,6.577-14.661,14.66c0,8.085,6.577,14.662,14.661,14.662 c8.083,0,14.663-6.577,14.663-14.662C264.664,102.124,258.084,95.547,250.001,95.547z M250.001,119.818 c-5.301,0-9.614-4.309-9.614-9.612c0-5.298,4.312-9.611,9.614-9.611s9.615,4.313,9.615,9.611 C259.615,115.509,255.3,119.818,250.001,119.818z" />
+            <path d="M265.277,91.266c-0.974,0-1.928,0.394-2.614,1.084c-0.692,0.688-1.088,1.643-1.088,2.618 c0,0.973,0.398,1.928,1.088,2.618c0.685,0.687,1.64,1.083,2.614,1.083c0.975,0,1.928-0.397,2.617-1.083 c0.691-0.691,1.085-1.648,1.085-2.618c0-0.976-0.393-1.931-1.085-2.618C267.208,91.66,266.251,91.266,265.277,91.266z" />
+            <path d="M262.748,81.759h-25.494c-8.657,0-15.702,7.043-15.702,15.701v25.495 c0,8.657,7.045,15.7,15.702,15.7h25.494c8.659,0,15.7-7.045,15.7-15.7V97.46C278.448,88.802,271.407,81.759,262.748,81.759z M273.401,122.955c0,5.874-4.778,10.653-10.654,10.653h-25.494c-5.874,0-10.654-4.779-10.654-10.653V97.46 c0-5.875,4.78-10.653,10.654-10.653h25.494c5.876,0,10.654,4.778,10.654,10.653V122.955z" />
+          </svg>
+        </a>
+
+        <a
+          data-social-link="tiktok"
+          href="#"
+          tabindex="-1"
+          aria-disabled="true"
+          aria-label="TikTok"
+          class="group inline-flex h-14 w-14 items-center justify-center rounded-full ring-1 ring-white/30 pointer-events-none opacity-95 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        >
+          <svg viewBox="75 359 53 62" aria-hidden="true" class="h-7 w-7" fill="currentColor">
+            <path d="M97.416,381.757v10.505c0,0-11.043-0.898-11.043,9.876c0,10.03,16.61,8.439,16.61-0.45 c0-8.889,0-42.287,0-42.287h10.864c0,0-0.808,14.545,14.455,14.186v11.301c0,0-9.158,0.011-14.276-4.568v24.601 c0,0-2.334,15.263-18.944,15.263s-19.303-12.659-19.303-19.393C75.779,394.058,80.268,381.757,97.416,381.757z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <p class="mt-14 text-center text-sm text-white/85 sm:mt-16">
+      © <span data-year></span> Cousy Nicaragua. Todos los derechos reservados.
+    </p>
+  </div>
+</div>
+</footer>
 
     <script type="application/ld+json">
       {

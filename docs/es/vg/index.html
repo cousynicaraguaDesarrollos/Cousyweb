@@ -152,14 +152,6 @@
                   >
                     Gasto personal
                   </button>
-
-                  <button
-                    type="button"
-                    data-value="ahorro"
-                    class="dropdown-option w-full px-4 py-3 text-left hover:bg-[#fff1f5]"
-                  >
-                    Ahorro
-                  </button>
                 </div>
 
                 <input type="hidden" id="tipo" value="venta" />
@@ -186,49 +178,6 @@
                 placeholder="Nombre del cliente"
                 class="w-full rounded-2xl border border-[#f1cad6] bg-white px-4 py-3 outline-none transition focus:border-[#ec1665]"
               />
-            </div>
-
-            <div id="tipoGastoBox" class="hidden md:col-span-2 rounded-2xl border border-[#f1cad6] bg-[#fffafb] p-4 sm:p-5">
-              <p class="block text-sm font-medium text-neutral-700 text-center mb-3">Tipo de gasto</p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                <label
-                  class="flex items-center justify-center gap-2 rounded-xl border border-[#ecd8df] bg-white px-3 py-2 text-sm text-neutral-700 cursor-pointer transition hover:border-[#73a35a]/40 hover:bg-[#f5faf2]"
-                >
-                  <input type="checkbox" name="tipoGasto" value="Gasto Administrativo" class="tipo-gasto-option peer sr-only" />
-                  <span
-                    class="h-5 w-5 shrink-0 rounded-full border border-neutral-400 bg-white transition peer-checked:border-[#2563eb] peer-checked:bg-[#2563eb] peer-focus-visible:ring-2 peer-focus-visible:ring-[#2563eb]/30"
-                  ></span>
-                  <span class="text-center">Gasto Administrativo</span>
-                </label>
-                <label
-                  class="flex items-center justify-center gap-2 rounded-xl border border-[#ecd8df] bg-white px-3 py-2 text-sm text-neutral-700 cursor-pointer transition hover:border-[#73a35a]/40 hover:bg-[#f5faf2]"
-                >
-                  <input type="checkbox" name="tipoGasto" value="Gasto Fijo" class="tipo-gasto-option peer sr-only" />
-                  <span
-                    class="h-5 w-5 shrink-0 rounded-full border border-neutral-400 bg-white transition peer-checked:border-[#2563eb] peer-checked:bg-[#2563eb] peer-focus-visible:ring-2 peer-focus-visible:ring-[#2563eb]/30"
-                  ></span>
-                  <span class="text-center">Gasto Fijo</span>
-                </label>
-                <label
-                  class="flex items-center justify-center gap-2 rounded-xl border border-[#ecd8df] bg-white px-3 py-2 text-sm text-neutral-700 cursor-pointer transition hover:border-[#73a35a]/40 hover:bg-[#f5faf2]"
-                >
-                  <input type="checkbox" name="tipoGasto" value="Gasto de Produccion" class="tipo-gasto-option peer sr-only" />
-                  <span
-                    class="h-5 w-5 shrink-0 rounded-full border border-neutral-400 bg-white transition peer-checked:border-[#2563eb] peer-checked:bg-[#2563eb] peer-focus-visible:ring-2 peer-focus-visible:ring-[#2563eb]/30"
-                  ></span>
-                  <span class="text-center">Gasto de Produccion</span>
-                </label>
-                <label
-                  class="flex items-center justify-center gap-2 rounded-xl border border-[#ecd8df] bg-white px-3 py-2 text-sm text-neutral-700 cursor-pointer transition hover:border-[#73a35a]/40 hover:bg-[#f5faf2]"
-                >
-                  <input type="checkbox" name="tipoGasto" value="Gastos variables" class="tipo-gasto-option peer sr-only" />
-                  <span
-                    class="h-5 w-5 shrink-0 rounded-full border border-neutral-400 bg-white transition peer-checked:border-[#2563eb] peer-checked:bg-[#2563eb] peer-focus-visible:ring-2 peer-focus-visible:ring-[#2563eb]/30"
-                  ></span>
-                  <span class="text-center">Gastos variables</span>
-                </label>
-              </div>
-              <p id="tipoGastoError" class="mt-2 text-sm text-red-600 hidden">Selecciona un tipo de gasto</p>
             </div>
 
             <div class="md:col-span-2">
@@ -267,15 +216,11 @@
 
               <button
                 type="button"
-                id="verResumenBtn"
                 onclick="mostrarDashboard()"
                 class="w-full rounded-2xl border border-[#ec1665] bg-white px-4 py-3 text-[#ec1665] font-medium transition hover:bg-[#fff1f5]"
               >
                 Ver resumen grafico
               </button>
-              <p id="verResumenHint" class="hidden text-center text-sm text-neutral-500">
-                Solo usuarios Admin pueden ver el resumen grafico
-              </p>
             </div>
           </form>
 
@@ -336,82 +281,20 @@
       const loginView = document.getElementById("loginView");
       const appView = document.getElementById("appView");
       const dashboardView = document.getElementById("dashboardView");
-      const verResumenBtn = document.getElementById("verResumenBtn");
-      const verResumenHint = document.getElementById("verResumenHint");
 
       const tipo = document.getElementById("tipo");
       const fecha = document.getElementById("fecha");
       const clienteBox = document.getElementById("clienteBox");
-      const tipoGastoBox = document.getElementById("tipoGastoBox");
-      const tipoGastoError = document.getElementById("tipoGastoError");
-      const tipoGastoOptions = Array.from(document.querySelectorAll(".tipo-gasto-option"));
-      const STORAGE_USUARIO_KEY = "usuarioVentasGastos";
-      const STORAGE_ACCESO_KEY = "tipoAccesoVentasGastos";
-      const ACCESO_ADMIN = "Admin";
-      const ACCESO_EMPLEADO = "Empleado";
 
       let resumenChart = null;
       let gastosPieChart = null;
       let clientesPieChart = null;
-      let tipoAccesoActual = ACCESO_EMPLEADO;
-
-      function obtenerUsuarioActual() {
-        return (localStorage.getItem(STORAGE_USUARIO_KEY) || "").trim();
-      }
-
-      function normalizarTipoAcceso(tipoAcceso) {
-        const limpio = String(tipoAcceso || "")
-          .trim()
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-
-        if (limpio === "admin" || limpio === "administrador") return ACCESO_ADMIN;
-        return ACCESO_EMPLEADO;
-      }
-
-      function getEtiquetaTipoAcceso(tipoAcceso) {
-        return tipoAcceso === ACCESO_ADMIN ? ACCESO_ADMIN : ACCESO_EMPLEADO;
-      }
-
-      function usuarioPuedeVerDashboard() {
-        return tipoAccesoActual === ACCESO_ADMIN;
-      }
-
-      function aplicarPermisosDashboardUI() {
-        const puedeVer = usuarioPuedeVerDashboard();
-        verResumenBtn.classList.toggle("hidden", !puedeVer);
-        verResumenHint.classList.toggle("hidden", puedeVer);
-      }
-
-      function obtenerTipoGastoSeleccionado() {
-        const selected = tipoGastoOptions.find((opt) => opt.checked);
-        return selected ? selected.value : "";
-      }
-
-      function limpiarTipoGasto() {
-        tipoGastoOptions.forEach((opt) => {
-          opt.checked = false;
-        });
-        tipoGastoError.classList.add("hidden");
-      }
-
-      tipoGastoOptions.forEach((opt) => {
-        opt.addEventListener("change", () => {
-          if (!opt.checked) return;
-          tipoGastoOptions.forEach((other) => {
-            if (other !== opt) other.checked = false;
-          });
-          tipoGastoError.classList.add("hidden");
-        });
-      });
 
       fecha.valueAsDate = new Date();
 
-      const usuarioGuardado = localStorage.getItem(STORAGE_USUARIO_KEY);
-      const accesoGuardado = localStorage.getItem(STORAGE_ACCESO_KEY);
+      const usuarioGuardado = localStorage.getItem("usuarioVentasGastos");
       if (usuarioGuardado) {
-        mostrarApp(usuarioGuardado, accesoGuardado);
+        mostrarApp(usuarioGuardado);
       }
 
       document.getElementById("loginForm").addEventListener("submit", async function (e) {
@@ -434,10 +317,8 @@
           const data = await res.json();
 
           if (data.success) {
-            const tipoAcceso = normalizarTipoAcceso(data.tipoAcceso);
-            localStorage.setItem(STORAGE_USUARIO_KEY, data.usuario);
-            localStorage.setItem(STORAGE_ACCESO_KEY, tipoAcceso);
-            mostrarApp(data.usuario, tipoAcceso);
+            localStorage.setItem("usuarioVentasGastos", data.usuario);
+            mostrarApp(data.usuario);
           } else {
             loginMensaje.textContent = "Usuario o contrasena incorrectos";
           }
@@ -454,40 +335,15 @@
 
         const tipoValor = tipo.value;
 
-        const usuarioActual = obtenerUsuarioActual();
+        const datos = {
+          tipo: tipoValor,
+          fecha: document.getElementById("fecha").value,
+          descripcion: document.getElementById("descripcion").value.trim(),
+          monto: document.getElementById("monto").value
+        };
 
-if (!usuarioActual) {
-  mensaje.textContent = "Sesión no válida. Cerrá sesión e ingresá nuevamente.";
-  mensaje.className = "mt-4 text-center text-sm font-medium text-red-600";
-  return;
-}
-
-const datos = {
-  tipo: tipoValor,
-  fecha: document.getElementById("fecha").value,
-  descripcion: document.getElementById("descripcion").value.trim(),
-  monto: document.getElementById("monto").value,
-
-  // Enviamos el usuario con varios nombres para hacerlo compatible
-  usuario: usuarioActual,
-  usuarioActivo: usuarioActual,
-  nombreUsuario: usuarioActual,
-  ingresoDeDatos: usuarioActual
-};
-
-        if (tipoValor === "venta" || tipoValor === "ahorro") {
+        if (tipoValor === "venta") {
           datos.cliente = document.getElementById("cliente").value.trim();
-        }
-
-        if (tipoValor === "gasto") {
-          const tipoGastoSeleccionado = obtenerTipoGastoSeleccionado();
-          if (!tipoGastoSeleccionado) {
-            tipoGastoError.classList.remove("hidden");
-            mensaje.textContent = "Selecciona un tipo de gasto";
-            mensaje.className = "mt-4 text-center text-sm font-medium text-red-600";
-            return;
-          }
-          datos.tipoGasto = tipoGastoSeleccionado;
         }
 
         try {
@@ -503,10 +359,7 @@ const datos = {
             mensaje.className = "mt-4 text-center text-sm font-medium text-[#73a35a]";
 
             document.getElementById("registroForm").reset();
-            tipo.value = "venta";
-            selectButton.textContent = "Venta";
             fecha.valueAsDate = new Date();
-            limpiarTipoGasto();
             actualizarFormulario();
           } else {
             mensaje.textContent = data.error || "No se pudo guardar";
@@ -541,33 +394,15 @@ const datos = {
       });
 
       function actualizarFormulario() {
-        const isVenta = tipo.value === "venta";
-        const isAhorro = tipo.value === "ahorro";
-        const isGasto = tipo.value === "gasto";
-
-        if (isVenta || isAhorro) {
+        if (tipo.value === "venta") {
           clienteBox.classList.remove("hidden");
         } else {
           clienteBox.classList.add("hidden");
           document.getElementById("cliente").value = "";
         }
-
-        if (isGasto) {
-          tipoGastoBox.classList.remove("hidden");
-        } else {
-          tipoGastoBox.classList.add("hidden");
-          limpiarTipoGasto();
-        }
       }
 
       function mostrarDashboard() {
-        if (!usuarioPuedeVerDashboard()) {
-          const mensaje = document.getElementById("mensaje");
-          mensaje.textContent = "Solo usuarios Admin pueden ver el resumen grafico";
-          mensaje.className = "mt-4 text-center text-sm font-medium text-[#ec1665]";
-          return;
-        }
-
         appView.classList.add("hidden");
         dashboardView.classList.remove("hidden");
         cargarGraficoResumen();
@@ -693,21 +528,15 @@ const datos = {
         });
       }
 
-      function mostrarApp(usuario, tipoAcceso) {
-        tipoAccesoActual = normalizarTipoAcceso(tipoAcceso || localStorage.getItem(STORAGE_ACCESO_KEY));
-        localStorage.setItem(STORAGE_ACCESO_KEY, tipoAccesoActual);
-
+      function mostrarApp(usuario) {
         loginView.classList.add("hidden");
         appView.classList.remove("hidden");
-        document.getElementById("usuarioActivo").textContent =
-          "Usuario: " + usuario + " | Acceso: " + getEtiquetaTipoAcceso(tipoAccesoActual);
-        aplicarPermisosDashboardUI();
+        document.getElementById("usuarioActivo").textContent = "Usuario: " + usuario;
         actualizarFormulario();
       }
 
       function cerrarSesion() {
-        localStorage.removeItem(STORAGE_USUARIO_KEY);
-        localStorage.removeItem(STORAGE_ACCESO_KEY);
+        localStorage.removeItem("usuarioVentasGastos");
         location.reload();
       }
     </script>

@@ -8,6 +8,7 @@ const srcDataDir = path.join(projectRoot, "src", "data");
 const srcJsDir = path.join(projectRoot, "src", "js");
 const srcConfigDir = path.join(projectRoot, "src", "config");
 const publicDir = path.join(projectRoot, "public");
+const publicPartialsDir = path.join(publicDir, "partials");
 const rootCnameFile = path.join(projectRoot, "CNAME");
 const rootNoJekyllFile = path.join(projectRoot, ".nojekyll");
 
@@ -122,6 +123,45 @@ function extractHtmlLang(html) {
   return match?.[2] || "es";
 }
 
+function readPartial(fileName) {
+  const partialFile = path.join(publicPartialsDir, fileName);
+  if (!fs.existsSync(partialFile)) return "";
+  return fs.readFileSync(partialFile, "utf8");
+}
+
+const PARTIALS_BY_LANG = Object.freeze({
+  es: Object.freeze({
+    header: readPartial("header-es.html"),
+    footer: readPartial("footer-es.html")
+  })
+});
+
+function addDataPartialInjected(openTag) {
+  if (/\bdata-partial-injected\b/i.test(openTag)) return openTag;
+  return openTag.replace(/>$/, ' data-partial-injected="1">');
+}
+
+function injectPartialIntoTag(html, tagName, dataAttr, partialHtml) {
+  if (!partialHtml) return html;
+
+  const pattern = new RegExp(`(<${tagName}\\b[^>]*\\b${dataAttr}\\b[^>]*>)([\\s\\S]*?)(<\\/${tagName}>)`, "i");
+  return String(html).replace(pattern, (full, openTag, innerHtml, closeTag) => {
+    if (String(innerHtml).trim()) return full;
+    return `${addDataPartialInjected(openTag)}${partialHtml}${closeTag}`;
+  });
+}
+
+function injectLayoutPartials(html) {
+  const lang = extractHtmlLang(html);
+  const partials = PARTIALS_BY_LANG[lang];
+  if (!partials) return html;
+
+  let next = String(html);
+  next = injectPartialIntoTag(next, "header", "data-site-header", partials.header);
+  next = injectPartialIntoTag(next, "footer", "data-site-footer", partials.footer);
+  return next;
+}
+
 function buildLegacyRedirectHtml({ targetPath, lang }) {
   const safeTarget = String(targetPath || "./");
   const safeLang = String(lang || "es");
@@ -206,7 +246,8 @@ function copyPages({ siteUrl } = {}) {
 
     const sourceRaw = fs.readFileSync(sourceHtmlFile, "utf8");
     const outputWasNested = outputRel !== sourceRel;
-    let rewritten = rewriteInternalHtmlLinks(sourceRaw);
+    let rewritten = injectLayoutPartials(sourceRaw);
+    rewritten = rewriteInternalHtmlLinks(rewritten);
     if (outputWasNested) {
       rewritten = rewriteRelativeAssetPathsForNestedOutput(rewritten);
     }

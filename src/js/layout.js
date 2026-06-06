@@ -15,6 +15,14 @@ const ROUTE_MAP = Object.freeze({
 const VIEW_TRANSITION_CLASS = "is-view-transitioning";
 let pageTransitionsReady = false;
 
+function hasRenderableContent(target) {
+  if (!(target instanceof HTMLElement)) return false;
+  return Array.from(target.childNodes).some((node) => {
+    if (node.nodeType === Node.ELEMENT_NODE) return true;
+    return node.nodeType === Node.TEXT_NODE && String(node.textContent ?? "").trim() !== "";
+  });
+}
+
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
@@ -259,6 +267,13 @@ async function initLayout() {
   const header = document.querySelector("[data-site-header]");
   const footer = document.querySelector("[data-site-footer]");
 
+  if (hasRenderableContent(header)) {
+    header.dataset.partialInjected = "1";
+  }
+  if (hasRenderableContent(footer)) {
+    footer.dataset.partialInjected = "1";
+  }
+
   if (header && !header.dataset.partialInjected) {
     await inject(header, `partials/header-${lang}.html`);
   }
@@ -298,7 +313,11 @@ function onLoad() {
   void runInit();
 }
 
-initAnalytics();
+try {
+  initAnalytics();
+} catch (error) {
+  console.error("[Cousy layout] No se pudo inicializar analytics.", error);
+}
 initPageTransitions();
 window.addEventListener("DOMContentLoaded", onLoad);
 document.addEventListener("turbo:load", onLoad);
