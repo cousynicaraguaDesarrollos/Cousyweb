@@ -1,4 +1,4 @@
-const CACHE_NAME = "cousy-cache-v17";
+const CACHE_NAME = "cousy-cache-v18";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -13,6 +13,7 @@ const PRECACHE_URLS = [
   "./assets/logo-cousy.webp",
   "./es/index.html",
   "./es/vg/",
+  "./es/tienda/",
   "./es/tienda.html",
   "./es/cotizacion.html",
   "./es/casos-de-exito.html",

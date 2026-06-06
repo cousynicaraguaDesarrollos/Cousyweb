@@ -123,6 +123,15 @@ function extractHtmlLang(html) {
   return match?.[2] || "es";
 }
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 function readPartial(fileName) {
   const partialFile = path.join(publicPartialsDir, fileName);
   if (!fs.existsSync(partialFile)) return "";
@@ -159,6 +168,68 @@ function injectLayoutPartials(html) {
   let next = String(html);
   next = injectPartialIntoTag(next, "header", "data-site-header", partials.header);
   next = injectPartialIntoTag(next, "footer", "data-site-footer", partials.footer);
+  return next;
+}
+
+function productCategories(products) {
+  const set = new Set(
+    (Array.isArray(products) ? products : []).map((product) => product?.category).filter(Boolean)
+  );
+  return ["Todas", ...Array.from(set).sort((a, b) => a.localeCompare(b, "es"))];
+}
+
+function renderStoreCategoryOptionsHtml(products) {
+  return productCategories(products)
+    .map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`)
+    .join("");
+}
+
+function renderStoreProductCardsHtml(products) {
+  return (Array.isArray(products) ? products : [])
+    .map((product) => {
+      const productId = escapeHtml(product?.id ?? "");
+      const productName = escapeHtml(product?.name ?? product?.id ?? "Producto promocional");
+      const productCategory = escapeHtml(product?.category ?? "");
+      const imagePath = escapeHtml(product?.image ?? "../assets/placeholder.svg");
+      const imageAlt = escapeHtml(
+        product?.name
+          ? `${product.name} | producto promocional para empresas`
+          : "Producto promocional para empresas"
+      );
+      const metaText = escapeHtml(
+        product?.category
+          ? `Personalización corporativa · ${product.category} · Pedidos al por mayor`
+          : "Personalización corporativa · Pedidos al por mayor"
+      );
+
+      return `<article class="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-black/5" id="${productId}" data-product-card="1" data-product-name="${productName}" data-product-category="${productCategory}">
+  <img src="${imagePath}" alt="${imageAlt}" loading="lazy" class="w-full object-cover" width="13" height="8" style="aspect-ratio: 13 / 8" />
+  <div class="flex flex-1 flex-col gap-1.5 p-3">
+    <h3 class="text-base font-semibold leading-snug text-brand-ink" style="min-height: 2.5rem; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">${productName}</h3>
+    <p class="text-sm font-normal text-black/70" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${metaText}</p>
+    <button type="button" class="mt-2 w-full rounded-xl bg-brand-accent px-4 py-2 text-sm font-normal text-white hover:brightness-95 active:brightness-90">Añadir a cotización</button>
+  </div>
+</article>`;
+    })
+    .join("");
+}
+
+function injectStoreFallbackContent(html, products) {
+  if (!String(html).includes('id="products-grid"')) return html;
+
+  let next = String(html);
+  next = next.replace(
+    /(<span\b[^>]*\bdata-products-count\b[^>]*>)([\s\S]*?)(<\/span>)/i,
+    `$1${products.length}$3`
+  );
+  next = next.replace(
+    /(<select\b[^>]*id="products-category"[^>]*>)([\s\S]*?)(<\/select>)/i,
+    `$1${renderStoreCategoryOptionsHtml(products)}$3`
+  );
+  next = next.replace(
+    /(<section\b[^>]*id="products-grid"[^>]*>)([\s\S]*?)(<\/section>)/i,
+    `$1${renderStoreProductCardsHtml(products)}$3`
+  );
   return next;
 }
 
@@ -247,6 +318,7 @@ function copyPages({ siteUrl } = {}) {
     const sourceRaw = fs.readFileSync(sourceHtmlFile, "utf8");
     const outputWasNested = outputRel !== sourceRel;
     let rewritten = injectLayoutPartials(sourceRaw);
+    rewritten = injectStoreFallbackContent(rewritten, productsData);
     rewritten = rewriteInternalHtmlLinks(rewritten);
     if (outputWasNested) {
       rewritten = rewriteRelativeAssetPathsForNestedOutput(rewritten);
@@ -324,6 +396,7 @@ fs.mkdirSync(path.join(distDir, "js"), { recursive: true });
 fs.mkdirSync(path.join(distDir, "config"), { recursive: true });
 
 const siteConfig = readJson(path.join(srcConfigDir, "site.json"));
+const productsData = readJson(path.join(srcDataDir, "products.json"));
 const siteUrl = normalizeSiteUrl(siteConfig.siteUrl);
 const manualSitemapPaths = Array.isArray(siteConfig.manualSitemapPaths)
   ? siteConfig.manualSitemapPaths
