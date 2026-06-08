@@ -133,7 +133,7 @@ function normalizePathname(pathname) {
 function normalizeHrefToPath(href) {
   if (!href) return "";
   try {
-    const url = new URL(href, window.location.origin);
+    const url = new URL(href, window.location.href);
     return normalizePathname(url.pathname);
   } catch {
     return "";
@@ -168,10 +168,12 @@ function setActiveNav() {
     const isDesktopNav = !!a.closest(".js-site-nav");
     if (isDesktopNav) {
       a.classList.toggle("border-b-2", isActive);
-      a.classList.toggle("border-brand-ink", isActive);
+      a.classList.toggle("border-brand-accent", isActive);
+      a.classList.toggle("text-brand-accent", isActive);
+      a.classList.toggle("text-brand-ink", !isActive);
       a.classList.toggle("pb-1", isActive);
     } else {
-      a.classList.remove("border-b-2", "border-brand-ink", "pb-1", "bg-brand-muted");
+      a.classList.remove("border-b-2", "border-brand-accent", "pb-1", "bg-brand-muted");
     }
     if (isActive) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
