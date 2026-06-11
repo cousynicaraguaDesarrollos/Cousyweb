@@ -174,6 +174,9 @@ function setActiveNav() {
       a.classList.toggle("pb-1", isActive);
     } else {
       a.classList.remove("border-b-2", "border-brand-accent", "pb-1", "bg-brand-muted");
+      a.classList.toggle("text-white", isActive);
+      a.classList.toggle("text-brand-ink", !isActive);
+      a.style.backgroundColor = isActive ? "#73a35a" : "";
     }
     if (isActive) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
@@ -190,12 +193,36 @@ function setActiveNav() {
   }
 
   for (const el of document.querySelectorAll(".js-quote-link")) {
-    const keepSolidBg = el.classList.contains("bg-brand-cta");
-    if (keepSolidBg) {
+    const keepSolidBg = el.classList.contains("bg-brand-cta") || el.classList.contains("bg-brand-accent");
+    const isMobileQuoteLink = el.hasAttribute("data-mobile-quote-link");
+    if (keepSolidBg || isMobileQuoteLink) {
       el.classList.remove("bg-black/5");
       continue;
     }
     el.classList.toggle("bg-black/5", quoteActive);
+  }
+}
+
+function initMobileQuoteLinks() {
+  for (const el of document.querySelectorAll("[data-mobile-quote-link]")) {
+    if (!(el instanceof HTMLAnchorElement)) continue;
+
+    const applyState = (interactive) => {
+      el.style.backgroundColor = interactive ? "#ec1665" : "transparent";
+      el.style.color = interactive ? "#ffffff" : "#ec1665";
+    };
+
+    applyState(false);
+
+    if (el.dataset.quoteLinkReady === "1") continue;
+
+    el.addEventListener("mouseenter", () => applyState(true));
+    el.addEventListener("mouseleave", () => applyState(false));
+    el.addEventListener("mouseover", () => applyState(true));
+    el.addEventListener("mouseout", () => applyState(false));
+    el.addEventListener("focus", () => applyState(true));
+    el.addEventListener("blur", () => applyState(false));
+    el.dataset.quoteLinkReady = "1";
   }
 }
 
@@ -285,6 +312,7 @@ async function initLayout() {
 
   applyHeaderRoutes(header, lang);
   setActiveNav();
+  initMobileQuoteLinks();
   initHeaderView(header ?? document);
   setYear();
 
