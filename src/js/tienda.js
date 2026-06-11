@@ -4,6 +4,12 @@ import { trackProductView, trackQuoteClick } from "./analytics.js";
 const siteBaseUrl = new URL("../", import.meta.url);
 const siteBasePath = siteBaseUrl.pathname.replace(/\/$/, "");
 let productViewObserver = null;
+let productGallery = null;
+const productGalleryState = {
+  products: [],
+  currentIndex: 0,
+  lastTrigger: null
+};
 
 function fromRoot(relPath) {
   const cleanRelPath = String(relPath ?? "").replace(/^\.?\//, "");
@@ -33,7 +39,186 @@ function normalize(text) {
     .replaceAll(/[\u0300-\u036f]/g, "");
 }
 
-function card(product) {
+function getGalleryProduct(indexOffset = 0) {
+  const { products, currentIndex } = productGalleryState;
+  if (!products.length) return null;
+  const nextIndex = (currentIndex + indexOffset + products.length) % products.length;
+  return products[nextIndex] ?? null;
+}
+
+function syncGalleryButtons() {
+  if (!productGallery) return;
+  const multiProduct = productGalleryState.products.length > 1;
+  productGallery.prevButton.hidden = !multiProduct;
+  productGallery.nextButton.hidden = !multiProduct;
+}
+
+function renderGalleryItem() {
+  if (!productGallery) return;
+  const current = getGalleryProduct();
+  if (!current) return;
+
+  const imageUrl = resolveSiteUrl(current.image) || fromRoot("assets/placeholder.svg");
+  productGallery.image.src = imageUrl;
+  productGallery.image.alt = current.name
+    ? `${current.name} | vista ampliada del producto`
+    : "Vista ampliada del producto";
+  productGallery.title.textContent = current.name || "Producto";
+  productGallery.meta.textContent = current.category
+    ? `${current.category} · ${productGalleryState.currentIndex + 1} de ${productGalleryState.products.length}`
+    : `${productGalleryState.currentIndex + 1} de ${productGalleryState.products.length}`;
+  syncGalleryButtons();
+}
+
+function closeProductGallery() {
+  if (!productGallery) return;
+  productGallery.overlay.classList.add("hidden");
+  productGallery.overlay.classList.remove("flex");
+  document.body.classList.remove("overflow-hidden");
+  document.removeEventListener("keydown", handleGalleryKeydown);
+
+  if (productGalleryState.lastTrigger instanceof HTMLElement) {
+    productGalleryState.lastTrigger.focus();
+  }
+}
+
+function stepProductGallery(direction) {
+  if (productGalleryState.products.length < 2) return;
+  productGalleryState.currentIndex =
+    (productGalleryState.currentIndex + direction + productGalleryState.products.length) %
+    productGalleryState.products.length;
+  renderGalleryItem();
+}
+
+function handleGalleryKeydown(event) {
+  if (!productGallery || productGallery.overlay.classList.contains("hidden")) return;
+
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeProductGallery();
+    return;
+  }
+
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    stepProductGallery(-1);
+    return;
+  }
+
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    stepProductGallery(1);
+  }
+}
+
+function ensureProductGallery() {
+  if (productGallery) return productGallery;
+
+  const overlay = document.createElement("div");
+  overlay.className = "fixed inset-0 z-[90] hidden items-center justify-center bg-black/80 p-4 sm:p-8";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-labelledby", "product-gallery-title");
+
+  const panel = document.createElement("div");
+  panel.className =
+    "relative flex max-h-full w-full max-w-5xl flex-col overflow-hidden rounded-[28px] bg-white shadow-2xl";
+
+  const toolbar = document.createElement("div");
+  toolbar.className =
+    "flex items-start justify-between gap-4 border-b border-black/10 px-4 py-3 sm:px-6 sm:py-4";
+
+  const headingWrap = document.createElement("div");
+  headingWrap.className = "min-w-0";
+
+  const title = document.createElement("h2");
+  title.id = "product-gallery-title";
+  title.className = "truncate text-lg font-semibold text-brand-ink sm:text-xl";
+
+  const meta = document.createElement("p");
+  meta.className = "mt-1 text-sm text-black/60";
+
+  headingWrap.append(title, meta);
+
+  const closeButton = document.createElement("button");
+  closeButton.type = "button";
+  closeButton.className =
+    "inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-2xl leading-none text-brand-ink transition hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent";
+  closeButton.setAttribute("aria-label", "Cerrar vista ampliada");
+  closeButton.textContent = "×";
+  closeButton.addEventListener("click", closeProductGallery);
+
+  toolbar.append(headingWrap, closeButton);
+
+  const viewport = document.createElement("div");
+  viewport.className = "relative flex min-h-[320px] flex-1 items-center justify-center bg-[#f8f6f1] p-4 sm:min-h-[520px] sm:p-6";
+
+  const prevButton = document.createElement("button");
+  prevButton.type = "button";
+  prevButton.className =
+    "absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-2xl text-brand-ink shadow-lg transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent sm:left-5";
+  prevButton.setAttribute("aria-label", "Ver producto anterior");
+  prevButton.textContent = "‹";
+  prevButton.addEventListener("click", () => stepProductGallery(-1));
+
+  const nextButton = document.createElement("button");
+  nextButton.type = "button";
+  nextButton.className =
+    "absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-2xl text-brand-ink shadow-lg transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent sm:right-5";
+  nextButton.setAttribute("aria-label", "Ver siguiente producto");
+  nextButton.textContent = "›";
+  nextButton.addEventListener("click", () => stepProductGallery(1));
+
+  const image = document.createElement("img");
+  image.className = "max-h-[72vh] w-full object-contain";
+
+  viewport.append(prevButton, image, nextButton);
+  panel.append(toolbar, viewport);
+  overlay.append(panel);
+
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) {
+      closeProductGallery();
+    }
+  });
+
+  document.body.append(overlay);
+
+  productGallery = {
+    overlay,
+    title,
+    meta,
+    image,
+    prevButton,
+    nextButton,
+    closeButton
+  };
+
+  return productGallery;
+}
+
+function openProductGallery(products, productId, trigger) {
+  if (!Array.isArray(products) || !products.length) return;
+
+  const selectedIndex = Math.max(
+    0,
+    products.findIndex((product) => product.id === productId)
+  );
+
+  productGalleryState.products = products.slice();
+  productGalleryState.currentIndex = selectedIndex;
+  productGalleryState.lastTrigger = trigger instanceof HTMLElement ? trigger : null;
+
+  const gallery = ensureProductGallery();
+  renderGalleryItem();
+  gallery.overlay.classList.remove("hidden");
+  gallery.overlay.classList.add("flex");
+  document.body.classList.add("overflow-hidden");
+  document.addEventListener("keydown", handleGalleryKeydown);
+  gallery.closeButton.focus();
+}
+
+function card(product, products) {
   const el = document.createElement("article");
   el.className =
     "group flex flex-col overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-black/5";
@@ -57,6 +242,20 @@ function card(product) {
   img.width = 13;
   img.height = 8;
   img.style.aspectRatio = "13 / 8";
+
+  const previewButton = document.createElement("button");
+  previewButton.type = "button";
+  previewButton.className =
+    "block w-full cursor-zoom-in overflow-hidden bg-[#f8f6f1] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-accent";
+  previewButton.setAttribute(
+    "aria-label",
+    `Ver imagen ampliada de ${product.name || "este producto"}`
+  );
+  previewButton.title = "Ver imagen ampliada";
+  previewButton.addEventListener("click", () => {
+    openProductGallery(products, product.id, previewButton);
+  });
+  previewButton.append(img);
 
   const body = document.createElement("div");
   body.className = "flex flex-1 flex-col gap-1.5 p-3";
@@ -105,7 +304,7 @@ function card(product) {
   });
 
   body.append(title, meta, btn);
-  el.append(img, body);
+  el.append(previewButton, body);
   return el;
 }
 
@@ -205,7 +404,7 @@ function render(products) {
   const grid = document.querySelector("#products-grid");
   if (!grid) return;
   grid.innerHTML = "";
-  for (const p of products) grid.append(card(p));
+  for (const p of products) grid.append(card(p, products));
   startProductViewTracking();
 }
 
