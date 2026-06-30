@@ -51,7 +51,25 @@ export function writeNotes(text) {
   localStorage.setItem(NOTES_KEY, text);
 }
 
-export function buildWhatsappText({ greeting, items, notes }) {
+function resolveWhatsappProductUrl(value, siteUrl) {
+  const raw = String(value ?? "").trim();
+  if (!raw) return "";
+  if (/^(https?:)?\/\//i.test(raw) || raw.startsWith("data:") || raw.startsWith("blob:")) return raw;
+
+  const base = String(siteUrl ?? "").trim() || window.location?.origin || "";
+  if (!base) return raw;
+
+  try {
+    const baseUrl = new URL(base.endsWith("/") ? base : `${base}/`);
+    if (raw.startsWith("/")) return new URL(raw, baseUrl).toString();
+    const cleaned = raw.replace(/^\.?\//, "");
+    return new URL(cleaned, baseUrl).toString();
+  } catch {
+    return raw;
+  }
+}
+
+export function buildWhatsappText({ greeting, items, notes, siteUrl }) {
   const lines = [];
   if (greeting) lines.push(greeting.trim());
   lines.push("");
@@ -59,8 +77,9 @@ export function buildWhatsappText({ greeting, items, notes }) {
   for (const item of items) {
     const qty = Number(item.qty ?? 1);
     const name = String(item.name ?? item.id ?? "").trim();
-    const url = item.sourceUrl ? ` (${item.sourceUrl})` : "";
-    lines.push(`- ${qty} x ${name}${url}`);
+    const url = resolveWhatsappProductUrl(item.sourceUrl, siteUrl);
+    lines.push(`- ${qty} x ${name}`);
+    if (url) lines.push(`  Producto: ${url}`);
   }
   if (notes?.trim()) {
     lines.push("");

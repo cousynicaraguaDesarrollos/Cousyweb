@@ -8,7 +8,7 @@ import {
   updateQty,
   whatsappLink,
   writeNotes
-} from "./cart.js";
+} from "./cart.js?v=20260630a";
 import { trackWhatsAppClick } from "./analytics.js";
 
 const siteBaseUrl = new URL("../", import.meta.url);
@@ -166,7 +166,8 @@ async function initCotizacion() {
       const message = buildWhatsappText({
         greeting,
         items: current,
-        notes: readNotes()
+        notes: readNotes(),
+        siteUrl: cfg?.siteUrl || ""
       });
       const url = whatsappLink({ number, text: message });
       trackWhatsAppClick({
