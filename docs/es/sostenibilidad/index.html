@@ -106,49 +106,50 @@
         min-height: 15.5rem;
         overflow: hidden;
         border-radius: 1rem;
-        border: 1px dashed rgba(115, 163, 90, 0.7);
-        background: linear-gradient(
-          155deg,
-          rgba(221, 224, 225, 0.75) 0%,
-          rgba(255, 255, 255, 0.98) 100%
-        );
+        background-color: rgba(221, 224, 225, 0.75);
         box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.72);
+        isolation: isolate;
+      }
+
+      .sustainability-photo-media {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
       .sustainability-photo-slot::before {
         content: "";
         position: absolute;
-        inset: -30% -8% auto;
-        height: 72%;
-        background:
-          radial-gradient(
-            circle at 20% 30%,
-            rgba(115, 163, 90, 0.3),
-            transparent 58%
-          ),
-          radial-gradient(
-            circle at 74% 20%,
-            rgba(236, 22, 101, 0.24),
-            transparent 56%
-          );
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(29, 30, 32, 0.08) 0%,
+          rgba(29, 30, 32, 0.14) 35%,
+          rgba(29, 30, 32, 0.72) 100%
+        );
+        z-index: 1;
         pointer-events: none;
       }
 
       .sustainability-photo-slot::after {
         content: "";
         position: absolute;
-        inset: 0;
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.45) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.45) 1px, transparent 1px);
-        background-size: 24px 24px;
-        opacity: 0.4;
+        inset: auto 0 0 0;
+        height: 55%;
+        background: linear-gradient(
+          180deg,
+          rgba(236, 22, 101, 0) 0%,
+          rgba(236, 22, 101, 0.14) 100%
+        );
+        z-index: 1;
         pointer-events: none;
       }
 
       .sustainability-photo-content {
         position: relative;
-        z-index: 1;
+        z-index: 2;
         display: flex;
         height: 100%;
         flex-direction: column;
@@ -410,8 +411,8 @@
               class="aspect-square overflow-hidden rounded-3xl shadow-soft ring-1 ring-black/5"
             >
               <img
-                src="../../assets/img/tela-ecologica-cousy-nicaragua.webp"
-                alt="tela de lona natural cruda usada para confección de tote bags y mochilas sostenibles en Cousy Nicaragua"
+                src="../../assets/img/produccion-textil-cousy-managua.webp"
+                alt="Equipo de Cousy Nicaragua en producción textil sostenible para pedidos corporativos en Managua"
                 loading="lazy"
                 width="800"
                 height="800"
@@ -543,20 +544,42 @@
       <section class="pb-10 sm:pb-14">
         <div class="grid grid-cols-1 sm:grid-cols-2">
           <figure class="overflow-hidden">
-            <img
-              src="../../assets/img/Costura_con_proposito_en_cousy_nicaragua.webp"
-              alt="Detalle del proceso de costura textil sostenible en Cousy Nicaragua"
-              loading="lazy"
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="../../assets/img/intro-cousy-nicaragua-poster.webp"
+              aria-label="Detalle del proceso de costura textil sostenible en Cousy Nicaragua"
               width="1200"
               height="800"
               class="h-full w-full object-cover"
               style="min-height: 260px; max-height: 460px"
-            />
+            >
+              <source
+                src="../../assets/video/intro-cousy-nicaragua-loop.webm"
+                type="video/webm"
+              />
+              <source
+                src="../../assets/video/intro-cousy-nicaragua-loop.mp4"
+                type="video/mp4"
+              />
+              <img
+                src="../../assets/img/intro-cousy-nicaragua-poster.webp"
+                alt="Detalle del proceso de costura textil sostenible en Cousy Nicaragua"
+                loading="lazy"
+                width="1200"
+                height="800"
+                class="h-full w-full object-cover"
+                style="min-height: 260px; max-height: 460px"
+              />
+            </video>
           </figure>
           <figure class="overflow-hidden">
             <img
-              src="../../assets/img/bolsas-de-lona-managua.webp"
-              alt="Bolsas de lona y materiales textiles organizados en el taller de Cousy Nicaragua en Managua"
+              src="../../assets/img/produccion-textil-cousy-managua.webp"
+              alt="Equipo de Cousy Nicaragua trabajando en confección textil responsable para empresas en Managua"
               loading="lazy"
               width="1200"
               height="800"
@@ -677,64 +700,80 @@
             imágenes del taller, productos terminados y entregas corporativas.
           </p>
           <div class="mt-6 grid gap-4 sm:grid-cols-2">
-            <figure
-              class="sustainability-photo-slot"
-              role="img"
-              aria-label="Espacio para foto del equipo de costura de Cousy"
-            >
+            <figure class="sustainability-photo-slot">
+              <img
+                src="../../assets/img/trabajadores-de-cousy-costurando.webp"
+                alt="Manos trabajando en una estación de costura del taller de Cousy Nicaragua"
+                loading="lazy"
+                width="1200"
+                height="1200"
+                class="sustainability-photo-media"
+              />
               <figcaption class="sustainability-photo-content">
-                <span class="sustainability-photo-chip">Foto sugerida 01</span>
-                <p class="mt-3 text-lg font-bold text-brand-ink">
+                <span class="sustainability-photo-chip">Taller Cousy</span>
+                <p class="mt-3 text-lg font-bold text-white">
                   Equipo de costura en acción
                 </p>
-                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                <p class="mt-1 text-sm leading-relaxed text-white/85">
                   Mostrar manos trabajando y detalle de confección en productos
                   B2B.
                 </p>
               </figcaption>
             </figure>
-            <figure
-              class="sustainability-photo-slot"
-              role="img"
-              aria-label="Espacio para foto de materiales y corte textil de Cousy"
-            >
+            <figure class="sustainability-photo-slot">
+              <img
+                src="../../assets/img/tela-ecologica-cousy-nicaragua.webp"
+                alt="Detalle de tela ecológica usada como material base en la producción textil de Cousy Nicaragua"
+                loading="lazy"
+                width="1200"
+                height="1200"
+                class="sustainability-photo-media"
+              />
               <figcaption class="sustainability-photo-content">
-                <span class="sustainability-photo-chip">Foto sugerida 02</span>
-                <p class="mt-3 text-lg font-bold text-brand-ink">
+                <span class="sustainability-photo-chip">Material base</span>
+                <p class="mt-3 text-lg font-bold text-white">
                   Selección de materiales
                 </p>
-                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                <p class="mt-1 text-sm leading-relaxed text-white/85">
                   Incluir tela, corte y control de calidad inicial.
                 </p>
               </figcaption>
             </figure>
-            <figure
-              class="sustainability-photo-slot"
-              role="img"
-              aria-label="Espacio para foto de productos promocionales sostenibles terminados"
-            >
+            <figure class="sustainability-photo-slot">
+              <img
+                src="../../assets/images/nosotros-madres/cousy-kit-tote-monedero-cartuchera.webp"
+                alt="Kit de productos promocionales sostenibles terminado con tote bag, monedero y cartuchera de Cousy Nicaragua"
+                loading="lazy"
+                width="1200"
+                height="1500"
+                class="sustainability-photo-media"
+              />
               <figcaption class="sustainability-photo-content">
-                <span class="sustainability-photo-chip">Foto sugerida 03</span>
-                <p class="mt-3 text-lg font-bold text-brand-ink">
+                <span class="sustainability-photo-chip">Producto final</span>
+                <p class="mt-3 text-lg font-bold text-white">
                   Productos terminados
                 </p>
-                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                <p class="mt-1 text-sm leading-relaxed text-white/85">
                   Tote bags, mochilas o loncheras listas para clientes
                   corporativos.
                 </p>
               </figcaption>
             </figure>
-            <figure
-              class="sustainability-photo-slot"
-              role="img"
-              aria-label="Espacio para foto de lote corporativo y empaque final"
-            >
+            <figure class="sustainability-photo-slot">
+              <img
+                src="../../assets/img/Loncheras-ecologicas-airpak.webp"
+                alt="Lote de productos textiles sostenibles listos para entrega corporativa en el taller de Cousy Nicaragua"
+                loading="lazy"
+                width="1200"
+                height="1200"
+                class="sustainability-photo-media"
+              />
               <figcaption class="sustainability-photo-content">
-                <span class="sustainability-photo-chip">Foto sugerida 04</span>
-                <p class="mt-3 text-lg font-bold text-brand-ink">
+                <span class="sustainability-photo-chip">Lote listo</span>
+                <p class="mt-3 text-lg font-bold text-white">
                   Lotes corporativos listos para entrega
                 </p>
-                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                <p class="mt-1 text-sm leading-relaxed text-white/85">
                   Ideal para mostrar volumen, empaque y consistencia de marca.
                 </p>
               </figcaption>
