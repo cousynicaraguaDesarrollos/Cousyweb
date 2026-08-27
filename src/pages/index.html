@@ -8,6 +8,17 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TC7DDC2H');</script>
     <!-- End Google Tag Manager -->
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var path = window.location.pathname.replace(/\/+$/, "") || "/";
+        var language = String(navigator.language || "").toLowerCase();
+        var target = language.indexOf("en") === 0 ? "./en/" : language.indexOf("es") === 0 ? "./es/" : "";
+
+        if (path !== "/" || params.get("manual") === "1" || !target) return;
+        window.location.replace(target);
+      })();
+    </script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
