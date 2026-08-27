@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es">
-  <head>
+    <head>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -8,6 +8,7 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TC7DDC2H');</script>
     <!-- End Google Tag Manager -->
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Regalos corporativos y productos ecológicos hechos a mano | Cousy Nicaragua</title>
@@ -49,9 +50,9 @@
         border: 1px solid rgba(255, 255, 255, 0.8);
         border-radius: 28px;
         padding: 24px;
-        background: rgba(255, 255, 255, 0.82);
-        box-shadow: 0 24px 70px rgba(23, 33, 43, 0.12);
-        backdrop-filter: blur(18px);
+        background: rgba(255, 255, 255, 0.62);
+        box-shadow: 0 24px 70px rgba(23, 33, 43, 0.1);
+        backdrop-filter: blur(22px);
       }
       .brand {
         display: flex;
@@ -95,21 +96,27 @@
       }
       .btn {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
+        min-height: 88px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 4px;
         width: 100%;
-        min-height: 58px;
-        padding: 14px 16px;
-        border-radius: 16px;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        background: #fff;
+        padding: 16px 18px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.78);
+        background: rgba(255, 255, 255, 0.48);
         color: #111;
         text-decoration: none;
         font-weight: 650;
+        box-shadow: 0 8px 24px rgba(23, 33, 43, 0.06);
+        backdrop-filter: blur(14px);
       }
-      .btn:hover {
-        background: rgba(0, 0, 0, 0.03);
+      .btn:hover,
+      .btn:focus-visible {
+        background: rgba(255, 255, 255, 0.78);
+        outline: 3px solid rgba(236, 22, 101, 0.25);
+        outline-offset: 2px;
       }
       .muted {
         font-weight: 500;
@@ -144,11 +151,11 @@
         <div class="grid" role="list">
           <a class="btn" role="listitem" href="./es/">
             <span>Español</span>
-            <span class="muted">Catálogo y cotización</span>
+            <span class="muted">Catálogo y cotización →</span>
           </a>
           <a class="btn" role="listitem" href="./en/" lang="en">
-            <span>English</span>
-            <span class="muted">Catalog and quotes</span>
+            <span lang="en">English</span>
+            <span class="muted" lang="en">Catalog and quotes →</span>
           </a>
         </div>
       </div>
