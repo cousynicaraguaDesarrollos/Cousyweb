@@ -85,6 +85,9 @@ export function buildWhatsappText({ greeting, items, notes, siteUrl }) {
     lines.push("");
     lines.push("Notas:");
     lines.push(notes.trim());
+  } else {
+    lines.push("");
+    lines.push("Para agilizar la cotización, indicá cantidad aproximada, colores, logo, fecha de entrega y ciudad.");
   }
   return lines.join("\n");
 }

@@ -2,7 +2,9 @@
 
 El proyecto ya contiene la medición de Google Analytics 4 con el Measurement ID `G-M9D3K3092V`, correspondiente a la propiedad numérica `454329627` de `cousynicaragua.com`. También existe el evento `whatsapp_click`, que se dispara al pulsar **Enviar a WhatsApp** desde la página de cotización, siempre que el visitante haya dado consentimiento analítico.
 
-El archivo `google-analytics-monthly-report.gs` genera un informe del mes calendario anterior y lo envía a `margelgabriel@gmail.com` y `cousynicaragua@gmail.com`. El informe incluye usuarios activos, usuarios nuevos, sesiones, vistas, tasa de interacción, duración media, canales de adquisición, páginas principales, clics en WhatsApp y otros eventos comerciales disponibles.
+El archivo `google-analytics-monthly-report.gs` genera un informe del mes calendario anterior y lo envía a `margelgabriel@gmail.com` y `cousynicaragua@gmail.com`. El informe incluye usuarios activos, usuarios nuevos, sesiones, vistas, tasa de interacción, duración media, canales de adquisición, páginas principales, clics en WhatsApp y otros eventos comerciales disponibles. Las rutas `/pruebas-web/`, `/docs/` y `/src/pages/` se excluyen del bloque de páginas para evitar que entornos no productivos distorsionen el análisis.
+
+El tracking de conversiones (`whatsapp_click` y `quote_add_item`) quedó publicado el `2026-08-27`. Por ese motivo, los reportes de periodos anteriores mostrarán una nota indicando que esos eventos todavía no son comparables.
 
 ## Activación única
 

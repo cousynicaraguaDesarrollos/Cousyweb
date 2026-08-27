@@ -16,6 +16,7 @@ const CONFIG = Object.freeze({
     'cousynicaragua@gmail.com'
   ],
   whatsappEventName: 'whatsapp_click',
+  trackingStartDate: '2026-08-27',
   siteName: 'Cousy Nicaragua'
 });
 
@@ -56,7 +57,9 @@ function sendMonthlyAnalyticsReport() {
     metric_('screenPageViews'),
     metric_('activeUsers'),
     metric_('engagementRate')
-  ], [dimension_('pagePath'), dimension_('pageTitle')], period, 10);
+  ], [dimension_('pagePath'), dimension_('pageTitle')], period, 10, {
+    excludePrefixes: ['/pruebas-web/', '/docs/', '/src/pages/']
+  });
 
   const whatsapp = runReport_([
     metric_('eventCount'),
@@ -106,7 +109,20 @@ function runReport_(metrics, dimensions, period, limit, filter) {
     orderBys: metrics.length ? [{ metric: { metricName: metrics[0].name }, desc: true }] : []
   };
 
-  if (filter) {
+  if (filter?.excludePrefixes?.length) {
+    request.dimensionFilter = {
+      andGroup: {
+        expressions: filter.excludePrefixes.map(prefix => ({
+          notExpression: {
+            filter: {
+              fieldName: 'pagePath',
+              stringFilter: { matchType: 'BEGINS_WITH', value: prefix }
+            }
+          }
+        }))
+      }
+    };
+  } else if (filter) {
     request.dimensionFilter = {
       filter: {
         fieldName: filter.fieldName,
@@ -143,6 +159,9 @@ function buildEmailHtml_(period, summary, channels, pages, whatsapp, quoteEvents
   <div style="font-family:Arial,sans-serif;max-width:900px;color:#1d1e20">
     <h1 style="color:#ec1665">${escapeHtml_(CONFIG.siteName)} — Reporte mensual de GA4</h1>
     <p><strong>Periodo:</strong> ${escapeHtml_(period.label)} (${period.start} a ${period.end})</p>
+    ${period.end < CONFIG.trackingStartDate
+      ? `<p style="background:#fff3cd;border-left:4px solid #ec1665;padding:10px"><strong>Nota de medición:</strong> este periodo terminó antes de la publicación del tracking de conversiones (${CONFIG.trackingStartDate}). Los eventos de WhatsApp y cotización no son comparables todavía.</p>`
+      : ''}
     <h2>Resumen ejecutivo</h2>
     ${kpiTable_(summary)}
     <h2>Canales de adquisición</h2>
@@ -194,7 +213,9 @@ function recommendations_(totals, whatsappValues, channels, pages) {
   const engagementRate = Number(totals[4] || 0);
   const whatsappClicks = Number(whatsappValues[0] || 0);
   const items = [];
-  if (whatsappClicks === 0) items.push('Revisar la visibilidad y el texto de los llamados a la acción de WhatsApp, especialmente en móvil.');
+  if (whatsappClicks === 0) {
+    items.push('Revisar la visibilidad y el texto de los llamados a la acción de WhatsApp, especialmente en móvil.');
+  }
   else items.push(`Mantener y probar nuevas variantes de los CTA: se registraron ${whatsappClicks} clics en WhatsApp.`);
   if (engagementRate < 0.5) items.push('Mejorar el contenido de las páginas de entrada y reforzar el enlazado interno para aumentar la interacción.');
   else items.push('Replicar en otras páginas los patrones de contenido de las páginas con mayor interacción.');
