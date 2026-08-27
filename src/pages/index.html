@@ -121,7 +121,7 @@
 
         <h2>Entrá al sitio</h2>
         <div class="grid" role="list">
-          <a class="btn" role="listitem" href="./es/index.html">
+          <a class="btn" role="listitem" href="./es/">
             <span>Español</span>
             <span class="muted">Catálogo y cotización</span>
           </a>
@@ -139,13 +139,6 @@
       }
     </script>
 
-    <script>
-      (function () {
-        var path = window.location.pathname || "";
-        var isSpanishRoute = path.indexOf("/es/") !== -1;
-        if (isSpanishRoute) return;
-        window.location.replace("./es/index.html" + window.location.search + window.location.hash);
-      })();
-    </script>
+
   </body>
 </html>
