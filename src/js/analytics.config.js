@@ -16,7 +16,9 @@ export const analyticsConfig = Object.freeze({
   excludedPathPatterns: Object.freeze([
     /\/es\/vg(?:\/|\/index\.html)?$/i,
     /\/es\/vg\.html$/i,
-    /\/es\/ventas-gastos-panel(?:\/|\/index\.html|\.html)?$/i
+    /\/es\/ventas-gastos-panel(?:\/|\/index\.html|\.html)?$/i,
+    // Nunca recopilar datos de entornos de prueba o rutas de código fuente.
+    /\/(?:pruebas-web|docs|src\/pages)(?:\/|$)/i
   ])
 });
 

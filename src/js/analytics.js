@@ -14,6 +14,7 @@ let analyticsInitialized = false;
 let consentBanner = null;
 let lifecycleBound = false;
 let quoteDelegationBound = false;
+let whatsappDelegationBound = false;
 let pageViewSequence = 0;
 let lastPageKey = "";
 let scrollTrackedForPageView = -1;
@@ -181,8 +182,10 @@ function sanitizeParams(params = {}) {
 }
 
 function currentPageContext() {
+  const pathname = normalizePathname(window.location?.pathname ?? "/");
   return {
-    page_path: window.location?.pathname ?? "/",
+    // Use the clean route in custom events so /es/index.html and /es/ are grouped.
+    page_path: pathname,
     page_title: document.title,
     page_language: document.documentElement.lang || "es"
   };
@@ -208,6 +211,10 @@ export function trackWhatsAppClick(params = {}) {
 
 export function trackQuoteClick(params = {}) {
   return trackEvent("quote_click", params);
+}
+
+export function trackQuoteAddItem(params = {}) {
+  return trackEvent("quote_add_item", params);
 }
 
 export function trackCatalogDownload(params = {}) {
@@ -325,6 +332,50 @@ function bindQuoteDelegation() {
   });
 }
 
+function isWhatsAppHref(element) {
+  if (!(element instanceof HTMLAnchorElement)) return false;
+  const href = element.getAttribute("href");
+  if (!href || href.startsWith("#")) return false;
+
+  try {
+    const url = new URL(href, window.location.origin);
+    const hostname = url.hostname.toLowerCase();
+    return hostname === "wa.me" || hostname === "api.whatsapp.com";
+  } catch {
+    return false;
+  }
+}
+
+function bindWhatsAppDelegation() {
+  if (whatsappDelegationBound) return;
+  whatsappDelegationBound = true;
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+    const link = event.target.closest("a[href]");
+    if (!(link instanceof HTMLAnchorElement)) return;
+    if (!isWhatsAppHref(link)) return;
+    if (link.closest("[data-cookie-consent-root='1']")) return;
+
+    let whatsappHost = "";
+    try {
+      whatsappHost = new URL(link.href, window.location.origin).hostname;
+    } catch {
+      // Ignore malformed URLs; the navigation itself remains unaffected.
+    }
+
+    trackWhatsAppClick({
+      cta_label: resolveElementLabel(link) || "WhatsApp",
+      cta_location: link.closest("header")
+        ? "header"
+        : link.closest("footer")
+          ? "footer"
+          : "content_link",
+      whatsapp_host: whatsappHost
+    });
+  });
+}
+
 function maybeTrackScrollDepth() {
   if (!hasConsentDecision()) return;
   if (!isCurrentRouteEnabled()) return;
@@ -356,9 +407,10 @@ function syncGa4PageView() {
   if (window.__cousyGa4LastPageKey === pageKey) return;
 
   ensureGlobalGtag();
+  const cleanPath = normalizePathname(window.location.pathname);
   window.gtag("config", analyticsConfig.ga4MeasurementId, {
     page_title: document.title,
-    page_path: window.location.pathname + window.location.search,
+    page_path: cleanPath + window.location.search,
     page_location: window.location.href
   });
   window.__cousyGa4LastPageKey = pageKey;
@@ -398,6 +450,7 @@ function exposeAnalyticsApi() {
     trackEvent,
     trackWhatsAppClick,
     trackQuoteClick,
+    trackQuoteAddItem,
     trackCatalogDownload,
     trackContactSubmit,
     trackProductView,
@@ -421,6 +474,7 @@ export function initAnalytics() {
   ensureGtmLoaded();
   bindLifecycle();
   bindQuoteDelegation();
+  bindWhatsAppDelegation();
   exposeAnalyticsApi();
   handleRouteLifecycle();
 

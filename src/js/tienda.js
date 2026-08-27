@@ -1,5 +1,5 @@
 import { addToCart } from "./cart.js";
-import { trackProductView, trackQuoteClick } from "./analytics.js";
+import { trackProductView, trackQuoteAddItem, trackQuoteClick } from "./analytics.js";
 
 const siteBaseUrl = new URL("../", import.meta.url);
 const siteBasePath = siteBaseUrl.pathname.replace(/\/$/, "");
@@ -289,6 +289,11 @@ function card(product, products) {
       cta_location: "product_card",
       product_name: product.name || product.id || "",
       product_category: product.category || ""
+    });
+    trackQuoteAddItem({
+      product_name: product.name || product.id || "",
+      product_category: product.category || "",
+      cta_location: "product_card"
     });
     addToCart(
       {
