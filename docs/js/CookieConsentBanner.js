@@ -38,26 +38,26 @@ export class CookieConsentBanner {
     const root = document.createElement("div");
     root.dataset.cookieConsentRoot = "1";
     root.className =
-      "fixed inset-0 z-[120] flex items-end bg-white/80 px-4 py-4 backdrop-blur-sm sm:items-center sm:justify-center sm:p-6";
+      "fixed inset-0 z-[120] flex items-end bg-black/20 px-4 py-4 backdrop-blur-md sm:items-center sm:justify-center sm:p-6";
     root.innerHTML = `
-      <div class="w-full max-w-3xl rounded-[1.75rem] border border-black/10 bg-white p-5 shadow-soft sm:p-7">
+      <div role="dialog" aria-modal="true" aria-labelledby="cookie-consent-title" class="w-full max-w-3xl rounded-[1.75rem] border border-white/70 bg-white/85 p-5 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-7">
         <div class="flex flex-col gap-4">
           <div class="flex flex-col gap-2">
             <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[#73a35a]">Consentimiento de cookies</p>
-            <h2 class="text-2xl tracking-tight text-brand-ink sm:text-3xl">Queremos medir mejor tus visitas sin romper tu experiencia</h2>
+            <h2 id="cookie-consent-title" class="text-2xl tracking-tight text-brand-ink sm:text-3xl">Queremos medir mejor tus visitas sin romper tu experiencia</h2>
             <p class="text-sm leading-relaxed text-black/70 sm:text-base">
               Usamos Google Tag Manager, Google Analytics 4 y Consent Mode v2 para medir interacciones del sitio.
               Mientras no elijas, el contenido queda bloqueado para respetar tu decisión.
             </p>
           </div>
 
-          <div class="rounded-2xl bg-[#dde0e1]/45 p-4 text-sm text-black/75">
+          <div class="rounded-2xl border border-white/70 bg-white/55 p-4 text-sm text-black/75 shadow-sm backdrop-blur-md">
             <p class="font-semibold text-brand-ink">Resumen rápido</p>
             <p class="mt-2">Si aceptas, activamos analítica y señales publicitarias.</p>
             <p class="mt-1">Si rechazas, esas señales quedan denegadas y el sitio sigue funcionando.</p>
           </div>
 
-          <div data-cookie-consent-details class="hidden rounded-2xl border border-black/10 bg-white p-4 text-sm text-black/75">
+          <div data-cookie-consent-details class="hidden rounded-2xl border border-white/70 bg-white/70 p-4 text-sm text-black/75 shadow-sm backdrop-blur-md">
             <p class="font-semibold text-brand-ink">Preferencias disponibles</p>
             <div class="mt-3 grid gap-3 sm:grid-cols-2">
               <div class="rounded-2xl bg-[#dde0e1]/35 p-3">
