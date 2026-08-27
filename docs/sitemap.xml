@@ -25,6 +25,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
   </url>
   <url>
+    <loc>https://cousynicaragua.com/en/products-for-companies/</loc>
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/en/products-for-hotels/</loc>
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/en/products-for-ngos/</loc>
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/en/products-for-restaurants/</loc>
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/en/products-for-schools/</loc>
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/en/products-for-universities/</loc>
+  </url>
+  <url>
     <loc>https://cousynicaragua.com/en/store/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/tienda/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/store/" />
@@ -53,6 +71,24 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/nosotros/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/about/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/es/productos-para-colegios/</loc>
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/es/productos-para-empresas/</loc>
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/es/productos-para-hoteles/</loc>
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/es/productos-para-ong/</loc>
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/es/productos-para-restaurantes/</loc>
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/es/productos-para-universidades/</loc>
   </url>
   <url>
     <loc>https://cousynicaragua.com/es/sostenibilidad/</loc>

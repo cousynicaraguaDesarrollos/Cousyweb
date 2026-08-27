@@ -26,7 +26,13 @@ const LANGUAGE_ROUTE_PAIRS = Object.freeze([
   Object.freeze({ es: "/es/cotizacion/", en: "/en/quote/" }),
   Object.freeze({ es: "/es/nosotros/", en: "/en/about/" }),
   Object.freeze({ es: "/es/sostenibilidad/", en: "/en/sustainability/" }),
-  Object.freeze({ es: "/es/casos-de-exito/", en: "/en/case-studies/" })
+  Object.freeze({ es: "/es/casos-de-exito/", en: "/en/case-studies/" }),
+  Object.freeze({ es: "/es/productos-para-empresas/", en: "/en/products-for-companies/" }),
+  Object.freeze({ es: "/es/productos-para-universidades/", en: "/en/products-for-universities/" }),
+  Object.freeze({ es: "/es/productos-para-colegios/", en: "/en/products-for-schools/" }),
+  Object.freeze({ es: "/es/productos-para-hoteles/", en: "/en/products-for-hotels/" }),
+  Object.freeze({ es: "/es/productos-para-restaurantes/", en: "/en/products-for-restaurants/" }),
+  Object.freeze({ es: "/es/productos-para-ong/", en: "/en/products-for-ngos/" })
 ]);
 
 function detectLanguage() {
