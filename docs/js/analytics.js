@@ -142,6 +142,19 @@ function ensureGtmLoaded() {
   document.head.append(script);
 }
 
+function scheduleMeasurementScripts() {
+  const load = () => {
+    ensureGa4Loaded();
+    ensureGtmLoaded();
+  };
+
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(load, { timeout: 1800 });
+  } else {
+    window.setTimeout(load, 1200);
+  }
+}
+
 function ensureGa4Loaded() {
   if (!shouldUseDirectGa4()) return;
   if (document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${analyticsConfig.ga4MeasurementId}"]`)) {
@@ -470,8 +483,7 @@ export function initAnalytics() {
   ensureGlobalGtag();
   ensureConsentDefaults();
   ensureStoredConsentApplied();
-  ensureGa4Loaded();
-  ensureGtmLoaded();
+  scheduleMeasurementScripts();
   bindLifecycle();
   bindQuoteDelegation();
   bindWhatsAppDelegation();
