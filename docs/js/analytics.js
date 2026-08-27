@@ -308,7 +308,7 @@ function isQuoteHref(element) {
   try {
     const url = new URL(href, window.location.origin);
     const normalized = normalizePathname(url.pathname);
-    return normalized === "/es/cotizacion";
+    return normalized === "/es/cotizacion" || normalized === "/en/quote";
   } catch {
     return false;
   }

@@ -71,23 +71,28 @@ function resolveWhatsappProductUrl(value, siteUrl) {
 
 export function buildWhatsappText({ greeting, items, notes, siteUrl }) {
   const lines = [];
+  const isEnglish = String(document.documentElement?.lang ?? "").toLowerCase().startsWith("en") || window.location.pathname.includes("/en/");
   if (greeting) lines.push(greeting.trim());
   lines.push("");
-  lines.push("Productos para cotizar:");
+  lines.push(isEnglish ? "Products to quote:" : "Productos para cotizar:");
   for (const item of items) {
     const qty = Number(item.qty ?? 1);
     const name = String(item.name ?? item.id ?? "").trim();
     const url = resolveWhatsappProductUrl(item.sourceUrl, siteUrl);
     lines.push(`- ${qty} x ${name}`);
-    if (url) lines.push(`  Producto: ${url}`);
+    if (url) lines.push(`  ${isEnglish ? "Product" : "Producto"}: ${url}`);
   }
   if (notes?.trim()) {
     lines.push("");
-    lines.push("Notas:");
+    lines.push(isEnglish ? "Notes:" : "Notas:");
     lines.push(notes.trim());
   } else {
     lines.push("");
-    lines.push("Para agilizar la cotización, indicá cantidad aproximada, colores, logo, fecha de entrega y ciudad.");
+    lines.push(
+      isEnglish
+        ? "To speed up your quote, please include an approximate quantity, colors, logo requirements, delivery date and city."
+        : "Para agilizar la cotización, indicá cantidad aproximada, colores, logo, fecha de entrega y ciudad."
+    );
   }
   return lines.join("\n");
 }

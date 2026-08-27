@@ -1,21 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://cousynicaragua.com/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/en/about/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/nosotros/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/about/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/en/case-studies/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/casos-de-exito/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/case-studies/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/en/store/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/tienda/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/store/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
+  </url>
+  <url>
+    <loc>https://cousynicaragua.com/en/sustainability/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/sostenibilidad/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/sustainability/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
   </url>
   <url>
     <loc>https://cousynicaragua.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
   </url>
   <url>
     <loc>https://cousynicaragua.com/es/casos-de-exito/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/casos-de-exito/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/case-studies/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
   </url>
   <url>
     <loc>https://cousynicaragua.com/es/nosotros/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/nosotros/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/about/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
   </url>
   <url>
     <loc>https://cousynicaragua.com/es/sostenibilidad/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/sostenibilidad/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/sustainability/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
   </url>
   <url>
     <loc>https://cousynicaragua.com/es/tienda/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/tienda/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/store/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
   </url>
 </urlset>

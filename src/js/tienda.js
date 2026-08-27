@@ -23,6 +23,40 @@ function fromBasePath(pathname) {
   return `${siteBasePath}${cleanPath}`;
 }
 
+function isEnglishPage() {
+  return String(document.documentElement?.lang ?? "").toLowerCase().startsWith("en") || window.location.pathname.includes("/en/");
+}
+
+function copy() {
+  return isEnglishPage()
+    ? {
+        addToQuote: "Add to quote",
+        added: "Added",
+        productMeta: "Custom corporate product · Bulk orders",
+        productMetaWithCategory: "Custom corporate product · {category} · Bulk orders",
+        allCategories: "All",
+        galleryClose: "Close enlarged view",
+        galleryPrevious: "View previous product",
+        galleryNext: "View next product",
+        galleryProduct: "Product",
+        galleryView: "View enlarged image",
+        productAlt: "Promotional product for businesses"
+      }
+    : {
+        addToQuote: "Añadir a cotización",
+        added: "Agregado",
+        productMeta: "Personalización corporativa · Pedidos al por mayor",
+        productMetaWithCategory: "Personalización corporativa · {category} · Pedidos al por mayor",
+        allCategories: "Todas",
+        galleryClose: "Cerrar vista ampliada",
+        galleryPrevious: "Ver producto anterior",
+        galleryNext: "Ver siguiente producto",
+        galleryProduct: "Producto",
+        galleryView: "Ver imagen ampliada",
+        productAlt: "Producto promocional para empresas"
+      };
+}
+
 function resolveSiteUrl(value) {
   const raw = String(value ?? "").trim();
   if (!raw) return "";
@@ -144,7 +178,7 @@ function ensureProductGallery() {
   closeButton.type = "button";
   closeButton.className =
     "inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-2xl leading-none text-brand-ink transition hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent";
-  closeButton.setAttribute("aria-label", "Cerrar vista ampliada");
+  closeButton.setAttribute("aria-label", copy().galleryClose);
   closeButton.textContent = "×";
   closeButton.addEventListener("click", closeProductGallery);
 
@@ -157,7 +191,7 @@ function ensureProductGallery() {
   prevButton.type = "button";
   prevButton.className =
     "absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-2xl text-brand-ink shadow-lg transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent sm:left-5";
-  prevButton.setAttribute("aria-label", "Ver producto anterior");
+  prevButton.setAttribute("aria-label", copy().galleryPrevious);
   prevButton.textContent = "‹";
   prevButton.addEventListener("click", () => stepProductGallery(-1));
 
@@ -165,7 +199,7 @@ function ensureProductGallery() {
   nextButton.type = "button";
   nextButton.className =
     "absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-2xl text-brand-ink shadow-lg transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent sm:right-5";
-  nextButton.setAttribute("aria-label", "Ver siguiente producto");
+  nextButton.setAttribute("aria-label", copy().galleryNext);
   nextButton.textContent = "›";
   nextButton.addEventListener("click", () => stepProductGallery(1));
 
@@ -233,8 +267,8 @@ function card(product, products) {
 
   img.src = imageUrl;
   img.alt = product.name
-    ? `${product.name} | producto promocional para empresas`
-    : "Producto promocional para empresas";
+    ? `${product.name} | ${copy().productAlt}`
+    : copy().productAlt;
   img.loading = "lazy";
   img.className = "w-full object-cover";
   // ~20% shorter card: smaller image area + tighter padding.
@@ -249,9 +283,9 @@ function card(product, products) {
     "block w-full cursor-zoom-in overflow-hidden bg-[#f8f6f1] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-accent";
   previewButton.setAttribute(
     "aria-label",
-    `Ver imagen ampliada de ${product.name || "este producto"}`
+    `${copy().galleryView}: ${product.name || copy().galleryProduct}`
   );
-  previewButton.title = "Ver imagen ampliada";
+  previewButton.title = copy().galleryView;
   previewButton.addEventListener("click", () => {
     openProductGallery(products, product.id, previewButton);
   });
@@ -271,9 +305,10 @@ function card(product, products) {
 
   const meta = document.createElement("p");
   meta.className = "text-sm font-normal text-black/70";
+  const labels = copy();
   meta.textContent = product.category
-    ? `Personalización corporativa · ${product.category} · Pedidos al por mayor`
-    : "Personalización corporativa · Pedidos al por mayor";
+    ? labels.productMetaWithCategory.replace("{category}", product.category)
+    : labels.productMeta;
   meta.style.whiteSpace = "nowrap";
   meta.style.overflow = "hidden";
   meta.style.textOverflow = "ellipsis";
@@ -282,10 +317,10 @@ function card(product, products) {
   btn.type = "button";
   btn.className =
     "mt-2 w-full rounded-xl bg-brand-accent px-4 py-2 text-sm font-normal text-white hover:brightness-95 active:brightness-90";
-  btn.textContent = "Añadir a cotización";
+  btn.textContent = labels.addToQuote;
   btn.addEventListener("click", () => {
     trackQuoteClick({
-      cta_label: "Añadir a cotización",
+      cta_label: copy().addToQuote,
       cta_location: "product_card",
       product_name: product.name || product.id || "",
       product_category: product.category || ""
@@ -304,8 +339,8 @@ function card(product, products) {
       },
       1
     );
-    btn.textContent = "Agregado";
-    setTimeout(() => (btn.textContent = "Añadir a cotización"), 900);
+    btn.textContent = labels.added;
+    setTimeout(() => (btn.textContent = labels.addToQuote), 900);
   });
 
   body.append(title, meta, btn);
@@ -374,12 +409,13 @@ function startProductViewTracking() {
 }
 
 async function loadProducts() {
+  const catalogFile = isEnglishPage() ? "data/products.en.json" : "data/products.json";
   const candidates = Array.from(
     new Set([
-      fromRoot("data/products.json"),
-      new URL("../data/products.json", window.location.href).toString(),
-      `${window.location.origin}/data/products.json`,
-      `${window.location.origin}/docs/data/products.json`
+      fromRoot(catalogFile),
+      new URL(`../${catalogFile}`, window.location.href).toString(),
+      `${window.location.origin}/${catalogFile}`,
+      `${window.location.origin}/docs/${catalogFile}`
     ])
   );
 
@@ -415,7 +451,8 @@ function render(products) {
 
 function categories(products) {
   const set = new Set(products.map((p) => p.category).filter(Boolean));
-  return ["Todas", ...Array.from(set).sort((a, b) => a.localeCompare(b, "es"))];
+  const labels = copy();
+  return [labels.allCategories, ...Array.from(set).sort((a, b) => a.localeCompare(b, isEnglishPage() ? "en" : "es"))];
 }
 
 function mountFilters(all) {
@@ -434,11 +471,11 @@ function mountFilters(all) {
 
   function apply() {
     const q = normalize(search?.value ?? "");
-    const cat = select?.value ?? "Todas";
+    const cat = select?.value ?? copy().allCategories;
     const filtered = all.filter((p) => {
       const matchesText =
         !q || normalize(p.name).includes(q) || normalize(p.category).includes(q);
-      const matchesCat = cat === "Todas" || p.category === cat;
+      const matchesCat = cat === copy().allCategories || p.category === cat;
       return matchesText && matchesCat;
     });
     render(filtered);

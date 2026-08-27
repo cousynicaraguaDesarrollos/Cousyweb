@@ -42,6 +42,12 @@
       </a>
     </nav>
 
+    <div class="hidden items-center gap-1 text-xs font-semibold sm:flex" aria-label="Selector de idioma">
+      <a data-language-switch="es" href="./index.html" class="rounded-lg bg-brand-muted px-2 py-1 text-brand-accent" aria-current="page">ES</a>
+      <span class="text-black/30" aria-hidden="true">/</span>
+      <a data-language-switch="en" href="../en/" class="rounded-lg px-2 py-1 text-brand-ink hover:bg-brand-muted hover:text-brand-accent">EN</a>
+    </div>
+
     <button
       type="button"
       class="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-xl hover:bg-black/5 sm:hidden"
@@ -119,6 +125,11 @@
         </li>
       </ul>
       <div class="px-3 pb-16 text-center">
+        <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold" aria-label="Selector de idioma">
+          <a data-language-switch="es" href="./index.html" class="rounded-lg bg-brand-muted px-3 py-2 text-brand-accent">Español</a>
+          <span class="text-black/30" aria-hidden="true">/</span>
+          <a data-language-switch="en" href="../en/" class="rounded-lg px-3 py-2 text-brand-ink hover:bg-brand-muted hover:text-brand-accent">English</a>
+        </div>
         <a
           data-mobile-quote-link
           data-nav-route="quote"

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Request a Corporate Quote | Cousy Nicaragua</title>
+    <meta name="description" content="Build a corporate product quote with quantities, branding notes and delivery details, then send it to Cousy Nicaragua through WhatsApp." />
+    <meta name="robots" content="noindex,follow" />
+    <link rel="canonical" href="https://cousynicaragua.com/en/quote/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cousy Nicaragua" />
+    <meta property="og:title" content="Request a Corporate Quote | Cousy Nicaragua" />
+    <meta property="og:description" content="Build a corporate product quote with quantities, branding notes and delivery details, then send it to Cousy Nicaragua through WhatsApp." />
+    <meta property="og:url" content="https://cousynicaragua.com/en/quote/" />
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../assets/app.css" />
+  </head>
+  <body class="bg-[#f8f6f1]">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC7DDC2H" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <header id="site-header-en" data-site-header class="sticky top-0 z-50 border-b border-black/10 bg-white"></header>
+    <main class="container py-10 sm:py-14">
+      <section class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5 sm:p-10">
+        <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[#73a35a]">B2B quote builder</p>
+        <h1 class="mt-3 text-4xl tracking-tight text-brand-ink sm:text-5xl">Build your corporate quote</h1>
+        <p class="mt-5 max-w-3xl text-base leading-relaxed text-black/70 sm:text-lg">Review your selected products, adjust quantities and add the details our team needs to prepare a useful quote.</p>
+        <div class="mt-7 grid gap-3 sm:grid-cols-3">
+          <div class="rounded-2xl bg-[#dde0e1] p-4"><p class="text-xs font-semibold uppercase tracking-[0.14em] text-black/60">Step 1</p><p class="mt-2 text-sm font-semibold text-brand-ink">Choose products</p></div>
+          <div class="rounded-2xl bg-[#dde0e1] p-4"><p class="text-xs font-semibold uppercase tracking-[0.14em] text-black/60">Step 2</p><p class="mt-2 text-sm font-semibold text-brand-ink">Add quantities and notes</p></div>
+          <div class="rounded-2xl bg-[#dde0e1] p-4"><p class="text-xs font-semibold uppercase tracking-[0.14em] text-black/60">Step 3</p><p class="mt-2 text-sm font-semibold text-brand-ink">Send through WhatsApp</p></div>
+        </div>
+      </section>
+
+      <section class="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
+        <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5 sm:p-8">
+          <div class="flex items-end justify-between gap-4"><div><p class="text-sm font-semibold uppercase tracking-[0.14em] text-[#73a35a]">Selected products</p><h2 class="mt-2 text-2xl tracking-tight text-brand-ink">Your quote list</h2></div><span class="text-sm text-black/60"><span data-cart-count-total>0</span> items</span></div>
+          <div id="quote-items" class="mt-6 grid gap-3"></div>
+          <div id="quote-empty" class="rounded-2xl bg-[#dde0e1] p-6 text-center"><h3 class="font-semibold text-brand-ink">Your quote list is empty</h3><p class="mt-2 text-sm text-black/70">Browse the catalog and add the products you are interested in.</p><a href="./store.html" class="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl bg-[#73a35a] px-5 text-sm font-semibold text-white">Browse products</a></div>
+        </div>
+
+        <aside class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5 sm:p-8">
+          <h2 class="text-2xl tracking-tight text-brand-ink">Important details</h2>
+          <p class="mt-3 text-sm leading-relaxed text-black/70">Tell us your approximate quantity, colors, logo requirements, target delivery date and city. These details help us respond faster.</p>
+          <label for="quote-notes" class="mt-6 block text-sm font-semibold text-brand-ink">Notes for our team</label>
+          <textarea id="quote-notes" rows="7" placeholder="Example: 100 units, logo on the front, delivery in October, Managua." class="mt-2 w-full rounded-xl border border-black/15 bg-white px-3 py-3 text-sm outline-none focus:border-[#ec1665] focus:ring-2 focus:ring-[#ec1665]/20"></textarea>
+          <p id="quote-error" class="mt-3 text-sm text-[#9f0d48]" role="alert"></p>
+          <button id="quote-send" type="button" class="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[#ec1665] px-5 text-sm font-semibold text-white hover:brightness-95">Send quote through WhatsApp</button>
+          <button id="quote-clear" type="button" class="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-black/15 bg-white px-5 text-sm font-semibold text-brand-ink hover:bg-black/5">Clear quote</button>
+        </aside>
+      </section>
+    </main>
+    <footer data-site-footer class="bg-[#73a35a] text-white"></footer>
+    <script type="module" src="../../js/layout.js"></script>
+    <script type="module" src="../../js/cotizacion.js"></script>
+  </body>
+</html>

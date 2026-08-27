@@ -1,0 +1,58 @@
+[
+  {
+    "id": "kit-corporativo-woman-nicaragua",
+    "name": "Custom eco-friendly corporate kit (bag + wallet) for businesses",
+    "category": "Corporate kits",
+    "image": "../assets/products/kit-corporativo-woman-nicaragua.webp",
+    "sourceUrl": "/en/store.html#kit-corporativo-woman-nicaragua"
+  },
+  {
+    "id": "bolsa-infantil-personalizada",
+    "name": "Custom kids bag for campaigns, trade shows and corporate events",
+    "category": "Kids products",
+    "image": "../assets/products/bolsa-infantil-personalizada.webp",
+    "sourceUrl": "/en/store.html#bolsa-infantil-personalizada"
+  },
+  {
+    "id": "tote-bag-lona-personalizada",
+    "name": "Custom canvas tote bag for businesses and branded merchandising",
+    "category": "Bags and tote bags",
+    "image": "../assets/products/tote-bag-lona-personalizada.webp",
+    "sourceUrl": "/en/store.html#tote-bag-lona-personalizada"
+  },
+  {
+    "id": "mochila-hope-para-empresas",
+    "name": "Handcrafted custom eco-friendly backpack for businesses (Hope model)",
+    "category": "Backpacks",
+    "image": "../assets/products/mochila-hope-para-empresas.webp",
+    "sourceUrl": "/en/store.html#mochila-hope-para-empresas"
+  },
+  {
+    "id": "lonchera-infantil-kinder",
+    "name": "Custom kids lunch bag for schools and corporate gifts",
+    "category": "Lunch bags",
+    "image": "../assets/products/lonchera-infantil-kinder.webp",
+    "sourceUrl": "/en/store.html#lonchera-infantil-kinder"
+  },
+  {
+    "id": "lonchera-adultos-impermeable",
+    "name": "Custom sustainable waterproof lunch bag for businesses",
+    "category": "Lunch bags",
+    "image": "../assets/products/lonchera-adultos-impermeable.webp",
+    "sourceUrl": "/en/store.html#lonchera-adultos-impermeable"
+  },
+  {
+    "id": "kit-infantil-mochila-lonchera",
+    "name": "Custom kids kit (backpack + lunch bag) for companies and events",
+    "category": "Corporate kits",
+    "image": "../assets/products/kit-infantil-mochila-lonchera.webp",
+    "sourceUrl": "/en/store.html#kit-infantil-mochila-lonchera"
+  },
+  {
+    "id": "cartuchera-mom-push",
+    "name": "Custom eco-friendly pencil case for businesses (Mom Push model)",
+    "category": "Accessories",
+    "image": "../assets/products/cartuchera-mom-push.webp",
+    "sourceUrl": "/en/store.html#cartuchera-mom-push"
+  }
+]

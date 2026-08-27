@@ -26,6 +26,16 @@ function fromBasePath(pathname) {
   return `${siteBasePath}${cleanPath}`;
 }
 
+function isEnglishPage() {
+  return String(document.documentElement?.lang ?? "").toLowerCase().startsWith("en") || window.location.pathname.includes("/en/");
+}
+
+function quoteCopy() {
+  return isEnglishPage()
+    ? { viewProduct: "View product", remove: "Remove", send: "Send quote through WhatsApp" }
+    : { viewProduct: "Ver producto", remove: "Quitar", send: "Enviar a WhatsApp" };
+}
+
 function resolveSiteUrl(value) {
   const raw = String(value ?? "").trim();
   if (!raw) return "";
@@ -72,7 +82,7 @@ function itemRow(item) {
   link.href = sourceUrl || "#";
   link.target = "_blank";
   link.rel = "noopener noreferrer";
-  link.textContent = sourceUrl ? "Ver producto" : "";
+  link.textContent = sourceUrl ? quoteCopy().viewProduct : "";
 
   meta.append(title, link);
   left.append(img, meta);
@@ -96,7 +106,7 @@ function itemRow(item) {
   del.type = "button";
   del.className =
     "rounded-xl border border-black/10 px-3 py-2 text-sm font-semibold text-brand-ink hover:bg-black/5";
-  del.textContent = "Quitar";
+  del.textContent = quoteCopy().remove;
   del.addEventListener("click", () => removeItem(item.id));
 
   right.append(qty, del);
@@ -171,7 +181,7 @@ async function initCotizacion() {
       });
       const url = whatsappLink({ number, text: message });
       trackWhatsAppClick({
-        cta_label: "Enviar a WhatsApp",
+        cta_label: quoteCopy().send,
         cta_location: "quote_page",
         items_count: current.length,
         notes_length: readNotes().trim().length

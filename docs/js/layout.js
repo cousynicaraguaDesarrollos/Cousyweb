@@ -8,9 +8,36 @@ const ROUTE_MAP = Object.freeze({
     successCases: "es/casos-de-exito/",
     about: "es/nosotros/",
     sustainability: "es/sostenibilidad/",
-    quote: "es/cotizacion/",
+    quote: "es/cotizacion/"
   }),
+  en: Object.freeze({
+    home: "en/",
+    store: "en/store/",
+    successCases: "en/case-studies/",
+    about: "en/about/",
+    sustainability: "en/sustainability/",
+    quote: "en/quote/"
+  })
 });
+
+const LANGUAGE_ROUTE_PAIRS = Object.freeze([
+  Object.freeze({ es: "/es/", en: "/en/" }),
+  Object.freeze({ es: "/es/tienda/", en: "/en/store/" }),
+  Object.freeze({ es: "/es/cotizacion/", en: "/en/quote/" }),
+  Object.freeze({ es: "/es/nosotros/", en: "/en/about/" }),
+  Object.freeze({ es: "/es/sostenibilidad/", en: "/en/sustainability/" }),
+  Object.freeze({ es: "/es/casos-de-exito/", en: "/en/case-studies/" })
+]);
+
+function detectLanguage() {
+  const documentLanguage = String(document.documentElement?.lang ?? "").toLowerCase().split("-")[0];
+  if (documentLanguage === "en") return "en";
+  const firstPathSegment = String(window.location?.pathname ?? "/")
+    .split("/")
+    .filter(Boolean)[0]
+    ?.toLowerCase();
+  return firstPathSegment === "en" ? "en" : "es";
+}
 
 const VIEW_TRANSITION_CLASS = "is-view-transitioning";
 let pageTransitionsReady = false;
@@ -99,7 +126,7 @@ function basePathPrefix() {
   }
 
   const segments = dirPath.split("/").filter(Boolean);
-  const langIndex = segments.findIndex((segment) => segment === "es");
+  const langIndex = segments.findIndex((segment) => segment === "es" || segment === "en");
   if (langIndex <= 0) return "";
 
   return `/${segments.slice(0, langIndex).join("/")}`;
@@ -155,6 +182,17 @@ function applyHeaderRoutes(header, lang) {
   for (const el of header.querySelectorAll("[data-nav-asset='logo']")) {
     if (!(el instanceof HTMLImageElement)) continue;
     el.src = fromRoot("assets/logo-cousy.webp");
+  }
+
+  const currentPath = normalizePathname(window.location?.pathname ?? "/");
+  const currentPair = LANGUAGE_ROUTE_PAIRS.find((pair) => pair.es === currentPath || pair.en === currentPath);
+  for (const el of header.querySelectorAll("[data-language-switch]")) {
+    if (!(el instanceof HTMLAnchorElement)) continue;
+    const targetLang = el.getAttribute("data-language-switch") === "en" ? "en" : "es";
+    const fallback = targetLang === "en" ? "/en/" : "/es/";
+    const targetPath = currentPair?.[targetLang] ?? fallback;
+    el.href = fromRoot(targetPath.replace(/^\//, ""));
+    el.lang = targetLang;
   }
 }
 
@@ -291,7 +329,7 @@ async function registerServiceWorker() {
 }
 
 async function initLayout() {
-  const lang = "es";
+  const lang = detectLanguage();
 
   const header = document.querySelector("[data-site-header]");
   const footer = document.querySelector("[data-site-footer]");

@@ -142,6 +142,10 @@ const PARTIALS_BY_LANG = Object.freeze({
   es: Object.freeze({
     header: readPartial("header-es.html"),
     footer: readPartial("footer-es.html")
+  }),
+  en: Object.freeze({
+    header: readPartial("header-en.html"),
+    footer: readPartial("footer-en.html")
   })
 });
 
@@ -256,6 +260,45 @@ function buildLegacyRedirectHtml({ targetPath, lang }) {
 `;
 }
 
+const LANGUAGE_ALTERNATES = Object.freeze({
+  "/": Object.freeze({ es: "/es/", en: "/en/", "x-default": "/" }),
+  "/es/": Object.freeze({ es: "/es/", en: "/en/", "x-default": "/" }),
+  "/en/": Object.freeze({ es: "/es/", en: "/en/", "x-default": "/" }),
+  "/es/tienda/": Object.freeze({ es: "/es/tienda/", en: "/en/store/", "x-default": "/" }),
+  "/en/store/": Object.freeze({ es: "/es/tienda/", en: "/en/store/", "x-default": "/" }),
+  "/es/cotizacion/": Object.freeze({ es: "/es/cotizacion/", en: "/en/quote/", "x-default": "/" }),
+  "/en/quote/": Object.freeze({ es: "/es/cotizacion/", en: "/en/quote/", "x-default": "/" }),
+  "/es/nosotros/": Object.freeze({ es: "/es/nosotros/", en: "/en/about/", "x-default": "/" }),
+  "/en/about/": Object.freeze({ es: "/es/nosotros/", en: "/en/about/", "x-default": "/" }),
+  "/es/sostenibilidad/": Object.freeze({ es: "/es/sostenibilidad/", en: "/en/sustainability/", "x-default": "/" }),
+  "/en/sustainability/": Object.freeze({ es: "/es/sostenibilidad/", en: "/en/sustainability/", "x-default": "/" }),
+  "/es/casos-de-exito/": Object.freeze({ es: "/es/casos-de-exito/", en: "/en/case-studies/", "x-default": "/" }),
+  "/en/case-studies/": Object.freeze({ es: "/es/casos-de-exito/", en: "/en/case-studies/", "x-default": "/" })
+});
+
+function getLanguageAlternates(canonicalPath) {
+  return LANGUAGE_ALTERNATES[canonicalPath] ?? null;
+}
+
+function languageAlternateTags(canonicalPath, siteUrl) {
+  const alternates = getLanguageAlternates(canonicalPath);
+  if (!alternates) return "";
+  return Object.entries(alternates)
+    .map(([lang, pathValue]) => `<link rel="alternate" hreflang="${lang}" href="${siteUrl}${pathValue}" />`)
+    .join("\n  ");
+}
+
+function injectLanguageAlternates(html, { canonicalPath, siteUrl }) {
+  const tags = languageAlternateTags(canonicalPath, siteUrl);
+  if (!tags) return String(html ?? "");
+
+  const withoutExistingAlternates = String(html ?? "").replace(
+    /\s*<link\s+rel="alternate"\s+hreflang="[^"]*"\s+href="[^"]*"\s*\/?>/gi,
+    ""
+  );
+  return withoutExistingAlternates.replace(/<\/head>/i, `  ${tags}\n  </head>`);
+}
+
 function applySeoToHtml(html, { relOutPath, siteUrl }) {
   const canonicalPath = canonicalPathForOutPath(relOutPath);
   const canonicalUrl = `${siteUrl}${canonicalPath === "/" ? "/" : canonicalPath}`;
@@ -268,9 +311,11 @@ function applySeoToHtml(html, { relOutPath, siteUrl }) {
     `<link rel="canonical" href="${canonicalUrl}" />`
   );
   out = out.replace(
-    /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i,
+    /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?\/>/i,
     `<meta property="og:url" content="${canonicalUrl}" />`
   );
+
+  out = injectLanguageAlternates(out, { canonicalPath, siteUrl });
 
   // If there's an Organization JSON-LD, align its url with siteUrl.
   if (out.includes(`"@type": "Organization"`)) {
@@ -363,7 +408,7 @@ function writeSitemapAndRobots({ siteUrl, manualPaths = [] }) {
 
   const relHtml = listHtmlRelPaths(distDir)
     .map((p) => String(p).replaceAll("\\", "/"))
-    .filter((p) => p === "index.html" || p.startsWith("es/"));
+    .filter((p) => p === "index.html" || p.startsWith("es/") || p.startsWith("en/"));
 
   const indexable = relHtml.filter((rel) => {
     const full = path.join(distDir, rel);
@@ -379,8 +424,18 @@ function writeSitemapAndRobots({ siteUrl, manualPaths = [] }) {
 
   const xml =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
-    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-    paths.map((p) => `  <url>\n    <loc>${siteUrl}${p === "/" ? "/" : p}</loc>\n  </url>`).join("\n") +
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n` +
+    paths
+      .map((p) => {
+        const alternates = getLanguageAlternates(p);
+        const alternateXml = alternates
+          ? Object.entries(alternates)
+              .map(([lang, pathValue]) => `    <xhtml:link rel="alternate" hreflang="${lang}" href="${siteUrl}${pathValue}" />`)
+              .join("\n")
+          : "";
+        return `  <url>\n    <loc>${siteUrl}${p === "/" ? "/" : p}</loc>${alternateXml ? `\n${alternateXml}` : ""}\n  </url>`;
+      })
+      .join("\n") +
     `\n</urlset>\n`;
 
   fs.writeFileSync(path.join(distDir, "sitemap.xml"), xml, "utf8");
