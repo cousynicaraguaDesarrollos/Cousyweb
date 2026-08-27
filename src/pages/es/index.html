@@ -44,6 +44,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&family=Montserrat:wght@300&family=Playfair+Display:wght@600&display=swap"
       rel="stylesheet"
     />
+    <link rel="preload" as="image" href="../assets/img/intro-cousy-nicaragua-poster.webp" fetchpriority="high" />
     <link rel="stylesheet" href="../assets/app.css" />
     <style>
       .reviews-minimal-head {
@@ -117,10 +118,6 @@
         }
       }
     </style>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@hotwired/turbo/dist/turbo.es2017-umd.js"
-      defer
-    ></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -155,7 +152,7 @@
               muted
               loop
               playsinline
-              preload="metadata"
+              preload="none"
               poster="../../assets/img/intro-cousy-nicaragua-poster.webp"
               aria-hidden="true"
             >
