@@ -23,7 +23,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Cousy" />
     <link rel="canonical" href="https://cousynicaragua.com/es/" />
-    <link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Cousy Nicaragua" />
     <meta
@@ -130,6 +129,9 @@
         "description": "Proveedor B2B de productos promocionales personalizados y regalos corporativos sostenibles en Nicaragua."
       }
     </script>
+    <link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/" />
+  <link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -183,6 +185,12 @@
         >
       </a>
     </nav>
+
+    <div class="hidden items-center gap-1 text-xs font-semibold sm:flex" aria-label="Selector de idioma">
+      <a data-language-switch="es" href="./" class="rounded-lg bg-brand-muted px-2 py-1 text-brand-accent" aria-current="page">ES</a>
+      <span class="text-black/30" aria-hidden="true">/</span>
+      <a data-language-switch="en" href="../en/" class="rounded-lg px-2 py-1 text-brand-ink hover:bg-brand-muted hover:text-brand-accent">EN</a>
+    </div>
 
     <button
       type="button"
@@ -261,6 +269,11 @@
         </li>
       </ul>
       <div class="px-3 pb-16 text-center">
+        <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold" aria-label="Selector de idioma">
+          <a data-language-switch="es" href="./" class="rounded-lg bg-brand-muted px-3 py-2 text-brand-accent">Español</a>
+          <span class="text-black/30" aria-hidden="true">/</span>
+          <a data-language-switch="en" href="../en/" class="rounded-lg px-3 py-2 text-brand-ink hover:bg-brand-muted hover:text-brand-accent">English</a>
+        </div>
         <a
           data-mobile-quote-link
           data-nav-route="quote"
@@ -301,8 +314,7 @@
               <source src="../../assets/video/intro-cousy-nicaragua-loop.mp4" type="video/mp4" />
               <img
                 src="../../assets/img/intro-cousy-nicaragua-poster.webp"
-                alt="Productos promocionales sostenibles de Cousy Nicaragua para empresas"
-              />
+                alt="Productos promocionales sostenibles de Cousy Nicaragua para empresas" decoding="async" />
             </video>
           </div>
           <div class="absolute inset-0 bg-black/40"></div>
@@ -474,8 +486,7 @@
                       id="hero-google-review-photo"
                       src="../../assets/logo-cousy.webp"
                       alt="Logo de Cousy Nicaragua"
-                      class="h-11 w-11 rounded-full bg-white/10 p-1 ring-2 ring-white/30"
-                    />
+                      class="h-11 w-11 rounded-full bg-white/10 p-1 ring-2 ring-white/30" loading="lazy" decoding="async" />
                     <p id="hero-google-review-author" class="text-sm font-semibold">Cliente de Google</p>
                     <p class="text-xs text-white/80">Reseña real de Google</p>
                   </div>
