@@ -24,25 +24,34 @@
     <link rel="canonical" href="https://cousynicaragua.com/" />
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@300;400&family=Playfair+Display:wght@600&display=swap" />
     <style>
       :root {
         color-scheme: light;
       }
       body {
         margin: 0;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-        background: #fff;
-        color: #111;
+        font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+        background: linear-gradient(135deg, #f5f8f3 0%, #ffffff 48%, #fff0f5 100%);
+        color: #17212b;
       }
       .wrap {
-        max-width: 900px;
+        display: grid;
+        min-height: 100vh;
+        max-width: 1080px;
         margin: 0 auto;
-        padding: 48px 18px;
+        align-items: center;
+        padding: 24px 16px;
       }
       .card {
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        border-radius: 18px;
-        padding: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 28px;
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 24px 70px rgba(23, 33, 43, 0.12);
+        backdrop-filter: blur(18px);
       }
       .brand {
         display: flex;
@@ -57,14 +66,18 @@
         border: 1px solid rgba(0, 0, 0, 0.12);
       }
       h1 {
-        font-size: 28px;
-        line-height: 1.2;
-        margin: 18px 0 6px;
+        max-width: 760px;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(2rem, 6vw, 3.75rem);
+        line-height: 1.08;
+        letter-spacing: -0.025em;
+        margin: 28px 0 10px;
       }
       h2 {
-        font-size: 18px;
+        font-size: 16px;
         line-height: 1.3;
-        margin: 18px 0 6px;
+        margin: 28px 0 8px;
+        color: rgba(23, 33, 43, 0.72);
       }
       p {
         margin: 10px 0;
@@ -74,7 +87,11 @@
       .grid {
         display: grid;
         gap: 12px;
-        margin-top: 18px;
+        margin-top: 14px;
+      }
+      @media (min-width: 640px) {
+        .card { padding: 42px; }
+        .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
       .btn {
         display: flex;
@@ -82,8 +99,9 @@
         justify-content: space-between;
         gap: 10px;
         width: 100%;
-        padding: 14px 14px;
-        border-radius: 14px;
+        min-height: 58px;
+        padding: 14px 16px;
+        border-radius: 16px;
         border: 1px solid rgba(0, 0, 0, 0.1);
         background: #fff;
         color: #111;
@@ -114,12 +132,12 @@
           </div>
         </div>
 
-        <h1>Regalos corporativos y productos ecológicos en Nicaragua</h1>
+        <h1>Elegí tu idioma <span class="muted" lang="en">/ Choose your language</span></h1>
         <p>
-          Armá tu lista de productos, definí cantidades y enviánosla por WhatsApp para cotizar rápido.
+          Productos promocionales sostenibles para empresas, universidades y organizaciones. Seleccioná una versión para continuar.
         </p>
 
-        <h2>Entrá al sitio</h2>
+        <h2>Entrá al sitio <span lang="en">/ Enter the site</span></h2>
         <div class="grid" role="list">
           <a class="btn" role="listitem" href="./es/">
             <span>Español</span>
