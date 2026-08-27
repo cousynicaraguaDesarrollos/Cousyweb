@@ -22,11 +22,16 @@
       <section class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5 sm:p-10">
         <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[#73a35a]">B2B quote builder</p>
         <h1 class="mt-3 text-4xl tracking-tight text-brand-ink sm:text-5xl">Build your corporate quote</h1>
-        <p class="mt-5 max-w-3xl text-base leading-relaxed text-black/70 sm:text-lg">Review your selected products, adjust quantities and add the details our team needs to prepare a useful quote.</p>
+        <p class="mt-5 max-w-3xl text-base leading-relaxed text-black/70 sm:text-lg">Review your selected products, adjust quantities and add the details our team needs to prepare a useful quote. There is no online payment: this step simply prepares your request for our team.</p>
         <div class="mt-7 grid gap-3 sm:grid-cols-3">
           <div class="rounded-2xl bg-[#dde0e1] p-4"><p class="text-xs font-semibold uppercase tracking-[0.14em] text-black/60">Step 1</p><p class="mt-2 text-sm font-semibold text-brand-ink">Choose products</p></div>
           <div class="rounded-2xl bg-[#dde0e1] p-4"><p class="text-xs font-semibold uppercase tracking-[0.14em] text-black/60">Step 2</p><p class="mt-2 text-sm font-semibold text-brand-ink">Add quantities and notes</p></div>
           <div class="rounded-2xl bg-[#dde0e1] p-4"><p class="text-xs font-semibold uppercase tracking-[0.14em] text-black/60">Step 3</p><p class="mt-2 text-sm font-semibold text-brand-ink">Send through WhatsApp</p></div>
+        </div>
+        <div class="mt-7 grid gap-3 sm:grid-cols-3" aria-label="Reasons to request a quote from Cousy">
+          <div class="rounded-2xl bg-[#73a35a]/10 p-4"><p class="text-sm font-semibold text-brand-ink">Personalized response</p><p class="mt-1 text-xs leading-relaxed text-black/65">We review quantities, branding and delivery timing.</p></div>
+          <div class="rounded-2xl bg-[#dde0e1]/55 p-4"><p class="text-sm font-semibold text-brand-ink">Purpose-driven production</p><p class="mt-1 text-xs leading-relaxed text-black/65">Durable textile options made with care.</p></div>
+          <div class="rounded-2xl bg-[#ec1665]/10 p-4"><p class="text-sm font-semibold text-brand-ink">WhatsApp support</p><p class="mt-1 text-xs leading-relaxed text-black/65">Send your request when it is ready.</p></div>
         </div>
       </section>
 
@@ -39,11 +44,11 @@
 
         <aside class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5 sm:p-8">
           <h2 class="text-2xl tracking-tight text-brand-ink">Important details</h2>
-          <p class="mt-3 text-sm leading-relaxed text-black/70">Tell us your approximate quantity, colors, logo requirements, target delivery date and city. These details help us respond faster.</p>
+          <p class="mt-3 text-sm leading-relaxed text-black/70">Tell us your approximate quantity, colors, logo requirements, target delivery date and city. The more detail you share, the more useful our first response can be.</p>
           <label for="quote-notes" class="mt-6 block text-sm font-semibold text-brand-ink">Notes for our team</label>
-          <textarea id="quote-notes" rows="7" placeholder="Example: 100 units, logo on the front, delivery in October, Managua." class="mt-2 w-full rounded-xl border border-black/15 bg-white px-3 py-3 text-sm outline-none focus:border-[#ec1665] focus:ring-2 focus:ring-[#ec1665]/20"></textarea>
+          <textarea id="quote-notes" rows="7" placeholder="Example: 100 units, logo on the front, delivery in October, Managua, and required date." class="mt-2 w-full rounded-xl border border-black/15 bg-white px-3 py-3 text-sm outline-none focus:border-[#ec1665] focus:ring-2 focus:ring-[#ec1665]/20"></textarea>
           <p id="quote-error" class="mt-3 text-sm text-[#9f0d48]" role="alert"></p>
-          <button id="quote-send" type="button" class="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[#ec1665] px-5 text-sm font-semibold text-white hover:brightness-95">Send quote through WhatsApp</button>
+          <button id="quote-send" type="button" aria-label="Send quote request through WhatsApp" class="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[#ec1665] px-5 text-sm font-semibold text-white hover:brightness-95">Send quote through WhatsApp</button>
           <button id="quote-clear" type="button" class="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-black/15 bg-white px-5 text-sm font-semibold text-brand-ink hover:bg-black/5">Clear quote</button>
         </aside>
       </section>

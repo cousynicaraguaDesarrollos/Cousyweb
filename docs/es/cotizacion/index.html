@@ -40,6 +40,9 @@
       src="https://cdn.jsdelivr.net/npm/@hotwired/turbo/dist/turbo.es2017-umd.js"
       defer
     ></script>
+    <link rel="alternate" hreflang="es" href="https://cousynicaragua.com/es/cotizacion/" />
+  <link rel="alternate" hreflang="en" href="https://cousynicaragua.com/en/quote/" />
+  <link rel="alternate" hreflang="x-default" href="https://cousynicaragua.com/" />
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -93,6 +96,12 @@
         >
       </a>
     </nav>
+
+    <div class="hidden items-center gap-1 text-xs font-semibold sm:flex" aria-label="Selector de idioma">
+      <a data-language-switch="es" href="../" class="rounded-lg bg-brand-muted px-2 py-1 text-brand-accent" aria-current="page">ES</a>
+      <span class="text-black/30" aria-hidden="true">/</span>
+      <a data-language-switch="en" href="../../en/" class="rounded-lg px-2 py-1 text-brand-ink hover:bg-brand-muted hover:text-brand-accent">EN</a>
+    </div>
 
     <button
       type="button"
@@ -171,6 +180,11 @@
         </li>
       </ul>
       <div class="px-3 pb-16 text-center">
+        <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold" aria-label="Selector de idioma">
+          <a data-language-switch="es" href="../" class="rounded-lg bg-brand-muted px-3 py-2 text-brand-accent">Español</a>
+          <span class="text-black/30" aria-hidden="true">/</span>
+          <a data-language-switch="en" href="../../en/" class="rounded-lg px-3 py-2 text-brand-ink hover:bg-brand-muted hover:text-brand-accent">English</a>
+        </div>
         <a
           data-mobile-quote-link
           data-nav-route="quote"
@@ -195,11 +209,16 @@
         <div>
           <h1 class="text-4xl tracking-tight">Prepará tu cotización B2B</h1>
           <p class="mt-2 max-w-2xl text-black/70">
-            Revisá tus productos, ajustá las cantidades y agregá los detalles que necesitamos para preparar una propuesta a tu medida.
+            Revisá tus productos, ajustá las cantidades y agregá los detalles que necesitamos para preparar una propuesta a tu medida. No hay pagos en línea: este paso solo prepara tu solicitud para nuestro equipo.
           </p>
           <p class="mt-2 text-sm text-black/60">
             Productos seleccionados: <span data-cart-count-total class="font-semibold">0</span>
           </p>
+          <div class="mt-6 grid gap-3 sm:grid-cols-3" aria-label="Ventajas de cotizar con Cousy">
+            <div class="rounded-2xl bg-[#73a35a]/10 p-4"><p class="text-sm font-semibold text-brand-ink">Respuesta personalizada</p><p class="mt-1 text-xs leading-relaxed text-black/65">Revisamos cantidades, logo y fecha de entrega.</p></div>
+            <div class="rounded-2xl bg-[#dde0e1]/55 p-4"><p class="text-sm font-semibold text-brand-ink">Producción con propósito</p><p class="mt-1 text-xs leading-relaxed text-black/65">Opciones textiles duraderas y responsables.</p></div>
+            <div class="rounded-2xl bg-[#ec1665]/10 p-4"><p class="text-sm font-semibold text-brand-ink">Atención por WhatsApp</p><p class="mt-1 text-xs leading-relaxed text-black/65">Enviá la solicitud cuando esté lista.</p></div>
+          </div>
         </div>
         <div class="flex gap-3">
           <button
@@ -209,13 +228,13 @@
           >
             Vaciar
           </button>
-          <button
+<button
             id="quote-send"
             type="button"
+            aria-label="Enviar solicitud de cotización por WhatsApp"
             class="rounded-2xl bg-brand-accent px-5 py-3 text-sm font-bold text-white shadow-soft hover:brightness-95 active:brightness-90"
           >
-                        Enviar solicitud por WhatsApp
-
+            Enviar solicitud por WhatsApp
           </button>
         </div>
       </div>
@@ -237,13 +256,13 @@
 
       <section class="mt-10 rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5">
         <h2 class="text-2xl">Notas para la cotización</h2>
-        <p class="mt-1 text-sm text-black/70">Indicá cantidad aproximada, colores, medidas, logo, fecha de entrega y ciudad.</p>
+        <p class="mt-1 text-sm text-black/70">Indicá cantidad aproximada, colores, medidas, logo, fecha de entrega y ciudad. Mientras más detalles compartás, más útil será nuestra primera respuesta.</p>
         <textarea
           id="quote-notes"
           rows="4"
           class="mt-4 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-brand-accent"
           aria-label="Detalles de la solicitud de cotización"
-          placeholder="Ejemplo: 100 unidades, logo bordado, colores corporativos y entrega en Managua…"
+          placeholder="Ejemplo: 100 unidades, logo bordado, colores corporativos, entrega en Managua y fecha requerida…"
         ></textarea>
       </section>
     </main>
