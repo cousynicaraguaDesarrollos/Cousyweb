@@ -2,33 +2,919 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Corporate Product Projects | Cousy Nicaragua</title>
-    <meta name="description" content="See how Cousy supports companies and organizations with custom textile products, corporate kits and bulk promotional orders." />
+    <meta
+      name="description"
+      content="See how Cousy supports companies and organizations with custom textile products, corporate kits and bulk promotional orders."
+    />
     <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://cousynicaragua.com/en/case-studies/" />
+    <link
+      rel="canonical"
+      href="https://cousynicaragua.com/en/case-studies/"
+    />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Cousy Nicaragua" />
-    <meta property="og:title" content="Corporate Product Projects | Cousy Nicaragua" />
-    <meta property="og:description" content="See how Cousy supports companies and organizations with custom textile products, corporate kits and bulk promotional orders." />
-    <meta property="og:url" content="https://cousynicaragua.com/en/case-studies/" />
+    <meta
+      property="og:title"
+      content="Corporate Product Projects | Cousy Nicaragua"
+    />
+    <meta
+      property="og:description"
+      content="See how Cousy supports companies and organizations with custom textile products, corporate kits and bulk promotional orders."
+    />
+    <meta
+      property="og:url"
+      content="https://cousynicaragua.com/en/case-studies/"
+    />
     <link rel="icon" href="../assets/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="../assets/app.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@300;400&family=Playfair+Display:wght@600&display=swap" />
-  </head>
-  <body class="bg-[#f8f6f1]">
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC7DDC2H" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <header id="site-header-en" data-site-header class="sticky top-0 z-50 border-b border-black/10 bg-white"></header>
-    <main class="container py-10 sm:py-14">
-      <section class="rounded-3xl bg-white p-7 shadow-soft ring-1 ring-black/5 sm:p-10"><p class="text-sm font-semibold uppercase tracking-[0.14em] text-[#73a35a]">B2B projects</p><h1 class="mt-3 max-w-3xl text-4xl tracking-tight text-brand-ink sm:text-5xl">Custom products for campaigns, teams and organizations</h1><p class="mt-5 max-w-3xl text-base leading-relaxed text-black/70 sm:text-lg">Our projects are shaped around each organization's quantities, brand guidelines, audience and delivery timeline.</p></section>
-      <section class="mt-8 grid gap-4 md:grid-cols-2"><article class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5"><p class="text-xs font-semibold uppercase tracking-[0.14em] text-[#73a35a]">Corporate campaigns</p><h2 class="mt-2 text-2xl tracking-tight text-brand-ink">Reusable merchandise for brand activations</h2><p class="mt-3 text-sm leading-relaxed text-black/70">Custom bags and accessories can support events, launches and customer campaigns with a consistent visual identity.</p></article><article class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5"><p class="text-xs font-semibold uppercase tracking-[0.14em] text-[#73a35a]">Teams and institutions</p><h2 class="mt-2 text-2xl tracking-tight text-brand-ink">Practical kits for people who use them</h2><p class="mt-3 text-sm leading-relaxed text-black/70">Coordinate products for onboarding, internal programs, schools, universities and institutional events.</p></article><article class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5"><p class="text-xs font-semibold uppercase tracking-[0.14em] text-[#73a35a]">Hospitality</p><h2 class="mt-2 text-2xl tracking-tight text-brand-ink">Branded pieces for hotels and restaurants</h2><p class="mt-3 text-sm leading-relaxed text-black/70">Create useful, durable products that extend your guest experience beyond the property or event.</p></article><article class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5"><p class="text-xs font-semibold uppercase tracking-[0.14em] text-[#73a35a]">Nonprofits</p><h2 class="mt-2 text-2xl tracking-tight text-brand-ink">Purposeful products for organizations</h2><p class="mt-3 text-sm leading-relaxed text-black/70">Share your mission through custom products that are useful, reusable and easy to quote in bulk.</p></article></section>
-      <section class="mt-8 rounded-3xl bg-[#ec1665] p-7 text-white sm:p-10"><h2 class="text-3xl leading-tight text-white sm:text-4xl">Tell us what your project needs</h2><p class="mt-4 max-w-2xl text-sm leading-relaxed text-white/90 sm:text-base">Choose a few products from the catalog and send your quantities, logo notes and delivery requirements.</p><a href="./quote.html" class="mt-6 inline-flex min-h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-semibold text-[#ec1665]">Request a quote</a></section>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&family=Montserrat:wght@300&family=Playfair+Display:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/app.css" />
+    <style>
+      .cde-shell {
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
 
-      <section class="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16" aria-labelledby="sectors-title">
-        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#73a35a]">Solutions by sector</p>
-        <h2 id="sectors-title" class="mt-3 font-serif text-3xl text-brand-ink sm:text-4xl">Explore ideas for your organization</h2>
+      .cde-content {
+        width: 100%;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
+      @media (min-width: 640px) {
+        .cde-shell {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+
+        .cde-content {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .cde-shell {
+          padding-left: 2.5rem;
+          padding-right: 2.5rem;
+        }
+
+        .cde-content {
+          padding-left: 5rem;
+          padding-right: 5rem;
+        }
+      }
+
+      @media (min-width: 1440px) {
+        .cde-content {
+          padding-left: 7rem;
+          padding-right: 7rem;
+        }
+      }
+
+      .logos-marquee {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .logos-marquee-track {
+        display: flex;
+        width: max-content;
+        gap: 0.5rem;
+        padding: 1.25rem 1rem;
+        animation: logos-marquee-left 44s linear infinite;
+      }
+
+      .logos-marquee-item {
+        display: flex;
+        height: 5.25rem;
+        width: 12rem;
+        min-width: 12rem;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1rem;
+        border: 0;
+        background: #ffffff;
+        padding: 0 0.8rem;
+      }
+
+      .logos-marquee-item img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        max-height: 2.85rem;
+        object-fit: contain;
+      }
+
+      .logos-marquee-logo--bump {
+        transform: scale(1.1);
+        transform-origin: center;
+      }
+
+      .logos-marquee-item--square img {
+        max-height: 3.3rem;
+      }
+
+      @keyframes logos-marquee-left {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      @media (min-width: 768px) {
+        .logos-marquee-track {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+
+        .logos-marquee-item {
+          width: 13.5rem;
+          min-width: 13.5rem;
+          height: 5.5rem;
+        }
+
+        .logos-marquee-item img {
+          max-height: 3rem;
+        }
+
+        .logos-marquee-item--square img {
+          max-height: 3.5rem;
+        }
+      }
+
+      @media (min-width: 1280px) {
+        .logos-marquee-track {
+          padding-left: 2.5rem;
+          padding-right: 2.5rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .logos-marquee {
+          overflow-x: auto;
+        }
+
+        .logos-marquee-track {
+          animation: none;
+        }
+      }
+
+      .rounded-base {
+        border-radius: 0.75rem;
+      }
+
+      .cde-collage-grid {
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cde-collage-column {
+        height: 21rem;
+        overflow: hidden;
+        border-radius: 1rem;
+        padding: 0.5rem;
+      }
+
+      .cde-collage-track {
+        display: grid;
+        gap: 0.75rem;
+        animation: cde-collage-up 30s linear infinite;
+      }
+
+      .cde-collage-track--two {
+        animation-duration: 34s;
+        animation-delay: -4s;
+      }
+
+      .cde-collage-track--three {
+        animation-duration: 32s;
+        animation-delay: -8s;
+      }
+
+      .cde-collage-track--four {
+        animation-duration: 36s;
+        animation-delay: -6s;
+      }
+
+      .cde-collage-item {
+        overflow: hidden;
+      }
+
+      .cde-collage-item img {
+        display: block;
+        width: 100%;
+        height: 8.5rem;
+        object-fit: cover;
+      }
+
+      @keyframes cde-collage-up {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-50%);
+        }
+      }
+
+      @media (min-width: 768px) {
+        .cde-collage-grid {
+          gap: 1rem;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .cde-collage-column {
+          height: 23rem;
+        }
+
+        .cde-collage-item img {
+          height: 9.5rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .cde-collage-column {
+          overflow-y: auto;
+        }
+
+        .cde-collage-track {
+          animation: none;
+        }
+      }
+
+      .cde-corporate-gallery {
+        margin-top: 1.25rem;
+      }
+
+      .cde-corporate-gallery-viewport {
+        height: 500px;
+        overflow: hidden;
+        border-radius: 1rem;
+        border: 1px solid rgba(17, 24, 39, 0.08);
+        background: #ffffff;
+      }
+
+      .cde-corporate-gallery-grid {
+        column-count: 2;
+        column-gap: 0.75rem;
+        padding: 0.75rem;
+      }
+
+      .cde-corporate-gallery-item {
+        display: inline-block;
+        width: 100%;
+        margin: 0 0 0.75rem;
+        break-inside: avoid;
+        overflow: hidden;
+        border-radius: 0.9rem;
+        border: 1px solid rgba(17, 24, 39, 0.08);
+        background: #ffffff;
+      }
+
+      .cde-corporate-gallery-item img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      @media (min-width: 768px) {
+        .cde-corporate-gallery-grid {
+          column-count: 3;
+          column-gap: 1rem;
+          padding: 1rem;
+        }
+
+        .cde-corporate-gallery-item {
+          margin-bottom: 1rem;
+        }
+      }
+
+      @media (min-width: 1280px) {
+        .cde-corporate-gallery-grid {
+          column-count: 4;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .cde-corporate-gallery-viewport {
+          overflow-y: auto;
+        }
+      }
+    </style>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@hotwired/turbo/dist/turbo.es2017-umd.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC7DDC2H"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header
+      id="site-header-en"
+      data-site-header
+      class="sticky top-0 z-50 border-b border-black/10 bg-white"
+    >
+<div class="container relative">
+  <div class="flex h-20 items-center justify-between gap-4">
+    <a href="./index.html" data-nav-route="home" class="flex items-center gap-3">
+      <img
+        data-nav-asset="logo"
+        src="../assets/logo-cousy.webp"
+        alt="Cousy Nicaragua logo"
+        class="h-12 w-12"
+        style="height: 3.6rem; width: 3.6rem"
+      />
+      <span class="sr-only">Cousy Nicaragua</span>
+    </a>
+
+    <nav class="js-site-nav ml-auto hidden items-center gap-10 text-sm sm:flex">
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="home" href="./index.html">Home</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="store" href="./store.html">Store</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="successCases" href="./case-studies.html">Case studies</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="about" href="./about.html">About us</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="sustainability" href="./sustainability.html">Sustainability</a>
+      <a
+        data-nav-route="quote"
+        href="./quote.html"
+        class="js-quote-link relative inline-flex h-11 w-11 items-center justify-center rounded-xl hover:bg-black/5"
+        aria-label="Quote"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-6 w-6" aria-hidden="true">
+          <path d="M6 7h12l-1 14H7L6 7Z" />
+          <path d="M9 7a3 3 0 0 1 6 0" />
+        </svg>
+        <span data-cart-count class="hidden absolute -right-1 -top-1 rounded-full bg-brand-accent px-2 py-0.5 text-xs font-semibold text-white">0</span>
+      </a>
+    </nav>
+
+    <div class="hidden items-center gap-1 text-xs font-semibold sm:flex" aria-label="Language selector">
+      <a data-language-switch="es" href="../es/" class="rounded-lg px-2 py-1 text-brand-ink hover:bg-brand-muted hover:text-brand-accent">ES</a>
+      <span class="text-black/30" aria-hidden="true">/</span>
+      <a data-language-switch="en" href="./index.html" class="rounded-lg bg-brand-muted px-2 py-1 text-brand-accent" aria-current="page">EN</a>
+    </div>
+
+    <button type="button" class="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-xl hover:bg-black/5 sm:hidden" data-mobile-menu-toggle aria-label="Open menu" aria-controls="mobile-menu-en" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-6 w-6" data-menu-icon="open" aria-hidden="true">
+        <path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" />
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="hidden h-6 w-6" data-menu-icon="close" aria-hidden="true">
+        <path d="M6 6l12 12" /><path d="M18 6 6 18" />
+      </svg>
+    </button>
+  </div>
+
+  <nav id="mobile-menu-en" data-mobile-menu aria-label="Mobile menu" class="fixed inset-x-0 bottom-0 top-20 z-40 hidden bg-white sm:hidden">
+    <div data-mobile-menu-panel class="h-full max-h-0 overflow-y-auto border-b border-black/10 bg-white p-0 opacity-0 transition-[max-height,opacity,padding] duration-300 ease-out">
+      <ul class="flex flex-col p-3 text-center">
+        <li><a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="home" href="./index.html">Home</a></li>
+        <li><a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="store" href="./store.html">Store</a></li>
+        <li><a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="successCases" href="./case-studies.html">Case studies</a></li>
+        <li><a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="about" href="./about.html">About us</a></li>
+        <li><a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="sustainability" href="./sustainability.html">Sustainability</a></li>
+      </ul>
+      <div class="px-3 pb-16 text-center">
+        <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold" aria-label="Language selector">
+          <a data-language-switch="es" href="../es/" class="rounded-lg px-3 py-2 text-brand-ink hover:bg-brand-muted hover:text-brand-accent">Español</a>
+          <span class="text-black/30" aria-hidden="true">/</span>
+          <a data-language-switch="en" href="./index.html" class="rounded-lg bg-brand-muted px-3 py-2 text-brand-accent">English</a>
+        </div>
+        <a data-mobile-quote-link data-nav-route="quote" href="./quote.html" class="js-quote-link relative mb-5 inline-flex h-12 w-full items-center justify-center rounded-xl px-5 text-sm font-semibold text-brand-accent transition duration-300">
+          View quote
+          <span data-cart-count class="hidden absolute -right-2 -top-2 rounded-full bg-brand-accent px-2 py-0.5 text-xs font-semibold text-white">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+</header>
+
+    <main class="bg-white">
+      <section class="bg-white">
+        <div class="cde-shell">
+          <div
+            class="logos-marquee"
+            aria-label="Companies we have worked with"
+          >
+            <div class="logos-marquee-track">
+              <div class="logos-marquee-item">
+                <img
+                  src="../assets/client-logos/loto-nicaragua.png"
+                  alt="Logo de Loto Nicaragua"
+                  class="logos-marquee-logo--bump"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item">
+                <img
+                  src="../assets/client-logos/apotex.png"
+                  alt="Logo de Apotex"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item">
+                <img
+                  src="../assets/client-logos/univetsa.png"
+                  alt="Logo de Univetsa"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item">
+                <img
+                  src="../assets/client-logos/polaris-rei.png"
+                  alt="Logo de Polaris Renewable Energy"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item">
+                <img
+                  src="../assets/client-logos/boombit.png"
+                  alt="Logo de Boombit"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item">
+                <img
+                  src="../assets/client-logos/hospital-vivian-pellas.jpg"
+                  alt="Logo de Hospital Vivian Pellas"
+                  class="logos-marquee-logo--bump"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item logos-marquee-item--square">
+                <img
+                  src="../assets/client-logos/hospital-militar.png"
+                  alt="Logo de Hospital Militar Nicaragüense"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item logos-marquee-item--square">
+                <img
+                  src="../assets/client-logos/collectivo-shop.jpg"
+                  alt="Logo de Collectivo Shop"
+                  class="logos-marquee-logo--bump"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item">
+                <img
+                  src="../assets/client-logos/ccn.png"
+                  alt="Logo de CCN"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item">
+                <img
+                  src="../assets/client-logos/amarome.svg"
+                  alt="Logo de Amarome"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item logos-marquee-item--square">
+                <img
+                  src="../assets/client-logos/cocesna-color.jpg"
+                  alt="Logo de Cocesna"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item logos-marquee-item--square">
+                <img
+                  src="../assets/client-logos/agroalfa-color.png"
+                  alt="Logo de Agroalfa"
+                  class="logos-marquee-logo--bump"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item logos-marquee-item--square">
+                <img
+                  src="../assets/client-logos/llansa-ingenieria.png"
+                  alt="Logo de Llansa Ingeniería"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item">
+                <img
+                  src="../assets/client-logos/old-man-winters.png"
+                  alt="Logo de Old Man Winters"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item" aria-hidden="true">
+                <img
+                  src="../assets/client-logos/loto-nicaragua.png"
+                  alt=""
+                  class="logos-marquee-logo--bump"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item" aria-hidden="true">
+                <img
+                  src="../assets/client-logos/apotex.png"
+                  alt=""
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item" aria-hidden="true">
+                <img
+                  src="../assets/client-logos/univetsa.png"
+                  alt=""
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item" aria-hidden="true">
+                <img
+                  src="../assets/client-logos/polaris-rei.png"
+                  alt=""
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item" aria-hidden="true">
+                <img
+                  src="../assets/client-logos/boombit.png"
+                  alt=""
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item" aria-hidden="true">
+                <img
+                  src="../assets/client-logos/hospital-vivian-pellas.jpg"
+                  alt=""
+                  class="logos-marquee-logo--bump"
+                  decoding="async"
+                />
+              </div>
+              <div
+                class="logos-marquee-item logos-marquee-item--square"
+                aria-hidden="true"
+              >
+                <img
+                  src="../assets/client-logos/hospital-militar.png"
+                  alt=""
+                  decoding="async"
+                />
+              </div>
+              <div
+                class="logos-marquee-item logos-marquee-item--square"
+                aria-hidden="true"
+              >
+                <img
+                  src="../assets/client-logos/collectivo-shop.jpg"
+                  alt=""
+                  class="logos-marquee-logo--bump"
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item" aria-hidden="true">
+                <img
+                  src="../assets/client-logos/ccn.png"
+                  alt=""
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item" aria-hidden="true">
+                <img
+                  src="../assets/client-logos/amarome.svg"
+                  alt=""
+                  decoding="async"
+                />
+              </div>
+              <div
+                class="logos-marquee-item logos-marquee-item--square"
+                aria-hidden="true"
+              >
+                <img
+                  src="../assets/client-logos/cocesna-color.jpg"
+                  alt=""
+                  decoding="async"
+                />
+              </div>
+              <div
+                class="logos-marquee-item logos-marquee-item--square"
+                aria-hidden="true"
+              >
+                <img
+                  src="../assets/client-logos/agroalfa-color.png"
+                  alt=""
+                  class="logos-marquee-logo--bump"
+                  decoding="async"
+                />
+              </div>
+              <div
+                class="logos-marquee-item logos-marquee-item--square"
+                aria-hidden="true"
+              >
+                <img
+                  src="../assets/client-logos/llansa-ingenieria.png"
+                  alt=""
+                  decoding="async"
+                />
+              </div>
+              <div class="logos-marquee-item" aria-hidden="true">
+                <img
+                  src="../assets/client-logos/old-man-winters.png"
+                  alt=""
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cde-content py-10 sm:py-14">
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.14em] text-[#73a35a]"
+        >
+          B2B social proof
+        </p>
+        <h1 class="mt-3 text-4xl tracking-tight text-brand-ink sm:text-5xl">
+          Companies that trust Cousy
+        </h1>
+        <p class="mt-4 text-base leading-relaxed text-black/70 sm:text-lg">
+          We have worked with clients such as Loto Nicaragua, Polaris Renew Energy and CCN, among other corporate brands. We display logos only when commercially authorized.
+        </p>
+
+        <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-2xl bg-[#73a35a] p-4">
+            <p
+              class="text-xs font-light uppercase tracking-[0.12em] text-white/85"
+            >
+              Corporate orders
+            </p>
+            <p class="mt-2 text-2xl font-extrabold text-white">+120</p>
+          </div>
+          <div class="rounded-2xl bg-[#73a35a] p-4">
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.12em] text-white/85"
+            >
+              Industries served
+            </p>
+            <p class="mt-2 text-2xl font-extrabold text-white">6+</p>
+          </div>
+          <div class="rounded-2xl bg-[#73a35a] p-4">
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.12em] text-white/85"
+            >
+              Coverage
+            </p>
+            <p class="mt-2 text-2xl font-extrabold text-white">
+              Nicaragua + international shipping
+            </p>
+          </div>
+          <div class="rounded-2xl bg-[#73a35a] p-4">
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.12em] text-white/85"
+            >
+              Model
+            </p>
+            <p class="mt-2 text-2xl font-extrabold text-white">
+              Batch production
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cde-content pb-10 sm:pb-14">
+        <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">
+          Short B2B case studies
+        </h2>
+        <div class="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]"
+            >
+              Loto Nicaragua
+            </p>
+            <p class="mt-2 text-sm leading-relaxed text-black/75">
+              Batch production of promotional products for commercial activations, with delivery schedules aligned to each campaign.
+            </p>
+          </article>
+          <article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]"
+            >
+              Polaris Renew Energy
+            </p>
+            <p class="mt-2 text-sm leading-relaxed text-black/75">
+              Corporate textile kits for teams and events, maintaining brand consistency in every production batch.
+            </p>
+          </article>
+          <article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]"
+            >
+              CCN
+            </p>
+            <p class="mt-2 text-sm leading-relaxed text-black/75">
+              Promotional solutions for commercial campaigns and mass-market initiatives, with batch replenishment based on season and brand objectives.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="cde-content pb-12 sm:pb-16">
+        <div class="rounded-2xl bg-white p-5 ring-1 ring-black/5 sm:p-6">
+          <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">
+            Corporate project gallery
+          </h2>
+          <p class="mt-3 text-base leading-relaxed text-black/70 sm:text-lg">
+            Real production for corporate clients in Nicaragua, with batch customization and branded finishes.
+          </p>
+          <div class="cde-corporate-gallery" aria-live="polite">
+            <div
+              id="corporate-masonry-viewport"
+              class="cde-corporate-gallery-viewport"
+            >
+              <div
+                id="corporate-masonry-gallery"
+                class="cde-corporate-gallery-grid"
+              >
+                <p class="text-sm text-black/60">Loading project gallery...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cde-content pb-12 sm:pb-16">
+        <div class="grid gap-8 xl:grid-cols-[1.2fr_0.8fr] xl:items-start">
+          <div>
+            <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">
+              Real testimonials
+            </h2>
+            <p class="mt-3 text-base leading-relaxed text-black/70 sm:text-lg">
+              We show public Google reviews with business context to support the B2B purchasing experience.
+            </p>
+            <div
+              id="b2b-google-snippets"
+              class="mt-5 grid gap-4 md:grid-cols-2"
+            >
+              <article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">
+                <p
+                  class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]"
+                >
+                  Verified B2B client
+                </p>
+                <p class="mt-2 text-sm leading-relaxed text-black/75">
+                  Loading business review...
+                </p>
+              </article>
+              <article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">
+                <p
+                  class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]"
+                >
+                  Verified B2B client
+                </p>
+                <p class="mt-2 text-sm leading-relaxed text-black/75">
+                  Loading business review...
+                </p>
+              </article>
+              <article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">
+                <p
+                  class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]"
+                >
+                  Verified B2B client
+                </p>
+                <p class="mt-2 text-sm leading-relaxed text-black/75">
+                  Loading business review...
+                </p>
+              </article>
+              <article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">
+                <p
+                  class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]"
+                >
+                  Verified B2B client
+                </p>
+                <p class="mt-2 text-sm leading-relaxed text-black/75">
+                  Loading business review...
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <aside class="mx-auto w-full max-w-xl xl:mx-0 xl:ml-auto">
+            <div class="rounded-2xl border border-black/10 bg-white p-5 sm:p-6">
+              <h2 class="text-2xl tracking-tight text-brand-ink sm:text-3xl">
+                Request the corporate catalog
+              </h2>
+              <p class="mt-2 text-sm leading-relaxed text-black/70">
+                Complete your details to enable the immediate catalog download.
+              </p>
+
+              <form
+                id="catalogo-form"
+                class="mt-5 grid gap-4 sm:grid-cols-2"
+                novalidate
+              >
+                <label class="block">
+                  <span
+                    class="text-[11px] font-medium uppercase tracking-[0.14em] text-black/55"
+                    >Contact person's name</span
+                  >
+                  <input
+                    id="catalogo-contacto"
+                    name="contacto"
+                    type="text"
+                    required
+                    autocomplete="name"
+                    class="mt-1.5 w-full rounded-xl border border-black/15 bg-[#fcfcfc] px-4 py-3 text-sm text-brand-ink outline-none transition focus:border-brand-accent focus:bg-white"
+                  />
+                </label>
+                <label class="block">
+                  <span
+                    class="text-[11px] font-medium uppercase tracking-[0.14em] text-black/55"
+                    >Company name</span
+                  >
+                  <input
+                    id="catalogo-empresa"
+                    name="empresa"
+                    type="text"
+                    required
+                    autocomplete="organization"
+                    class="mt-1.5 w-full rounded-xl border border-black/15 bg-[#fcfcfc] px-4 py-3 text-sm text-brand-ink outline-none transition focus:border-brand-accent focus:bg-white"
+                  />
+                </label>
+                <label class="block">
+                  <span
+                    class="text-[11px] font-medium uppercase tracking-[0.14em] text-black/55"
+                    >Phone number</span
+                  >
+                  <input
+                    id="catalogo-telefono"
+                    name="telefono"
+                    type="tel"
+                    required
+                    autocomplete="tel"
+                    inputmode="tel"
+                    class="mt-1.5 w-full rounded-xl border border-black/15 bg-[#fcfcfc] px-4 py-3 text-sm text-brand-ink outline-none transition focus:border-brand-accent focus:bg-white"
+                  />
+                </label>
+                <label class="block">
+                  <span
+                    class="text-[11px] font-medium uppercase tracking-[0.14em] text-black/55"
+                    >RUC</span
+                  >
+                  <input
+                    id="catalogo-ruc"
+                    name="ruc"
+                    type="text"
+                    required
+                    class="mt-1.5 w-full rounded-xl border border-black/15 bg-[#fcfcfc] px-4 py-3 text-sm text-brand-ink outline-none transition focus:border-brand-accent focus:bg-white"
+                  />
+                </label>
+                <label class="block">
+                  <span
+                    class="text-[11px] font-medium uppercase tracking-[0.14em] text-black/55"
+                    >Email</span
+                  >
+                  <input
+                    id="catalogo-correo"
+                    name="correo"
+                    type="email"
+                    required
+                    autocomplete="email"
+                    class="mt-1.5 w-full rounded-xl border border-black/15 bg-[#fcfcfc] px-4 py-3 text-sm text-brand-ink outline-none transition focus:border-brand-accent focus:bg-white"
+                  />
+                </label>
+                <div
+                  class="sm:col-span-2 mt-1 flex flex-col items-start gap-2.5"
+                >
+                  <button
+                    id="catalogo-download-btn"
+                    type="submit"
+                    disabled
+                    class="inline-flex h-11 w-full items-center justify-center rounded-xl bg-[#ec1665] px-5 text-sm font-semibold text-white transition hover:brightness-95 active:brightness-90 disabled:cursor-not-allowed"
+                  >
+                    Download the corporate catalog
+                  </button>
+                  <p class="text-xs leading-relaxed text-black/60">
+                    Register and download our B2B corporate catalog.
+                  </p>
+                </div>
+              </form>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16" aria-labelledby="sectores-title">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-[#73a35a]">Solutions by industry</p>
+        <h2 id="sectores-title" class="mt-3 font-serif text-3xl text-brand-ink sm:text-4xl">Explore ideas for your organization</h2>
         <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <a href="./products-for-companies.html" class="rounded-2xl border border-black/10 bg-white p-5 font-semibold text-brand-ink">Products for companies</a>
           <a href="./products-for-universities.html" class="rounded-2xl border border-black/10 bg-white p-5 font-semibold text-brand-ink">Products for universities</a>
@@ -39,7 +925,667 @@
         </div>
       </section>
     </main>
-    <footer data-site-footer class="bg-brand-accent text-white"></footer>
-    <script type="module" src="../../js/layout.js"></script>
+
+    <footer
+      id="site-footer-en"
+      data-site-footer
+      class="border-t border-black/5"
+    ></footer>
+
+    <script>
+      (() => {
+        const DEFAULT_PLACE_ID = "ChIJT9-dQ47_c48ReYqe68wQwYA";
+        const SITE_CONFIG_PATH = resolveFromRoot("config/site.json");
+        const CATALOGO_CORPORATIVO_PATH = resolveFromRoot(
+          "assets/downloads/catalogo-corporativo-cousy.pdf",
+        );
+        let siteConfigPromise = null;
+
+        function resolveFromRoot(relPath) {
+          const cleaned = String(relPath).replace(/^\.?\//, "");
+          const pathname = String(window.location?.pathname ?? "/").replace(
+            /\/+/g,
+            "/",
+          );
+          let dirPath = pathname;
+
+          if (dirPath.endsWith("/")) {
+            // already a directory path
+          } else if (/\/[^/]+\.[a-z0-9]+$/i.test(dirPath)) {
+            dirPath = dirPath.replace(/\/[^/]+$/, "/");
+          } else {
+            dirPath = `${dirPath}/`;
+          }
+
+          const depth = dirPath.split("/").filter(Boolean).length;
+          const prefix = depth <= 0 ? "." : Array(depth).fill("..").join("/");
+          return `${prefix}/${cleaned}`;
+        }
+
+        function getSiteConfig() {
+          if (siteConfigPromise) {
+            return siteConfigPromise;
+          }
+
+          siteConfigPromise = fetch(SITE_CONFIG_PATH, { cache: "no-store" })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("CONFIG_HTTP_" + response.status);
+              }
+              return response.json();
+            })
+            .catch(() => {
+              return {};
+            });
+
+          return siteConfigPromise;
+        }
+
+        function escapeHtml(value) {
+          return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+        }
+
+        let corporateGalleryRaf = 0;
+        let corporateGalleryLastTs = 0;
+        let corporateGalleryViewport = null;
+        let corporateGalleryPaused = false;
+        let corporateGalleryRetryTimer = 0;
+        let corporateGalleryVisibilityBound = false;
+
+        function stopCorporateGalleryAutoScroll() {
+          if (corporateGalleryRaf) {
+            window.cancelAnimationFrame(corporateGalleryRaf);
+            corporateGalleryRaf = 0;
+          }
+          if (corporateGalleryRetryTimer) {
+            window.clearTimeout(corporateGalleryRetryTimer);
+            corporateGalleryRetryTimer = 0;
+          }
+          corporateGalleryLastTs = 0;
+        }
+
+        function corporateGalleryAutoScrollStep(timestamp) {
+          if (!corporateGalleryViewport || corporateGalleryPaused) {
+            return;
+          }
+
+          const maxScroll = Math.max(
+            0,
+            corporateGalleryViewport.scrollHeight -
+              corporateGalleryViewport.clientHeight,
+          );
+          if (maxScroll <= 0) {
+            stopCorporateGalleryAutoScroll();
+            return;
+          }
+
+          if (!corporateGalleryLastTs) {
+            corporateGalleryLastTs = timestamp;
+          }
+
+          const elapsedSeconds = (timestamp - corporateGalleryLastTs) / 1000;
+          corporateGalleryLastTs = timestamp;
+          corporateGalleryViewport.scrollTop +=
+            corporateGallerySpeed * elapsedSeconds;
+
+          if (corporateGalleryViewport.scrollTop >= maxScroll) {
+            corporateGalleryViewport.scrollTop = 0;
+          }
+
+          corporateGalleryRaf = window.requestAnimationFrame(
+            corporateGalleryAutoScrollStep,
+          );
+        }
+
+        let corporateGallerySpeed = 28;
+
+        function startCorporateGalleryAutoScroll(
+          viewport,
+          itemCount,
+          attempt = 0,
+        ) {
+          if (!viewport) {
+            return;
+          }
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            return;
+          }
+
+          const maxScroll = Math.max(
+            0,
+            viewport.scrollHeight - viewport.clientHeight,
+          );
+          if (maxScroll <= 0) {
+            if (attempt < 60) {
+              if (corporateGalleryRetryTimer) {
+                window.clearTimeout(corporateGalleryRetryTimer);
+              }
+              const waitMs = Math.min(1200, 120 + attempt * 60);
+              corporateGalleryRetryTimer = window.setTimeout(() => {
+                startCorporateGalleryAutoScroll(
+                  viewport,
+                  itemCount,
+                  attempt + 1,
+                );
+              }, waitMs);
+            }
+            return;
+          }
+
+          if (corporateGalleryRetryTimer) {
+            window.clearTimeout(corporateGalleryRetryTimer);
+            corporateGalleryRetryTimer = 0;
+          }
+
+          stopCorporateGalleryAutoScroll();
+          corporateGalleryViewport = viewport;
+          corporateGalleryPaused = false;
+          corporateGallerySpeed = Math.max(
+            22,
+            Math.min(52, Math.round(itemCount * 0.55)),
+          );
+          corporateGalleryRaf = window.requestAnimationFrame(
+            corporateGalleryAutoScrollStep,
+          );
+
+          if (!corporateGalleryVisibilityBound) {
+            document.addEventListener("visibilitychange", () => {
+              if (document.hidden) {
+                stopCorporateGalleryAutoScroll();
+                return;
+              }
+              if (!corporateGalleryViewport || corporateGalleryPaused) {
+                return;
+              }
+              stopCorporateGalleryAutoScroll();
+              corporateGalleryRaf = window.requestAnimationFrame(
+                corporateGalleryAutoScrollStep,
+              );
+            });
+            corporateGalleryVisibilityBound = true;
+          }
+        }
+
+        function initCorporateMasonryGallery() {
+          const galleryContainer = document.getElementById(
+            "corporate-masonry-gallery",
+          );
+          const galleryViewport = document.getElementById(
+            "corporate-masonry-viewport",
+          );
+          if (!galleryContainer || !galleryViewport) {
+            return;
+          }
+
+          if (galleryContainer.dataset.galleryInit === "1") {
+            startCorporateGalleryAutoScroll(
+              galleryViewport,
+              galleryContainer.children.length || 1,
+            );
+            return;
+          }
+
+          const masonryItems = [
+            {
+              src: "../assets/casos-exito-collage/estuche-remitly-corporativo.webp",
+              alt: "Cousy custom textile project 01",
+            },
+            {
+              src: "../assets/casos-exito-collage/bolso-cilindrico-lona-natural.webp",
+              alt: "Cousy custom textile project 02",
+            },
+            {
+              src: "../assets/casos-exito-collage/capibara-set-amarillo-rosa.webp",
+              alt: "Cousy custom textile project 03",
+            },
+            {
+              src: "../assets/casos-exito-collage/set-infantil-gatito-celeste.webp",
+              alt: "Cousy custom textile project 04",
+            },
+            {
+              src: "../assets/casos-exito-collage/lapiceras-personalizadas-amarillas.webp",
+              alt: "Cousy custom textile project 05",
+            },
+            {
+              src: "../assets/casos-exito-collage/bolso-deportivo-mundo-digital.webp",
+              alt: "Cousy custom textile project 06",
+            },
+            {
+              src: "../assets/casos-exito-collage/tote-regala-local-maria.webp",
+              alt: "Cousy custom textile project 07",
+            },
+            {
+              src: "../assets/casos-exito-collage/kits-apotex-crea-conecta.webp",
+              alt: "Cousy custom textile project 08",
+            },
+            {
+              src: "../assets/casos-exito-collage/bolso-people-managers-remitly.webp",
+              alt: "Cousy custom textile project 09",
+            },
+            {
+              src: "../assets/casos-exito-collage/bolsa-conejo-rosa-mayorista.webp",
+              alt: "Cousy custom textile project 10",
+            },
+            {
+              src: "../assets/casos-exito-collage/tote-cafe-alicia.webp",
+              alt: "Cousy custom textile project 11",
+            },
+            {
+              src: "../assets/casos-exito-collage/tote-inmaculada-azul.webp",
+              alt: "Cousy custom textile project 12",
+            },
+            {
+              src: "../assets/casos-exito-collage/carteras-semicuero-corporativas.webp",
+              alt: "Cousy custom textile project 13",
+            },
+            {
+              src: "../assets/casos-exito-collage/estuches-lona-abc-stereo.webp",
+              alt: "Cousy custom textile project 14",
+            },
+            {
+              src: "../assets/casos-exito-collage/bolso-deportivo-rhythms.webp",
+              alt: "Cousy custom textile project 15",
+            },
+            {
+              src: "../assets/casos-exito-collage/tote-y-estuche-el-poder-en-vos.webp",
+              alt: "Cousy custom textile project 16",
+            },
+            {
+              src: "../assets/casos-exito-collage/carpeta-semicuero-ecologica.webp",
+              alt: "Cousy custom textile project 17",
+            },
+            {
+              src: "../assets/casos-exito-collage/mochila-cocatram-textil-sostenible.webp",
+              alt: "Cousy custom textile project 18",
+            },
+            {
+              src: "../assets/casos-exito-collage/coleccion-capibara-amarilla.webp",
+              alt: "Cousy custom textile project 19",
+            },
+            {
+              src: "../assets/casos-exito-collage/bolsa-hangover-recovery-kit.webp",
+              alt: "Cousy custom textile project 20",
+            },
+            {
+              src: "../assets/casos-exito-collage/saco-navideno-personalizado.webp",
+              alt: "Cousy custom textile project 21",
+            },
+            {
+              src: "../assets/casos-exito-collage/kit-managua-personalizado-azul.webp",
+              alt: "Cousy custom textile project 22",
+            },
+            {
+              src: "../assets/casos-exito-collage/tote-amarillo-cree-todo-es-posible.webp",
+              alt: "Cousy custom textile project 23",
+            },
+            {
+              src: "../assets/casos-exito-collage/set-azul-child-of-god.webp",
+              alt: "Cousy custom textile project 24",
+            },
+            {
+              src: "../assets/casos-exito-collage/bolsas-llansa-ingenieria.webp",
+              alt: "Cousy custom textile project 25",
+            },
+            {
+              src: "../assets/casos-exito-collage/empaque-navideno-ecologico.webp",
+              alt: "Cousy custom textile project 26",
+            },
+            {
+              src: "../assets/casos-exito-collage/funda-vino-navidena.webp",
+              alt: "Cousy custom textile project 27",
+            },
+            {
+              src: "../assets/casos-exito-collage/mochila-conejo-floral-lona-natural.webp",
+              alt: "Cousy custom textile project 28",
+            },
+            {
+              src: "../assets/casos-exito-collage/mochila-azul-enicaragua-personalizada.webp",
+              alt: "Cousy custom textile project 29",
+            },
+            {
+              src: "../assets/casos-exito-collage/set-tote-rojo-y-neceser-crudo.webp",
+              alt: "Cousy custom textile project 30",
+            },
+            {
+              src: "../assets/casos-exito-collage/set-infantil-perrito-amarillo.webp",
+              alt: "Cousy custom textile project 31",
+            },
+            {
+              src: "../assets/casos-exito-collage/loncheras-celestes-best-mom.webp",
+              alt: "Cousy custom textile project 32",
+            },
+            {
+              src: "../assets/casos-exito-collage/carpeta-y-neceser-corporativo-naranja.webp",
+              alt: "Cousy custom textile project 33",
+            },
+            {
+              src: "../assets/casos-exito-collage/funda-lentes-lona-natural.webp",
+              alt: "Cousy custom textile project 34",
+            },
+            {
+              src: "../assets/casos-exito-collage/kit-totes-rojas-y-neceseres-crudos.webp",
+              alt: "Cousy custom textile project 35",
+            },
+            {
+              src: "../assets/casos-exito-collage/mochila-corporativa-loto-cruda.webp",
+              alt: "Cousy custom textile project 36",
+            },
+            {
+              src: "../assets/casos-exito-collage/bolsos-crudos-frases-florales-fucsia.webp",
+              alt: "Cousy custom textile project 37",
+            },
+            {
+              src: "../assets/casos-exito-collage/estuches-solapa-camel-personalizados.webp",
+              alt: "Cousy custom textile project 38",
+            },
+            {
+              src: "../assets/casos-exito-collage/bolso-mensajero-lona-cruda-hebilla.webp",
+              alt: "Cousy custom textile project 39",
+            },
+            {
+              src: "../assets/casos-exito-collage/tote-loto-ilustrado-frutas.webp",
+              alt: "Cousy custom textile project 40",
+            },
+            {
+              src: "../assets/casos-exito-collage/set-infantil-gatito-celeste-rosa.webp",
+              alt: "Cousy custom textile project 41",
+            },
+            {
+              src: "../assets/casos-exito-collage/set-infantil-helado-azul.webp",
+              alt: "Cousy custom textile project 42",
+            },
+            {
+              src: "../assets/casos-exito-collage/cartucheras-escolares-personalizadas-azules.webp",
+              alt: "Cousy custom textile project 43",
+            },
+            {
+              src: "../assets/casos-exito-collage/cartucheras-moradas-loto-fila.webp",
+              alt: "Cousy custom textile project 44",
+            },
+            {
+              src: "../assets/casos-exito-collage/cartucheras-moradas-loto-logo.webp",
+              alt: "Cousy custom textile project 45",
+            },
+            {
+              src: "../assets/casos-exito-collage/mochila-amarilla-princesa-bella.webp",
+              alt: "Cousy custom textile project 46",
+            },
+            {
+              src: "../assets/casos-exito-collage/mochila-roja-frase-dios-siempre.webp",
+              alt: "Cousy custom textile project 47",
+            },
+            {
+              src: "../assets/casos-exito-collage/mochila-cruda-correas-rosa.webp",
+              alt: "Cousy custom textile project 48",
+            },
+            {
+              src: "../assets/casos-exito-collage/mochila-cruda-correas-beige.webp",
+              alt: "Cousy custom textile project 49",
+            },
+            {
+              src: "../assets/casos-exito-collage/mochila-cruda-logo-monograma-mk.webp",
+              alt: "Cousy custom textile project 50",
+            },
+            {
+              src: "../assets/casos-exito-collage/loncheras-hunterx-moradas-fucsia.webp",
+              alt: "Cousy custom textile project 51",
+            },
+            {
+              src: "../assets/casos-exito-collage/lonchera-rosa-azul-sofia.webp",
+              alt: "Cousy custom textile project 52",
+            },
+            {
+              src: "../assets/casos-exito-collage/cartucheras-mensajes-personalizados-mix.webp",
+              alt: "Cousy custom textile project 53",
+            },
+            {
+              src: "../assets/casos-exito-collage/cartuchera-orar-en-todo-tiempo.webp",
+              alt: "Cousy custom textile project 54",
+            },
+            {
+              src: "../assets/casos-exito-collage/mochila-saco-llansa-y-mascarillas.webp",
+              alt: "Cousy custom textile project 55",
+            },
+            {
+              src: "../assets/casos-exito-collage/mochila-saco-cocatram-detalle.webp",
+              alt: "Cousy custom textile project 56",
+            },
+            {
+              src: "../assets/casos-exito-collage/set-neceseres-vino-personalizable-cousy.webp",
+              alt: "Cousy custom textile project 57",
+            },
+            {
+              src: "../assets/casos-exito-collage/set-neceseres-morados-personalizables-cousy.webp",
+              alt: "Cousy custom textile project 58",
+            },
+            {
+              src: "../assets/casos-exito-collage/set-neceseres-colores-personalizables-cousy.webp",
+              alt: "Cousy custom textile project 59",
+            },
+            {
+              src: "../assets/casos-exito-collage/set-neceseres-negros-personalizables-cousy.webp",
+              alt: "Cousy custom textile project 60",
+            },
+            {
+              src: "../assets/casos-exito-collage/monederos-dia-de-la-madre-personalizados.webp",
+              alt: "Cousy custom textile project 61",
+            },
+            {
+              src: "../assets/casos-exito-collage/monederos-lazo-rosa-loto.webp",
+              alt: "Cousy custom textile project 62",
+            },
+          ];
+
+          if (masonryItems.length === 0) {
+            galleryContainer.innerHTML =
+              '<p class="text-sm text-black/60">No project images were found.</p>';
+            galleryContainer.dataset.galleryInit = "1";
+            return;
+          }
+
+          const fragment = document.createDocumentFragment();
+          masonryItems.forEach((item) => {
+            const figure = document.createElement("figure");
+            figure.className = "cde-corporate-gallery-item";
+
+            const imageEl = document.createElement("img");
+            imageEl.src = item.src;
+            imageEl.alt = item.alt;
+            imageEl.loading = "lazy";
+            imageEl.decoding = "async";
+
+            figure.appendChild(imageEl);
+            fragment.appendChild(figure);
+          });
+
+          galleryContainer.innerHTML = "";
+          galleryContainer.appendChild(fragment);
+          galleryContainer.dataset.galleryInit = "1";
+
+          const images = Array.from(galleryContainer.querySelectorAll("img"));
+          images.forEach((imageEl) => {
+            if (!(imageEl instanceof HTMLImageElement) || imageEl.complete) {
+              return;
+            }
+            const resumeAutoScroll = () => {
+              startCorporateGalleryAutoScroll(
+                galleryViewport,
+                masonryItems.length,
+              );
+            };
+            imageEl.addEventListener("load", resumeAutoScroll, { once: true });
+            imageEl.addEventListener("error", resumeAutoScroll, { once: true });
+          });
+
+          galleryViewport.scrollTop = 0;
+          window.requestAnimationFrame(() => {
+            startCorporateGalleryAutoScroll(
+              galleryViewport,
+              masonryItems.length,
+            );
+          });
+        }
+        const STATIC_B2B_TESTIMONIALS = [
+          {
+            name: "Xiheira Gurdian",
+            text: "I completed my entire purchase online and the customer service was excellent. Everything turned out exactly as I imagined.",
+          },
+          {
+            name: "Maria Jose Altamirano",
+            text: "Cousy delivers quality, responsibility and excellent service. I am delighted with the work and recommend them.",
+          },
+          {
+            name: "Marcos Antonio Rivera",
+            text: "Excellent service and product quality. They met the delivery schedule and the customization turned out very well.",
+          },
+          {
+            name: "Ana Lucia Mairena",
+            text: "I ordered custom products for a business event, and everything arrived with excellent finishes and organized by batch.",
+          },
+        ];
+
+        function renderStaticB2bTestimonials() {
+          const container = document.getElementById("b2b-google-snippets");
+          if (!container) {
+            return;
+          }
+
+          let html = "";
+          STATIC_B2B_TESTIMONIALS.forEach((review) => {
+            const author = escapeHtml(review.name);
+            const text = escapeHtml(review.text);
+            html +=
+              '<article class="rounded-2xl bg-white p-5 ring-1 ring-black/10">' +
+              '<p class="text-xs font-semibold uppercase tracking-[0.12em] text-[#73a35a]">Verified B2B client</p>' +
+              '<p class="mt-2 text-sm leading-relaxed text-black/75">"' +
+              text +
+              '"</p>' +
+              '<p class="mt-3 text-xs font-semibold text-black/60">' +
+              author +
+              " · Client testimonial</p>" +
+              "</article>";
+          });
+
+          container.innerHTML = html;
+        }
+
+        function initB2bReviews() {
+          const container = document.getElementById("b2b-google-snippets");
+          if (!container) {
+            return;
+          }
+          if (container.dataset.reviewsInit === "1") {
+            return;
+          }
+          container.dataset.reviewsInit = "1";
+          renderStaticB2bTestimonials();
+        }
+
+        function initCatalogoForm() {
+          const form = document.getElementById("catalogo-form");
+          if (!(form instanceof HTMLFormElement)) {
+            return;
+          }
+          if (form.dataset.catalogoInit === "1") {
+            return;
+          }
+          form.dataset.catalogoInit = "1";
+
+          const submitButton = document.getElementById("catalogo-download-btn");
+          if (!(submitButton instanceof HTMLButtonElement)) {
+            return;
+          }
+
+          const requiredInputs = Array.from(
+            form.querySelectorAll("input[required]"),
+          );
+          const emailInput = form.querySelector("#catalogo-correo");
+          const phoneInput = form.querySelector("#catalogo-telefono");
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          const phonePattern = /^[0-9+\-() ]{8,}$/;
+
+          function isFieldValid(input) {
+            if (!(input instanceof HTMLInputElement)) {
+              return false;
+            }
+            const value = input.value.trim();
+            if (!value) {
+              return false;
+            }
+            if (input === emailInput) {
+              return emailPattern.test(value);
+            }
+            if (input === phoneInput) {
+              return phonePattern.test(value);
+            }
+            return true;
+          }
+
+          function refreshFormState() {
+            const isFormValid = requiredInputs.every(isFieldValid);
+            submitButton.disabled = !isFormValid;
+            submitButton.style.backgroundColor = isFormValid
+              ? "#73a35a"
+              : "#ec1665";
+          }
+
+          requiredInputs.forEach((input) => {
+            input.addEventListener("input", refreshFormState);
+            input.addEventListener("blur", refreshFormState);
+          });
+
+          form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            refreshFormState();
+            if (submitButton.disabled) {
+              const firstInvalid = requiredInputs.find(
+                (input) => !isFieldValid(input),
+              );
+              firstInvalid?.focus();
+              return;
+            }
+
+            window.CousyAnalytics?.trackContactSubmit?.({
+              form_id: "catalogo-form",
+              lead_type: "catalog_request",
+              form_context: "success_cases",
+            });
+            window.CousyAnalytics?.trackCatalogDownload?.({
+              asset_name: "catalogo-corporativo-cousy.pdf",
+              asset_type: "pdf",
+              source_form: "catalogo-form",
+            });
+
+            const link = document.createElement("a");
+            link.href = CATALOGO_CORPORATIVO_PATH;
+            link.download = "catalogo-corporativo-cousy.pdf";
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+          });
+
+          refreshFormState();
+        }
+
+        window.addEventListener("load", initB2bReviews);
+        document.addEventListener("turbo:load", initB2bReviews);
+        window.addEventListener("load", initCatalogoForm);
+        document.addEventListener("turbo:load", initCatalogoForm);
+        window.addEventListener("load", initCorporateMasonryGallery);
+        document.addEventListener("turbo:load", initCorporateMasonryGallery);
+        window.addEventListener("beforeunload", stopCorporateGalleryAutoScroll);
+        document.addEventListener(
+          "turbo:before-cache",
+          stopCorporateGalleryAutoScroll,
+        );
+      })();
+    </script>
+    <script type="module" src="../js/layout.js"></script>
+    <script type="module" src="../js/site.js"></script>
   </body>
 </html>

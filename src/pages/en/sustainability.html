@@ -2,31 +2,718 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Sustainable Promotional Products for Businesses | Cousy</title>
-    <meta name="description" content="Explore Cousy's approach to sustainable promotional products, reusable materials and local handcrafted production for businesses." />
+    <meta
+      name="description"
+      content="Explore Cousy's approach to sustainable promotional products, reusable materials and local handcrafted production for businesses."
+    />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://cousynicaragua.com/en/sustainability/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Cousy Nicaragua" />
     <meta property="og:title" content="Sustainable Promotional Products for Businesses | Cousy" />
-    <meta property="og:description" content="Explore Cousy's approach to sustainable promotional products, reusable materials and local handcrafted production for businesses." />
+    <meta
+      property="og:description"
+      content="Explore Cousy's approach to sustainable promotional products, reusable materials and local handcrafted production for businesses."
+    />
     <meta property="og:url" content="https://cousynicaragua.com/en/sustainability/" />
     <link rel="icon" href="../assets/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="../assets/app.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@300;400&family=Playfair+Display:wght@600&display=swap" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&family=Montserrat:wght@300&family=Playfair+Display:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/app.css" />
+    <style>
+      :root {
+        --cousy-white: #ffffff;
+        --cousy-pink: #ec1665;
+        --cousy-green: #73a35a;
+        --cousy-soft-gray: #dde0e1;
+      }
+
+      .sustainability-pillars-card {
+        border-top: 4px solid var(--cousy-green);
+      }
+
+      .sustainability-step-badge {
+        display: inline-flex;
+        height: 2rem;
+        width: 2rem;
+        min-height: 2rem;
+        min-width: 2rem;
+        flex: 0 0 2rem;
+        flex-shrink: 0;
+        aspect-ratio: 1 / 1;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        background-color: var(--cousy-green);
+        color: var(--cousy-white);
+        font-size: 0.875rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .sustainability-summary {
+        list-style: none;
+        cursor: pointer;
+      }
+
+      .sustainability-summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .sustainability-chevron {
+        transition: transform 180ms ease;
+      }
+
+      details[open] .sustainability-chevron {
+        transform: rotate(180deg);
+      }
+
+      .sustainability-cta {
+        background: linear-gradient(135deg, var(--cousy-pink) 0%, #d63163 100%);
+      }
+
+      .sustainability-photo-slot {
+        position: relative;
+        min-height: 15.5rem;
+        overflow: hidden;
+        border-radius: 1rem;
+        border: 1px dashed rgba(115, 163, 90, 0.7);
+        background: linear-gradient(155deg, rgba(221, 224, 225, 0.75) 0%, rgba(255, 255, 255, 0.98) 100%);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.72);
+      }
+
+      .sustainability-photo-slot::before {
+        content: "";
+        position: absolute;
+        inset: -30% -8% auto;
+        height: 72%;
+        background:
+          radial-gradient(circle at 20% 30%, rgba(115, 163, 90, 0.3), transparent 58%),
+          radial-gradient(circle at 74% 20%, rgba(236, 22, 101, 0.24), transparent 56%);
+        pointer-events: none;
+      }
+
+      .sustainability-photo-slot::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.45) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.45) 1px, transparent 1px);
+        background-size: 24px 24px;
+        opacity: 0.4;
+        pointer-events: none;
+      }
+
+      .sustainability-photo-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 1rem;
+      }
+
+      .sustainability-photo-chip {
+        display: inline-flex;
+        align-self: flex-start;
+        border-radius: 9999px;
+        padding: 0.25rem 0.625rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #1d1e20;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(29, 30, 32, 0.1);
+      }
+    </style>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@hotwired/turbo/dist/turbo.es2017-umd.js"
+      defer
+    ></script>
   </head>
-  <body class="bg-[#f8f6f1]">
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC7DDC2H" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <header id="site-header-en" data-site-header class="sticky top-0 z-50 border-b border-black/10 bg-white"></header>
-    <main class="container py-10 sm:py-14">
-      <section class="rounded-3xl bg-white p-7 shadow-soft ring-1 ring-black/5 sm:p-10"><p class="text-sm font-semibold uppercase tracking-[0.14em] text-[#73a35a]">Sustainable by intention</p><h1 class="mt-3 max-w-3xl text-4xl tracking-tight text-brand-ink sm:text-5xl">Sustainable promotional products that stay useful</h1><p class="mt-5 max-w-3xl text-base leading-relaxed text-black/70 sm:text-lg">A corporate gift should be useful after the event. We create reusable textile products with a local, human and quality-focused approach.</p></section>
-      <section class="mt-8 grid gap-4 md:grid-cols-3"><article class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5"><h2 class="text-xl font-semibold text-brand-ink">Reusable design</h2><p class="mt-3 text-sm leading-relaxed text-black/70">Tote bags, backpacks and accessories are made to support daily use rather than a single campaign.</p></article><article class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5"><h2 class="text-xl font-semibold text-brand-ink">Local craftsmanship</h2><p class="mt-3 text-sm leading-relaxed text-black/70">Handcrafted production in Nicaragua keeps attention close to construction, materials and finishing.</p></article><article class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5"><h2 class="text-xl font-semibold text-brand-ink">Purposeful branding</h2><p class="mt-3 text-sm leading-relaxed text-black/70">Your logo becomes part of an object people can keep, use and remember beyond an event.</p></article></section>
-      <section class="mt-8 rounded-3xl bg-[#73a35a] p-7 text-white sm:p-10"><h2 class="text-3xl leading-tight text-white sm:text-4xl">Choose products aligned with your brand values</h2><p class="mt-4 max-w-3xl text-sm leading-relaxed text-white/90 sm:text-base">Tell us your campaign goals, quantities and branding requirements. We will help you select a practical product mix for your organization.</p><div class="mt-6 flex flex-col gap-3 sm:flex-row"><a href="./store.html" class="inline-flex min-h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-semibold text-[#73a35a]">Explore the catalog</a><a href="./quote.html" class="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/50 px-6 text-sm font-semibold text-white hover:bg-white/10">Request a quote</a></div></section>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC7DDC2H"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header
+      id="site-header-en"
+      data-site-header
+      class="sticky top-0 z-50 border-b border-black/10 bg-white"
+    >
+<div class="container relative">
+  <div class="flex h-20 items-center justify-between gap-4">
+    <a href="./index.html" data-nav-route="home" class="flex items-center gap-3">
+      <img
+        data-nav-asset="logo"
+        src="../assets/logo-cousy.webp"
+        alt="Cousy Nicaragua logo"
+        class="h-12 w-12"
+        style="height: 3.6rem; width: 3.6rem"
+      />
+      <span class="sr-only">Cousy Nicaragua</span>
+    </a>
+
+    <nav class="js-site-nav ml-auto hidden items-center gap-10 text-sm sm:flex">
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="home" href="./index.html">Home</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="store" href="./store.html">Store</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="successCases" href="./case-studies.html">Case studies</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="about" href="./about.html">About us</a>
+      <a class="js-nav-link text-brand-ink hover:text-brand-accent" data-nav-route="sustainability" href="./sustainability.html">Sustainability</a>
+      <a
+        data-nav-route="quote"
+        href="./quote.html"
+        class="js-quote-link relative inline-flex h-11 w-11 items-center justify-center rounded-xl hover:bg-black/5"
+        aria-label="Quote"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-6 w-6" aria-hidden="true">
+          <path d="M6 7h12l-1 14H7L6 7Z" />
+          <path d="M9 7a3 3 0 0 1 6 0" />
+        </svg>
+        <span data-cart-count class="hidden absolute -right-1 -top-1 rounded-full bg-brand-accent px-2 py-0.5 text-xs font-semibold text-white">0</span>
+      </a>
+    </nav>
+
+    <div class="hidden items-center gap-1 text-xs font-semibold sm:flex" aria-label="Language selector">
+      <a data-language-switch="es" href="../es/" class="rounded-lg px-2 py-1 text-brand-ink hover:bg-brand-muted hover:text-brand-accent">ES</a>
+      <span class="text-black/30" aria-hidden="true">/</span>
+      <a data-language-switch="en" href="./index.html" class="rounded-lg bg-brand-muted px-2 py-1 text-brand-accent" aria-current="page">EN</a>
+    </div>
+
+    <button type="button" class="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-xl hover:bg-black/5 sm:hidden" data-mobile-menu-toggle aria-label="Open menu" aria-controls="mobile-menu-en" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-6 w-6" data-menu-icon="open" aria-hidden="true">
+        <path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" />
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="hidden h-6 w-6" data-menu-icon="close" aria-hidden="true">
+        <path d="M6 6l12 12" /><path d="M18 6 6 18" />
+      </svg>
+    </button>
+  </div>
+
+  <nav id="mobile-menu-en" data-mobile-menu aria-label="Mobile menu" class="fixed inset-x-0 bottom-0 top-20 z-40 hidden bg-white sm:hidden">
+    <div data-mobile-menu-panel class="h-full max-h-0 overflow-y-auto border-b border-black/10 bg-white p-0 opacity-0 transition-[max-height,opacity,padding] duration-300 ease-out">
+      <ul class="flex flex-col p-3 text-center">
+        <li><a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="home" href="./index.html">Home</a></li>
+        <li><a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="store" href="./store.html">Store</a></li>
+        <li><a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="successCases" href="./case-studies.html">Case studies</a></li>
+        <li><a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="about" href="./about.html">About us</a></li>
+        <li><a class="js-nav-link block rounded-xl px-3 py-3 text-lg text-brand-ink hover:bg-brand-muted" data-nav-route="sustainability" href="./sustainability.html">Sustainability</a></li>
+      </ul>
+      <div class="px-3 pb-16 text-center">
+        <div class="mb-4 flex items-center justify-center gap-2 text-sm font-semibold" aria-label="Language selector">
+          <a data-language-switch="es" href="../es/" class="rounded-lg px-3 py-2 text-brand-ink hover:bg-brand-muted hover:text-brand-accent">Español</a>
+          <span class="text-black/30" aria-hidden="true">/</span>
+          <a data-language-switch="en" href="./index.html" class="rounded-lg bg-brand-muted px-3 py-2 text-brand-accent">English</a>
+        </div>
+        <a data-mobile-quote-link data-nav-route="quote" href="./quote.html" class="js-quote-link relative mb-5 inline-flex h-12 w-full items-center justify-center rounded-xl px-5 text-sm font-semibold text-brand-accent transition duration-300">
+          View quote
+          <span data-cart-count class="hidden absolute -right-2 -top-2 rounded-full bg-brand-accent px-2 py-0.5 text-xs font-semibold text-white">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+</header>
+
+    <main class="bg-brand-muted">
+      <section class="container py-10 sm:py-14 lg:py-16">
+        <div class="grid gap-8 lg:grid-cols-[1fr_1.05fr] lg:items-center">
+          <div class="max-w-2xl">
+            <p class="inline-flex rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs font-semibold text-black/70">
+              Sustainable commitment
+            </p>
+            <h1 class="mt-4 text-4xl leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+              Cousy Nicaragua: sustainable textiles for businesses
+            </h1>
+            <p class="mt-5 text-base leading-relaxed text-black/70 sm:text-lg">
+              We design reusable, durable textile products for brands, institutions and volume orders.
+              We invest in responsible processes and the talent of Nicaraguan craftspeople.
+            </p>
+            <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="./store.html"
+                class="rounded-2xl bg-brand-accent px-6 py-3 text-center text-sm text-white shadow-soft hover:brightness-95 active:brightness-90"
+              >
+                Explore the B2B catalog
+              </a>
+              <a
+                href="./quote.html"
+                class="rounded-2xl border border-black/20 bg-white px-6 py-3 text-center text-sm text-brand-ink hover:bg-black/5"
+              >
+                Request a quote on WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <div class="relative lg:pl-8">
+            <div class="aspect-square overflow-hidden rounded-3xl shadow-soft ring-1 ring-black/5">
+              <img
+                src="../assets/img/produccion-textil-cousy-managua.webp"
+                alt="Cousy Nicaragua team producing sustainable textiles for corporate orders in Managua"
+                loading="lazy"
+                width="800"
+                height="800"
+                class="h-full w-full object-cover object-[58%_42%]"
+              />
+            </div>
+
+            <div class="mt-4 grid grid-cols-2 gap-6 rounded-2xl bg-brand-accent px-6 py-6 text-white shadow-soft lg:absolute lg:-bottom-8 lg:left-[-3rem] lg:right-8">
+              <div>
+                <p class="text-4xl font-extrabold leading-none">150+</p>
+                <p class="mt-2 text-sm font-semibold text-white/90">Batches per year</p>
+              </div>
+              <div>
+                <p class="text-4xl font-extrabold leading-none">15</p>
+                <p class="mt-2 text-sm font-semibold text-white/90">Years of experience</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="container pb-10 sm:pb-14 lg:pb-24">
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <p class="text-sm font-semibold text-black/60">Less waste</p>
+            <p class="mt-2 text-lg font-extrabold">Conscious design</p>
+          </div>
+          <div class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <p class="text-sm font-semibold text-black/60">Longer useful life</p>
+            <p class="mt-2 text-lg font-extrabold">Real durability</p>
+          </div>
+          <div class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <p class="text-sm font-semibold text-black/60">Local impact</p>
+            <p class="mt-2 text-lg font-extrabold">Made in Nicaragua</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="pilares-sostenibles" class="container pb-10 sm:pb-14">
+        <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5 sm:p-8">
+          <p class="text-sm font-semibold" style="color: #73a35a">Sustainable B2B strategy</p>
+          <h2 class="mt-3 text-3xl tracking-tight text-brand-ink sm:text-4xl">
+            Textile sustainability pillars for businesses
+          </h2>
+          <p class="mt-4 max-w-4xl text-base leading-relaxed text-black/70 sm:text-lg">
+            As a sustainable promotional-products manufacturer in Nicaragua, we work so every corporate order offers
+            durability, real use and lower environmental impact. This strategy applies to custom tote bags, promotional
+            backpacks, corporate lunch bags and other reusable textiles.
+          </p>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <article class="sustainability-pillars-card rounded-2xl bg-white p-5 ring-1 ring-black/5">
+              <h3 class="text-lg font-extrabold text-brand-ink">Reusable materials</h3>
+              <p class="mt-2 text-sm leading-relaxed text-black/70">
+                We prioritize resistant fabrics to replace disposable products in activations, events and corporate kits.
+              </p>
+            </article>
+            <article class="sustainability-pillars-card rounded-2xl bg-white p-5 ring-1 ring-black/5">
+              <h3 class="text-lg font-extrabold text-brand-ink">Designed for a long useful life</h3>
+              <p class="mt-2 text-sm leading-relaxed text-black/70">
+                We design seams, zippers and handles for frequent use so each piece lasts longer for the final user.
+              </p>
+            </article>
+            <article class="sustainability-pillars-card rounded-2xl bg-white p-5 ring-1 ring-black/5">
+              <h3 class="text-lg font-extrabold text-brand-ink">Responsible local production</h3>
+              <p class="mt-2 text-sm leading-relaxed text-black/70">
+                We manufacture in Nicaragua with a local team, strengthening employment and technical knowledge in B2B textiles.
+              </p>
+            </article>
+            <article class="sustainability-pillars-card rounded-2xl bg-white p-5 ring-1 ring-black/5">
+              <h3 class="text-lg font-extrabold text-brand-ink">Quote-based production</h3>
+              <p class="mt-2 text-sm leading-relaxed text-black/70">
+                We work in need-based batches to reduce overproduction and avoid unnecessary inventory in promotional campaigns.
+              </p>
+            </article>
+          </div>
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#proceso-sostenible"
+              class="rounded-2xl px-6 py-3 text-center text-sm text-white shadow-soft"
+              style="background-color: #73a35a"
+            >
+              View the responsible process
+            </a>
+            <a
+              href="#faq-sostenibilidad"
+              class="rounded-2xl border border-black/20 bg-white px-6 py-3 text-center text-sm text-brand-ink hover:bg-black/5"
+            >
+              View frequently asked questions
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="pb-10 sm:pb-14">
+        <div class="grid grid-cols-1 sm:grid-cols-2">
+          <figure class="overflow-hidden">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="../assets/img/intro-cousy-nicaragua-poster.webp"
+              aria-label="Detail of Cousy's sustainable textile sewing process in Nicaragua"
+              width="1200"
+              height="800"
+              class="h-full w-full object-cover"
+              style="min-height: 260px; max-height: 460px"
+            >
+              <source src="../assets/video/intro-cousy-nicaragua-loop-lite.webm" type="video/webm" />
+              <source src="../assets/video/intro-cousy-nicaragua-loop.mp4" type="video/mp4" />
+              <img
+                src="../assets/img/intro-cousy-nicaragua-poster.webp"
+                alt="Detail of Cousy's sustainable textile sewing process in Nicaragua"
+                loading="lazy"
+                width="1200"
+                height="800"
+                class="h-full w-full object-cover"
+                style="min-height: 260px; max-height: 460px"
+              />
+            </video>
+          </figure>
+          <figure class="overflow-hidden">
+            <img
+              src="../assets/img/produccion-textil-cousy-managua.webp"
+              alt="Cousy Nicaragua team producing responsible textiles for businesses in Managua"
+              loading="lazy"
+              width="1200"
+              height="800"
+              class="h-full w-full object-cover"
+              style="min-height: 260px; max-height: 460px"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section id="proceso-sostenible" class="container pb-10 sm:pb-14">
+        <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">Responsible textile production process</h2>
+        <p class="mt-4 max-w-4xl text-base leading-relaxed text-black/70 sm:text-lg">
+          Our process aligns sustainability, quality and reliable delivery for volume corporate purchases, from the initial brief to local or international delivery.
+        </p>
+        <ol class="mt-6 grid gap-4">
+          <li class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <div class="flex gap-4">
+              <span class="sustainability-step-badge" aria-hidden="true">1</span>
+              <div>
+                <h3 class="text-base font-extrabold text-brand-ink">B2B needs assessment</h3>
+                <p class="mt-2 text-sm leading-relaxed text-black/70">
+                  We define product use, quantities, timing and brand objectives to propose the best solution.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <div class="flex gap-4">
+              <span class="sustainability-step-badge" aria-hidden="true">2</span>
+              <div>
+                <h3 class="text-base font-extrabold text-brand-ink">Material and finish selection</h3>
+                <p class="mt-2 text-sm leading-relaxed text-black/70">
+                  We prioritize reusable, resistant options customized to match your company branding.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <div class="flex gap-4">
+              <span class="sustainability-step-badge" aria-hidden="true">3</span>
+              <div>
+                <h3 class="text-base font-extrabold text-brand-ink">Production in our local workshop</h3>
+                <p class="mt-2 text-sm leading-relaxed text-black/70">
+                  The Cousy team produces each batch in Nicaragua with internal sewing and finishing controls.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <div class="flex gap-4">
+              <span class="sustainability-step-badge" aria-hidden="true">4</span>
+              <div>
+                <h3 class="text-base font-extrabold text-brand-ink">Quality control and efficient packaging</h3>
+                <p class="mt-2 text-sm leading-relaxed text-black/70">
+                  We review functionality, measurements and final presentation to minimize rework and waste.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <div class="flex gap-4">
+              <span class="sustainability-step-badge" aria-hidden="true">5</span>
+              <div>
+                <h3 class="text-base font-extrabold text-brand-ink">Delivery and after-sales follow-up</h3>
+                <p class="mt-2 text-sm leading-relaxed text-black/70">
+                  We deliver through local or international logistics and support repeat orders for sustainable continuity.
+                </p>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section id="galeria-sostenible" class="container pb-10 sm:pb-14">
+        <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5 sm:p-8">
+          <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">
+            Sustainability gallery: real production evidence
+          </h2>
+          <p class="mt-4 max-w-4xl text-base leading-relaxed text-black/70 sm:text-lg">
+            These spaces show visual evidence of the Cousy Nicaragua process, including workshop production, finished products and corporate deliveries.
+          </p>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <figure class="sustainability-photo-slot" role="img" aria-label="Cousy sewing team photo">
+              <figcaption class="sustainability-photo-content">
+                <span class="sustainability-photo-chip">Production photo 01</span>
+                <p class="mt-3 text-lg font-bold text-brand-ink">Equipo de costura en acción</p>
+                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                  Hands at work and detailed construction of B2B products.
+                </p>
+              </figcaption>
+            </figure>
+            <figure class="sustainability-photo-slot" role="img" aria-label="Cousy materials and textile cutting photo">
+              <figcaption class="sustainability-photo-content">
+                <span class="sustainability-photo-chip">Production photo 02</span>
+                <p class="mt-3 text-lg font-bold text-brand-ink">Material selection</p>
+                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                  Fabric, cutting and initial quality control.
+                </p>
+              </figcaption>
+            </figure>
+            <figure
+              class="sustainability-photo-slot"
+              role="img"
+              aria-label="Finished sustainable promotional products photo"
+            >
+              <figcaption class="sustainability-photo-content">
+                <span class="sustainability-photo-chip">Production photo 03</span>
+                <p class="mt-3 text-lg font-bold text-brand-ink">Finished products</p>
+                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                  Tote bags, backpacks and lunch bags ready for corporate clients.
+                </p>
+              </figcaption>
+            </figure>
+            <figure
+              class="sustainability-photo-slot"
+              role="img"
+              aria-label="Corporate batch and final packaging photo"
+            >
+              <figcaption class="sustainability-photo-content">
+                <span class="sustainability-photo-chip">Production photo 04</span>
+                <p class="mt-3 text-lg font-bold text-brand-ink">Corporate batches ready for delivery</p>
+                <p class="mt-1 text-sm leading-relaxed text-black/70">
+                  Volume, packaging and brand consistency.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="impacto-local" class="container pb-10 sm:pb-14">
+        <div class="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
+          <article class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-black/5 sm:p-8">
+            <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">Local impact y economía circular</h2>
+            <p class="mt-4 text-base leading-relaxed text-black/70 sm:text-lg">
+              We invest in responsible textile production in Nicaragua so corporate gifts and promotional products are not single-use items, but useful, durable brand tools.
+            </p>
+            <div class="mt-6 grid gap-3 sm:grid-cols-2">
+              <div class="rounded-2xl p-4" style="background-color: #dde0e1">
+                <p class="text-sm font-semibold text-black/60">Manufacturing</p>
+                <p class="mt-1 text-base font-extrabold text-brand-ink">Made in Nicaragua</p>
+              </div>
+              <div class="rounded-2xl p-4" style="background-color: #dde0e1">
+                <p class="text-sm font-semibold text-black/60">Modelo operativo</p>
+                <p class="mt-1 text-base font-extrabold text-brand-ink">Quote-based batches</p>
+              </div>
+              <div class="rounded-2xl p-4" style="background-color: #dde0e1">
+                <p class="text-sm font-semibold text-black/60">Expected use</p>
+                <p class="mt-1 text-base font-extrabold text-brand-ink">Reutilización continua</p>
+              </div>
+              <div class="rounded-2xl p-4" style="background-color: #dde0e1">
+                <p class="text-sm font-semibold text-black/60">B2B value</p>
+                <p class="mt-1 text-base font-extrabold text-brand-ink">Purposeful branding</p>
+              </div>
+            </div>
+          </article>
+          <article class="rounded-3xl p-6 shadow-soft ring-1 ring-black/5 sm:p-8" style="background-color: #dde0e1">
+            <h3 class="text-2xl tracking-tight text-brand-ink">Indicators measured by batch</h3>
+            <ul class="mt-4 grid gap-3 text-sm leading-relaxed text-black/70">
+              <li class="rounded-xl bg-white p-4">Seam durability and handle resistance according to intended use.</li>
+              <li class="rounded-xl bg-white p-4">Efficient material use to reduce avoidable offcuts.</li>
+              <li class="rounded-xl bg-white p-4">Consistent customization to reduce discarded pieces.</li>
+              <li class="rounded-xl bg-white p-4">Post-delivery satisfaction and repeat purchases from B2B clients.</li>
+            </ul>
+            <p class="mt-4 text-xs font-semibold text-black/60">Updated: April 2026.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="faq-sostenibilidad" class="container pb-10 sm:pb-14">
+        <h2 class="text-3xl tracking-tight text-brand-ink sm:text-4xl">
+          Frequently asked questions about sustainability and corporate purchasing
+        </h2>
+        <p class="mt-4 max-w-4xl text-base leading-relaxed text-black/70 sm:text-lg">
+          Answers to common questions about materials, customization, timing and logistics for B2B orders.
+        </p>
+        <div class="mt-6 grid gap-3">
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              What makes a textile promotional product sustainable?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              Primarily its useful life, frequent reuse and construction quality. A product that lasts longer replaces disposable options and reduces constant replacement.
+            </p>
+          </details>
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              Can sustainable products be customized with a company logo?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              Yes. We customize tote bags, backpacks, lunch bags and other promotional products with your brand identity for corporate campaigns and institutional events.
+            </p>
+          </details>
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              Do you handle volume orders for businesses?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              Yes. Cousy Nicaragua operates under a B2B model with batch production and advance quotes tailored to each company's quantities, timing and finishes.
+            </p>
+          </details>
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              Do you ship outside Nicaragua?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              Yes. We provide local shipping in Nicaragua and coordinate international shipping for brands and organizations in other markets.
+            </p>
+          </details>
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              How do I request a sustainable quote through WhatsApp?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              Go to our <a href="./store.html" class="underline underline-offset-4">store</a>, add products to your quote and send us the summary from the
+              <a href="./quote.html" class="underline underline-offset-4">quote</a>.
+            </p>
+          </details>
+          <details class="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-black/5">
+            <summary class="sustainability-summary flex items-center justify-between gap-4 text-base font-semibold text-brand-ink">
+              What benefits does sustainable merchandise offer a business?
+              <span class="sustainability-chevron text-black/60" aria-hidden="true">&#9662;</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-black/70">
+              It improves brand perception, makes the gift genuinely useful, increases recall and supports corporate sustainability policies.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section class="container pb-12 sm:pb-16">
+        <div class="sustainability-cta rounded-3xl p-6 text-white shadow-soft sm:p-8">
+          <h2 class="text-3xl tracking-tight text-white sm:text-4xl">
+            Ready to quote a sustainable product line for your business?
+          </h2>
+          <p class="mt-4 max-w-3xl text-base leading-relaxed text-white/95 sm:text-lg">
+            We help define products, quantities and customization for corporate campaigns with a sustainable approach and responsible local production.
+          </p>
+          <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="./quote.html"
+              class="rounded-2xl px-6 py-3 text-center text-sm font-semibold text-brand-ink shadow-soft"
+              style="background-color: #ffffff"
+            >
+              Request a quote on WhatsApp
+            </a>
+            <a
+              href="./store.html"
+              class="rounded-2xl border px-6 py-3 text-center text-sm text-white hover:bg-white/10"
+              style="border-color: rgba(255, 255, 255, 0.6)"
+            >
+              View the sustainable catalog
+            </a>
+          </div>
+          <p class="mt-4 text-sm text-white/90">
+            You can also learn more about our story on
+            <a href="./about.html" class="underline underline-offset-4">About us</a>.
+          </p>
+        </div>
+      </section>
     </main>
-    <footer data-site-footer class="bg-brand-accent text-white"></footer>
-    <script type="module" src="../../js/layout.js"></script>
+
+    <footer
+      id="site-footer-en"
+      data-site-footer
+      class="border-t border-black/5"
+    ></footer>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What makes a textile promotional product sustainable?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Its useful life, reuse and construction quality. A durable product reduces disposable alternatives and minimizes replacements."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can sustainable products be customized with a company logo?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Cousy customizes tote bags, backpacks, lunch bags and other promotional products with each brand's visual identity."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you handle volume orders for businesses?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. We operate under a B2B model with batch production and advance quotes based on quantities, timing and customization."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you ship outside Nicaragua?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. We coordinate local shipping in Nicaragua and international shipping for businesses and organizations in other markets."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I request a sustainable quote through WhatsApp?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Select products in the store, add them to your quote and send the final summary through WhatsApp from the quote page."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What benefits does sustainable merchandise offer a business?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It improves brand perception, increases the gift's usefulness and supports corporate sustainability goals."
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="module" src="../js/layout.js"></script>
+    <script type="module" src="../js/site.js"></script>
   </body>
 </html>
