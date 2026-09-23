@@ -7,6 +7,9 @@
   <meta name="theme-color" content="#ec1665" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../../assets/favicon-512.png" />
+  <link rel="apple-touch-icon" href="../../assets/favicon-512.png" />
+  <link rel="manifest" href="../../manifest-ventas-gastos.json" />
   <title>Ventas vs Gastos</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -32,7 +35,8 @@
             </div>
 
             <button
-              onclick="cerrarSesion()"
+              id="btnSalir"
+              type="button"
               class="rounded-2xl border border-[#ec1665] px-5 py-2 text-sm font-medium text-[#ec1665] transition hover:bg-[#f698ac]/20"
             >
               Salir
@@ -189,8 +193,8 @@
                 </button>
 
                 <button
+                  id="btnDashboard"
                   type="button"
-                  onclick="mostrarDashboard()"
                   class="secondary-action sm:flex-1"
                 >
                   Ver resumen gráfico
@@ -217,9 +221,9 @@
             </div>
 
             <button
-              onclick="mostrarFormulario()"
-              class="dashboard-back"
+              id="btnFormulario"
               type="button"
+              class="dashboard-back"
             >
               <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
               <span>Volver al registro</span>
@@ -279,6 +283,6 @@
       </section>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="./app.js?v=20260922-personal"></script>
+  <script src="./app.js?v=20260923-salir-fix"></script>
 </body>
 </html>

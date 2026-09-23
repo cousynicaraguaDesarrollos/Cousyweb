@@ -146,12 +146,13 @@ document.addEventListener("click", (event) => {
   }
 });
 
-document.querySelector('[onclick="cerrarSesion()"]').removeAttribute("onclick");
-document.querySelector('[onclick="cerrarSesion()"]').addEventListener("click", cerrarSesion);
-document.querySelector('[onclick="mostrarDashboard()"]').removeAttribute("onclick");
-document.querySelector('[onclick="mostrarDashboard()"]').addEventListener("click", mostrarDashboard);
-document.querySelector('[onclick="mostrarFormulario()"]').removeAttribute("onclick");
-document.querySelector('[onclick="mostrarFormulario()"]').addEventListener("click", mostrarFormulario);
+const botonSalir = document.getElementById("btnSalir");
+const botonDashboard = document.getElementById("btnDashboard");
+const botonFormulario = document.getElementById("btnFormulario");
+
+if (botonSalir) botonSalir.addEventListener("click", cerrarSesion);
+if (botonDashboard) botonDashboard.addEventListener("click", mostrarDashboard);
+if (botonFormulario) botonFormulario.addEventListener("click", mostrarFormulario);
 
 function readSession() {
   try { return JSON.parse(localStorage.getItem(SESSION_KEY)); }
