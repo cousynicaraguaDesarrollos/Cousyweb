@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <meta name="theme-color" content="#ec1665" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Ventas vs Gastos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="min-h-screen bg-[#fff8fa] text-neutral-900">
+  <main class="min-h-screen flex items-center justify-center px-4 py-6">
+    <section id="loginView" class="w-full max-w-sm">
+        <div class="bg-white rounded-3xl shadow-sm border border-[#f4d2dc] p-6 sm:p-8">
+          <div class="mb-8 text-center">
+            <div class="flex justify-center mb-4">
+              <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm border border-[#f4d2dc]">
+                <img src="../../assets/logo-cousy.webp" alt="Logo de Cousy Nicaragua" class="w-full h-full object-cover" decoding="async" />
+              </div>
+            </div>
+
+            <h1 class="text-2xl font-semibold tracking-tight text-[#ec1665]">Ventas vs Gastos</h1>
+
+            <p class="text-sm text-neutral-500 mt-2">Inicia sesion para continuar</p>
+          </div>
+
+          <form id="loginForm" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-neutral-700 mb-1">Usuario</label>
+
+              <input
+                id="usuario"
+                type="text"
+                required
+                autocomplete="username"
+                class="w-full rounded-2xl border border-[#f1cad6] bg-white px-4 py-3 outline-none transition focus:border-[#ec1665]"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-neutral-700 mb-1">Contrasena</label>
+
+              <input
+                id="password"
+                type="password"
+                required
+                autocomplete="current-password"
+                class="w-full rounded-2xl border border-[#f1cad6] bg-white px-4 py-3 outline-none transition focus:border-[#ec1665]"
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="w-full rounded-2xl bg-[#ec1665] px-4 py-3 text-white font-medium transition hover:bg-[#cf0f57]"
+            >
+              Entrar
+            </button>
+          </form>
+
+          <p id="loginMensaje" class="mt-4 text-center text-sm font-medium"></p>
+        </div>
+      </section>
+  </main>
+  <script src="./login.js"></script>
+</body>
+</html>

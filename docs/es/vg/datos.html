@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <meta name="theme-color" content="#ec1665" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Ventas vs Gastos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="min-h-screen bg-[#fff8fa] text-neutral-900">
+  <main class="min-h-screen flex items-center justify-center px-4 py-6">
+    <section id="appView" class="hidden w-full max-w-5xl">
+        <div class="bg-white rounded-3xl shadow-sm border border-[#f4d2dc] p-5 sm:p-8">
+          <header class="flex flex-col items-center justify-center gap-6 mb-8 text-center">
+            <div class="flex flex-col items-center justify-center">
+              <div class="flex items-center justify-center gap-3 mb-2">
+                <div class="w-16 h-16 rounded-full overflow-hidden shadow-sm border border-[#f4d2dc]">
+                  <img src="../../assets/logo-cousy.webp" alt="Logo de Cousy Nicaragua" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+                </div>
+
+                <div>
+                  <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#ec1665]">Registro</h1>
+
+                  <p id="usuarioActivo" class="text-sm text-neutral-500 mt-1"></p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onclick="cerrarSesion()"
+              class="rounded-2xl border border-[#ec1665] px-5 py-2 text-sm font-medium text-[#ec1665] transition hover:bg-[#f698ac]/20"
+            >
+              Salir
+            </button>
+          </header>
+
+          <form id="registroForm" class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <div class="lg:col-span-5">
+              <label class="field-label">Tipo de registro</label>
+
+              <div class="relative">
+                <button
+                  type="button"
+                  id="selectButton"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  class="field-control field-select"
+                >
+                  <span class="flex items-center gap-3">
+                    <span id="tipoIcono" class="type-icon type-icon-sale"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i></span>
+                    <span id="tipoTexto">Venta</span>
+                  </span>
+                  <i id="tipoChevron" class="fa-solid fa-chevron-down text-neutral-400 text-xs transition-transform" aria-hidden="true"></i>
+                </button>
+
+                <div
+                  id="selectMenu"
+                  role="listbox"
+                  class="hidden absolute z-50 mt-2 w-full overflow-hidden rounded-2xl border border-[#f1cad6] bg-white shadow-xl"
+                >
+                  <button
+                    type="button"
+                    data-value="venta"
+                    class="dropdown-option"
+                  >
+                    <span class="type-icon type-icon-sale">↗</span>
+                    <span>
+                      <strong>Venta</strong>
+                      <small>Ingreso por ventas</small>
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-value="gasto"
+                    class="dropdown-option"
+                  >
+                    <span class="type-icon type-icon-expense">−</span>
+                    <span>
+                      <strong>Gasto</strong>
+                      <small>Gasto relacionado al negocio</small>
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-value="gasto_personal"
+                    class="dropdown-option"
+                  >
+                    <span class="type-icon type-icon-personal">•</span>
+                    <span>
+                      <strong>Gasto personal</strong>
+                      <small>Gasto personal o familiar</small>
+                    </span>
+                  </button>
+                </div>
+
+                <input type="hidden" id="tipo" value="venta" />
+              </div>
+            </div>
+
+            <div class="lg:col-span-7">
+              <label class="field-label">Fecha</label>
+              <input id="fecha" type="date" required class="field-control" />
+            </div>
+
+            <div id="expenseTypeBox" class="hidden lg:col-span-12">
+              <div class="expense-panel">
+                <div>
+                  <span class="section-kicker">CLASIFICACIÓN</span>
+                  <h3 class="section-title">Tipo de gasto</h3>
+                  <p class="section-help">Seleccioná la categoría que corresponde al gasto del negocio.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 mt-4">
+                  <button type="button" class="expense-option" data-expense-type="Gasto Administrativo">
+                    <span class="expense-option-icon"><i class="fa-solid fa-briefcase" aria-hidden="true"></i></span>
+                    <span><strong>Administrativo</strong><small>Gestión y oficina</small></span>
+                  </button>
+                  <button type="button" class="expense-option" data-expense-type="Gasto Fijo">
+                    <span class="expense-option-icon"><i class="fa-solid fa-building" aria-hidden="true"></i></span>
+                    <span><strong>Gasto fijo</strong><small>Costos recurrentes</small></span>
+                  </button>
+                  <button type="button" class="expense-option" data-expense-type="Gasto de Produccion">
+                    <span class="expense-option-icon"><i class="fa-solid fa-industry" aria-hidden="true"></i></span>
+                    <span><strong>Producción</strong><small>Fabricación y materiales</small></span>
+                  </button>
+                  <button type="button" class="expense-option" data-expense-type="Gastos variables">
+                    <span class="expense-option-icon"><i class="fa-solid fa-chart-column" aria-hidden="true"></i></span>
+                    <span><strong>Variable</strong><small>Costos que cambian</small></span>
+                  </button>
+                </div>
+
+                <input type="hidden" id="tipoGasto" value="" />
+              </div>
+            </div>
+
+            <div id="clienteBox" class="lg:col-span-12">
+              <label class="field-label">Cliente</label>
+              <input
+                id="cliente"
+                type="text"
+                placeholder="Nombre del cliente"
+                class="field-control"
+              />
+            </div>
+
+            <div class="lg:col-span-8">
+              <label class="field-label">Descripción</label>
+              <textarea
+                id="descripcion"
+                required
+                rows="4"
+                placeholder="Detalle del registro"
+                class="field-control resize-none"
+              ></textarea>
+            </div>
+
+            <div class="lg:col-span-4">
+              <label class="field-label">Monto</label>
+              <div class="relative">
+                <span class="money-prefix">C$</span>
+                <input
+                  id="monto"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  required
+                  placeholder="0.00"
+                  class="field-control money-input"
+                />
+              </div>
+
+            </div>
+
+            <div class="lg:col-span-12 pt-1">
+              <div class="flex flex-col sm:flex-row gap-3">
+                <button
+                  type="submit"
+                  class="primary-action sm:flex-1"
+                >
+                  <span>Guardar registro</span>
+                  <span>→</span>
+                </button>
+
+                <button
+                  type="button"
+                  onclick="mostrarDashboard()"
+                  class="secondary-action sm:flex-1"
+                >
+                  Ver resumen gráfico
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <p id="mensaje" class="mt-4 text-center text-sm font-medium"></p>
+        </div>
+      </section>
+    <section id="dashboardView" class="hidden w-full max-w-6xl">
+        <div class="dashboard-shell">
+          <header class="dashboard-header">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="dashboard-logo">
+                <img src="../../assets/logo-cousy.webp" alt="Logo de Cousy Nicaragua" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+              </div>
+              <div class="min-w-0">
+                <span class="section-kicker">ANÁLISIS DEL NEGOCIO</span>
+                <h1 class="dashboard-title">Resumen mensual</h1>
+                <p class="dashboard-subtitle">Ventas, gastos, gastos personales y utilidad</p>
+              </div>
+            </div>
+
+            <button
+              onclick="mostrarFormulario()"
+              class="dashboard-back"
+              type="button"
+            >
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              <span>Volver al registro</span>
+            </button>
+          </header>
+
+          <div class="dashboard-main-card">
+            <div class="dashboard-card-heading">
+              <div>
+                <h2>Evolución mensual</h2>
+                <p>Comparación de ingresos, egresos y utilidad</p>
+              </div>
+              <span class="dashboard-card-icon">
+                <i class="fa-solid fa-chart-column" aria-hidden="true"></i>
+              </span>
+            </div>
+
+            <div class="main-chart-wrap">
+              <canvas id="resumenChart"></canvas>
+            </div>
+          </div>
+
+          <p id="errorGrafico" class="dashboard-error"></p>
+
+          <div class="dashboard-secondary-grid">
+            <article class="dashboard-mini-card">
+              <div class="dashboard-card-heading compact">
+                <div>
+                  <h2>Gastos más altos</h2>
+                  <p>Distribución de gastos</p>
+                </div>
+                <span class="dashboard-card-icon small">
+                  <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="mini-chart-wrap">
+                <canvas id="gastosPieChart"></canvas>
+              </div>
+            </article>
+
+            <article class="dashboard-mini-card">
+              <div class="dashboard-card-heading compact">
+                <div>
+                  <h2>Clientes que más compraron</h2>
+                  <p>Distribución por cliente</p>
+                </div>
+                <span class="dashboard-card-icon small">
+                  <i class="fa-solid fa-users" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="mini-chart-wrap">
+                <canvas id="clientesPieChart"></canvas>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./app.js?v=20260922-personal"></script>
+</body>
+</html>
